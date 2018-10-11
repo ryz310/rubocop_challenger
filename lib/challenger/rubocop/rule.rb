@@ -8,14 +8,18 @@ module Challenger
 
       attr_reader :title, :offense_count, :contents
 
-      def initialize(title, offense_count, contents)
-        @title = title
-        @offense_count = offense_count
+      def initialize(contents)
         @contents = contents
+        @title = extract_title
+        @offense_count = extract_offense_count
       end
 
       def <=>(other)
         self.offense_count <=> other.offense_count
+      end
+
+      def auto_correctable?
+        contents =~ /# Offense count: (\d+)\n# Cop supports --auto-correct\./
       end
 
       def rubydoc_url
@@ -29,6 +33,18 @@ module Challenger
       def description
         message_const = "RuboCop::Cop::#{title.sub('/', '::')}::MSG"
         Object.const_get(message_const) rescue '**NO DESCRIPTION**'
+      end
+
+      private
+
+      def extract_title
+        contents =~ /^([^# ].+):$/
+        Regexp.last_match(1)
+      end
+
+      def extract_offense_count
+        auto_correctable?
+        Regexp.last_match(1).to_i
       end
     end
   end

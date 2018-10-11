@@ -39,13 +39,8 @@ module Challenger
           buff << char
           next unless empty_line?(prev_char, char)
 
-          if auto_correctable?(buff)
-            title = extract_title(buff)
-            offense_count = extract_offense_count(buff)
-            contents = buff.dup
-
-            rules << Rule.new(title, offense_count, contents)
-          end
+          rule = Rule.new(buff)
+          rules << rule if rule.auto_correctable?
           buff = ''
         end
 
@@ -54,20 +49,6 @@ module Challenger
 
       def empty_line?(prev_char, char)
         prev_char == "\n" && char == "\n"
-      end
-
-      def extract_title(rule)
-        rule =~ /^([^# ].+):$/
-        Regexp.last_match(1)
-      end
-
-      def extract_offense_count(rule)
-        auto_correctable?(rule)
-        Regexp.last_match(1).to_i
-      end
-
-      def auto_correctable?(rule)
-        rule =~ /# Offense count: (\d+)\n# Cop supports --auto-correct\./
       end
     end
   end
