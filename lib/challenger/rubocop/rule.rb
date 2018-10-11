@@ -19,7 +19,7 @@ module Challenger
       end
 
       def auto_correctable?
-        contents =~ /# Offense count: (\d+)\n# Cop supports --auto-correct\./
+        contents =~ /# Cop supports --auto-correct/
       end
 
       def rubydoc_url
@@ -43,7 +43,7 @@ module Challenger
       end
 
       def extract_offense_count
-        auto_correctable?
+        contents =~ /# Offense count: (\d+)/
         Regexp.last_match(1).to_i
       end
     end
