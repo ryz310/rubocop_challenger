@@ -41,7 +41,7 @@ module Challenger
 
           rule = Rule.new(buff)
           rules << rule if rule.auto_correctable?
-          buff = ''
+          buff.clear
         end
 
         rules.sort!
