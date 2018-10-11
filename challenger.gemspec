@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["r-sato@feedforce.jp"]
 
   spec.summary       = 'Help to run `$ rubocop -a` on your CI'
-  # spec.description   = '%q{TODO: Write a longer description or delete this line.}'
+  spec.description   = spec.summary
   spec.homepage      = 'https://github.com/ryz310/challenger'
   spec.license       = "MIT"
 
