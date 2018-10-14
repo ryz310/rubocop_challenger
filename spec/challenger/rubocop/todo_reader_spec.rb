@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe Challenger::Rubocop::TodoReader do
@@ -70,7 +72,7 @@ RSpec.describe Challenger::Rubocop::TodoReader do
           autocorrectable_rule_which_offence_count_is_1,
           autocorrectable_rule_which_offence_count_is_2,
           unautocorrectable_rule_which_offence_count_is_4,
-          autocorrectable_rule_which_offence_count_is_13,
+          autocorrectable_rule_which_offence_count_is_13
         ]
       )
     end
@@ -82,7 +84,7 @@ RSpec.describe Challenger::Rubocop::TodoReader do
         [
           autocorrectable_rule_which_offence_count_is_1,
           autocorrectable_rule_which_offence_count_is_2,
-          autocorrectable_rule_which_offence_count_is_13,
+          autocorrectable_rule_which_offence_count_is_13
         ]
       )
     end
