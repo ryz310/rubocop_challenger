@@ -1,4 +1,3 @@
-require 'challenger'
 require 'thor'
 
 module Challenger
