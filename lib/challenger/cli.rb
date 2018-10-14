@@ -24,7 +24,9 @@ module Challenger
         labels: options[:pull_request_labels].join(','),
         topic:  "rubocop-challenge/#{target_rule.title.tr('/', '-')}",
         commit: ":robot: #{target_rule.title}"
-      }
+      }.each_with_object({}) do |(k, v), memo|
+        memo[k] = Shellwords.escape(v)
+      end
     end
   end
 end
