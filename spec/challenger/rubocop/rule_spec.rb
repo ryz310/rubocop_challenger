@@ -163,4 +163,37 @@ RSpec.describe Challenger::Rubocop::Rule do
       end
     end
   end
+
+  describe '#description' do
+    subject(:description) { rule.description }
+
+    context 'when the rule has constant variable `MSG`' do
+      let(:rule) { described_class.new(<<~CONTENTS) }
+        # Offense count: 2
+        # Configuration parameters: CountComments, ExcludedMethods.
+        # ExcludedMethods: refine
+        Metrics/BlockLength:
+          Max: 112
+      CONTENTS
+
+      it "returns the cop class' description" do
+        expect(description).to eq RuboCop::Cop::Metrics::BlockLength::MSG
+      end
+    end
+
+    context 'when the rule dose not have constant variable `MSG`' do
+      let(:rule) { described_class.new(<<~CONTENTS) }
+        # Offense count: 1
+        # Cop supports --auto-correct.
+        # Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces, SpaceBeforeBlockParameters.
+        # SupportedStyles: space, no_space
+        # SupportedStylesForEmptyBraces: space, no_space
+        Layout/SpaceInsideBlockBraces:
+          Exclude:
+            - 'Gemfile'
+      CONTENTS
+
+      it { is_expected.to eq '**NO DESCRIPTION**' }
+    end
+  end
 end
