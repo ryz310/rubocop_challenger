@@ -63,9 +63,9 @@ RSpec.describe Challenger::Rubocop::TodoReader do
     CONTENET
   end
 
-  describe '#rules' do
-    it 'returns rubocop rules which ordered by offense count' do
-      expect(todo_reader.rules).to eq(
+  describe '#all_rules' do
+    it 'returns all rubocop rules which ordered by offense count' do
+      expect(todo_reader.all_rules).to eq(
         [
           autocorrectable_rule_which_offence_count_is_1,
           autocorrectable_rule_which_offence_count_is_2,
