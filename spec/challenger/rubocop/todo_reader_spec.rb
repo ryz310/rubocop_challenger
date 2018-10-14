@@ -4,7 +4,7 @@ RSpec.describe Challenger::Rubocop::TodoReader do
   let(:todo_reader) { described_class.new('spec/fixtures/.rubocop_todo.yml') }
 
   let(:autocorrectable_rule_which_offence_count_is_1) do
-    Challenger::Rubocop::Rule.new(<<~CONTENET)
+    Challenger::Rubocop::Rule.new(<<~CONTENTS)
       # Offense count: 1
       # Cop supports --auto-correct.
       # Configuration parameters: EnforcedStyle.
@@ -12,21 +12,21 @@ RSpec.describe Challenger::Rubocop::TodoReader do
       Layout/EmptyLinesAroundBlockBody:
         Exclude:
           - 'spec/lib/challenger/rubocop/todo_reader_spec.rb'
-    CONTENET
+    CONTENTS
   end
 
   let(:autocorrectable_rule_which_offence_count_is_2) do
-    Challenger::Rubocop::Rule.new(<<~CONTENET)
+    Challenger::Rubocop::Rule.new(<<~CONTENTS)
       # Offense count: 2
       # Cop supports --auto-correct.
       Style/ExpandPathArguments:
         Exclude:
           - 'challenger.gemspec'
-    CONTENET
+    CONTENTS
   end
 
   let(:autocorrectable_rule_which_offence_count_is_13) do
-    Challenger::Rubocop::Rule.new(<<~CONTENET)
+    Challenger::Rubocop::Rule.new(<<~CONTENTS)
       # Offense count: 13
       # Cop supports --auto-correct.
       # Configuration parameters: EnforcedStyle.
@@ -46,11 +46,11 @@ RSpec.describe Challenger::Rubocop::TodoReader do
           - 'spec/challenger_spec.rb'
           - 'spec/lib/challenger/rubocop/todo_reader_spec.rb'
           - 'spec/spec_helper.rb'
-    CONTENET
+    CONTENTS
   end
 
   let(:unautocorrectable_rule_which_offence_count_is_4) do
-    Challenger::Rubocop::Rule.new(<<~CONTENET)
+    Challenger::Rubocop::Rule.new(<<~CONTENTS)
       # Offense count: 4
       Style/Documentation:
         Exclude:
@@ -60,7 +60,7 @@ RSpec.describe Challenger::Rubocop::TodoReader do
           - 'lib/challenger/rubocop/rule.rb'
           - 'lib/challenger/rubocop/todo_editor.rb'
           - 'lib/challenger/rubocop/todo_reader.rb'
-    CONTENET
+    CONTENTS
   end
 
   describe '#all_rules' do
