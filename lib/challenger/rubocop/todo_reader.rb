@@ -34,21 +34,21 @@ module Challenger
         loop do
           prev_char = char
           char = file.getc
-          break if char.nil? # EOF
 
-          buff << char
+          buff << char unless char.nil?
           next unless empty_line?(prev_char, char)
 
           rule = Rule.new(buff)
           rules << rule if rule.auto_correctable?
           buff.clear
+          break if char.nil? # EOF
         end
 
         rules.sort!
       end
 
       def empty_line?(prev_char, char)
-        prev_char == "\n" && char == "\n"
+        prev_char == "\n" && (char.nil? || char == "\n")
       end
     end
   end
