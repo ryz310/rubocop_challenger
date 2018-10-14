@@ -1,5 +1,3 @@
-require "challenger/rubocop/rule"
-
 module Challenger
   module Rubocop
     class TodoReader

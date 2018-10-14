@@ -1,6 +1,3 @@
-require 'rubocop'
-require 'rubocop-rspec'
-
 module Challenger
   module Rubocop
     class Rule
