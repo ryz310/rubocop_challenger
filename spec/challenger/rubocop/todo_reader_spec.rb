@@ -49,7 +49,7 @@ RSpec.describe Challenger::Rubocop::TodoReader do
     CONTENET
   end
 
-  let(:unautocorrectable_rule) do
+  let(:unautocorrectable_rule_which_offence_count_is_4) do
     Challenger::Rubocop::Rule.new(<<~CONTENET)
       # Offense count: 4
       Style/Documentation:
@@ -61,6 +61,19 @@ RSpec.describe Challenger::Rubocop::TodoReader do
           - 'lib/challenger/rubocop/todo_editor.rb'
           - 'lib/challenger/rubocop/todo_reader.rb'
     CONTENET
+  end
+
+  describe '#rules' do
+    it 'returns rubocop rules which ordered by offense count' do
+      expect(todo_reader.rules).to eq(
+        [
+          autocorrectable_rule_which_offence_count_is_1,
+          autocorrectable_rule_which_offence_count_is_2,
+          unautocorrectable_rule_which_offence_count_is_4,
+          autocorrectable_rule_which_offence_count_is_13,
+        ]
+      )
+    end
   end
 
   describe '#auto_correctable_rules' do

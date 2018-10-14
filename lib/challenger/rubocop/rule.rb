@@ -6,7 +6,7 @@ module Challenger
       attr_reader :title, :offense_count, :contents
 
       def initialize(contents)
-        @contents = contents
+        @contents = contents.dup
         @title = extract_title
         @offense_count = extract_offense_count
       end
