@@ -30,26 +30,12 @@ module Challenger
       attr_reader :rubocop_todo_file_path
 
       def extract_rules
-        file = open(rubocop_todo_file_path)
-        buff, char, rules = '', '', []
-
-        loop do
-          prev_char = char
-          char = file.getc
-
-          buff << char unless char.nil?
-          next unless empty_line?(prev_char, char)
-
-          rules << Rule.new(buff)
-          buff.clear
-          break if char.nil? # EOF
-        end
-
-        rules.reject { |rule| rule.offense_count.zero? }.sort!
-      end
-
-      def empty_line?(prev_char, char)
-        prev_char == "\n" && (char.nil? || char == "\n")
+        File
+          .read(rubocop_todo_file_path)
+          .split(/\n{2,}/)
+          .map! { |content| Rule.new(content) }
+          .reject! { |rule| rule.offense_count.zero? }
+          .sort!
       end
     end
   end
