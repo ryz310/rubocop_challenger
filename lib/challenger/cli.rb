@@ -21,7 +21,7 @@ module Challenger
         email:  options[:commiter_email],
         name:   options[:commiter_name],
         title:  target_rule.title,
-        labels: options[:pull_request_labels],
+        labels: options[:pull_request_labels].join(','),
         topic:  "rubocop-challenge/#{target_rule.title.tr('/', '-')}",
         commit: ":robot: #{target_rule.title}"
       }
