@@ -1,18 +1,19 @@
 module Challenger
   module Rubocop
     class TodoWriter
-      def initialize(rubocop_todo_file_path)
-        @rubocop_todo_file_path = rubocop_todo_file_path
+      def initialize(source, destination = source)
+        @source = source
+        @destination = destination
       end
 
       def delete_rule(rubocop_rule)
-        current_data = File.read(rubocop_todo_file_path)
-        File.write(rubocop_todo_file_path, current_data.sub(rubocop_rule.contents, ''))
+        current_data = File.read(source)
+        File.write(destination, current_data.sub("\n#{rubocop_rule.contents}", ''))
       end
 
       private
 
-      attr_reader :rubocop_todo_file_path
+      attr_reader :source, :destination
     end
   end
 end
