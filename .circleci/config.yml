@@ -1,0 +1,75 @@
+# Ruby CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-ruby/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+       - image: circleci/ruby:2.3-node-browsers
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "Gemfile.lock" }}
+          - v1-dependencies-
+      - run:
+          name: Bundle Install
+          command: |
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+      - run:
+          name: run tests
+          command: |
+            mkdir /tmp/test-results
+            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+            bundle exec rspec --format progress \
+                              --format RspecJunitFormatter \
+                              --out /tmp/test-results/rspec.xml \
+                              --format progress \
+                              $TEST_FILES
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
+      - run:
+          name: Rake Build
+          command: |
+            rake build
+
+  rubocop_challenge:
+    docker:
+       - image: circleci/ruby:2.3-node-browsers
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: Rubocop Challenge
+          command: |
+            rake install
+            bundle exec exe/challenger rubocop_challenge \
+              --email=ryz310@gmail.com \
+              --name=ryz310
+
+workflows:
+  version: 2
+
+  commit:
+    jobs:
+      - build
+
+  challenge:
+    triggers:
+      - schedule:
+          cron: "30 23 * * 5" # 8:30am every Saturday (JST)
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - rubocop_challenge
