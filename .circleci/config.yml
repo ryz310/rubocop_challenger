@@ -3,10 +3,9 @@
 # Check https://circleci.com/docs/2.0/language-ruby/ for more details
 #
 version: 2
-jobs:
-  build:
-    docker:
-       - image: circleci/ruby:2.3-node-browsers
+
+references:
+  - &build
     working_directory: ~/repo
     steps:
       - checkout
@@ -27,10 +26,10 @@ jobs:
           command: |
             mkdir /tmp/test-results
             TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
-            bundle exec rspec --format progress \
+            bundle exec rspec --format documentation \
+                              --color \
                               --format RspecJunitFormatter \
                               --out /tmp/test-results/rspec.xml \
-                              --format progress \
                               $TEST_FILES
       - store_test_results:
           path: /tmp/test-results
@@ -40,7 +39,25 @@ jobs:
       - run:
           name: Rake Build
           command: |
-            rake build
+            bundle exec rake build
+
+jobs:
+  build_on_ruby_2.3:
+    docker:
+       - image: circleci/ruby:2.3-node-browsers
+    <<: *build
+  build_on_ruby_2.4:
+    docker:
+       - image: circleci/ruby:2.4-node-browsers
+    <<: *build
+  build_on_ruby_2.5:
+    docker:
+       - image: circleci/ruby:2.5-node-browsers
+    <<: *build
+  build_on_ruby_latest:
+    docker:
+       - image: circleci/ruby:latest-node-browsers-legacy
+    <<: *build
 
   rubocop_challenge:
     docker:
@@ -61,7 +78,10 @@ workflows:
 
   commit:
     jobs:
-      - build
+      - build_on_ruby_2.3
+      - build_on_ruby_2.4
+      - build_on_ruby_2.5
+      - build_on_ruby_latest
 
   challenge:
     triggers:
