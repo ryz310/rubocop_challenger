@@ -44,9 +44,17 @@ module Challenger
         base:   options[:base],
         title:  target_rule.title,
         labels: options[:labels].join(','),
-        topic:  "rubocop-challenge/#{target_rule.title.tr('/', '-')}",
+        topic:  topic(target_rule),
         commit: ":robot: #{target_rule.title}"
       }
+    end
+
+    def topic(rule)
+      "rubocop-challenge/#{rule.title.tr('/', '-')}-#{timestamp}"
+    end
+
+    def timestamp
+      Time.now.strftime('%Y%m%d%H%M%S')
     end
   end
 end
