@@ -43,7 +43,7 @@ module Challenger
         name:   options[:name],
         base:   options[:base],
         title:  target_rule.title,
-        labels: "'#{options[:labels].join(',')}'",
+        labels: options[:labels].join(','),
         topic:  "rubocop-challenge/#{target_rule.title.tr('/', '-')}",
         commit: ":robot: #{target_rule.title}"
       }
