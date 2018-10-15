@@ -1,0 +1,68 @@
+current directory: /home/circleci/repo/vendor/bundle/ruby/2.3.0/gems/jaro_winkler-1.5.1/ext/jaro_winkler
+/usr/local/bin/ruby -r ./siteconf20181015-87-zfdvhq.rb extconf.rb
+creating Makefile
+
+current directory: /home/circleci/repo/vendor/bundle/ruby/2.3.0/gems/jaro_winkler-1.5.1/ext/jaro_winkler
+make "DESTDIR=" clean
+
+current directory: /home/circleci/repo/vendor/bundle/ruby/2.3.0/gems/jaro_winkler-1.5.1/ext/jaro_winkler
+make "DESTDIR="
+compiling adj_matrix.c
+In file included from /usr/local/include/ruby-2.3.0/ruby/ruby.h:1988:0,
+                 from /usr/local/include/ruby-2.3.0/ruby.h:33,
+                 from codepoints.h:2,
+                 from adj_matrix.c:2:
+/usr/local/include/ruby-2.3.0/ruby/intern.h:923:29: warning: ‘struct timespec’ declared inside parameter list will not be visible outside of this definition or declaration
+ void rb_timespec_now(struct timespec *);
+                             ^~~~~~~~
+/usr/local/include/ruby-2.3.0/ruby/intern.h:926:41: warning: ‘struct timespec’ declared inside parameter list will not be visible outside of this definition or declaration
+ VALUE rb_time_timespec_new(const struct timespec *, int);
+                                         ^~~~~~~~
+adj_matrix.c: In function ‘adj_matrix_default’:
+adj_matrix.c:87:5: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+     size_t length = sizeof(DEFAULT_ADJ_TABLE) / sizeof(char *);
+     ^~~~~~
+compiling codepoints.c
+compiling jaro.c
+In file included from /usr/local/include/ruby-2.3.0/ruby/ruby.h:1988:0,
+                 from /usr/local/include/ruby-2.3.0/ruby.h:33,
+                 from codepoints.h:2,
+                 from jaro.c:3:
+/usr/local/include/ruby-2.3.0/ruby/intern.h:923:29: warning: ‘struct timespec’ declared inside parameter list will not be visible outside of this definition or declaration
+ void rb_timespec_now(struct timespec *);
+                             ^~~~~~~~
+/usr/local/include/ruby-2.3.0/ruby/intern.h:926:41: warning: ‘struct timespec’ declared inside parameter list will not be visible outside of this definition or declaration
+ VALUE rb_time_timespec_new(const struct timespec *, int);
+                                         ^~~~~~~~
+jaro.c: In function ‘jaro_distance_from_codes’:
+jaro.c:41:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   int32_t window_size = (int32_t)len2 / 2 - 1;
+   ^~~~~~~
+jaro.c:45:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   char short_codes_flag[len1];
+   ^~~~
+jaro.c:51:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   size_t match_count = 0;
+   ^~~~~~
+jaro.c:71:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   size_t transposition_count = 0, j = 0, k = 0;
+   ^~~~~~
+jaro.c:86:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   size_t similar_count = 0;
+   ^~~~~~
+jaro.c:98:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   double m = (double)match_count;
+   ^~~~~~
+compiling jaro_winkler.c
+jaro_winkler.c: In function ‘distance’:
+jaro_winkler.c:36:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   Options c_opt = DEFAULT_OPTIONS;
+   ^~~~~~~
+jaro_winkler.c:57:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   VALUE ret = rb_float_new(
+   ^~~~~
+linking shared-object jaro_winkler/jaro_winkler_ext.so
+
+current directory: /home/circleci/repo/vendor/bundle/ruby/2.3.0/gems/jaro_winkler-1.5.1/ext/jaro_winkler
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 jaro_winkler_ext.so ./.gem.20181015-87-1ryor6y/jaro_winkler

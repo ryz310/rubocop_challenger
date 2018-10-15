@@ -1,0 +1,106 @@
+# Ruby CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-ruby/ for more details
+#
+version: 2
+
+references:
+  - &restore_bundle_install_cache
+    restore_cache:
+        keys:
+        - v1-dependencies-{{ checksum "Gemfile.lock" }}
+        - v1-dependencies-
+  - &bundle_install
+    run:
+        name: Bundle Install
+        command: |
+          bundle install --jobs=4 --retry=3 --path vendor/bundle
+  - &save_bundle_install_cache
+    save_cache:
+      paths:
+        - ./vendor/bundle
+      key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+
+  - &build
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - *restore_bundle_install_cache
+      - *bundle_install
+      - *save_bundle_install_cache
+      - run:
+          name: run tests
+          command: |
+            mkdir /tmp/test-results
+            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+            bundle exec rspec --format documentation \
+                              --color \
+                              --format RspecJunitFormatter \
+                              --out /tmp/test-results/rspec.xml \
+                              $TEST_FILES
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
+      - run:
+          name: Rake Build
+          command: |
+            bundle exec rake build
+
+jobs:
+  build_on_ruby_2.3:
+    docker:
+       - image: circleci/ruby:2.3-node-browsers
+    <<: *build
+  build_on_ruby_2.4:
+    docker:
+       - image: circleci/ruby:2.4-node-browsers
+    <<: *build
+  build_on_ruby_2.5:
+    docker:
+       - image: circleci/ruby:2.5-node-browsers
+    <<: *build
+  build_on_ruby_latest:
+    docker:
+       - image: circleci/ruby:latest-node-browsers-legacy
+    <<: *build
+
+  rubocop_challenge:
+    docker:
+       - image: circleci/ruby:2.3-node-browsers
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - *restore_bundle_install_cache
+      - *bundle_install
+      - *save_bundle_install_cache
+      - run:
+          name: Rubocop Challenge
+          command: |
+            bundle exec rake install
+            bundle exec exe/challenger rubocop_challenge \
+              --email=ryz310@gmail.com \
+              --name=ryz310
+
+workflows:
+  version: 2
+
+  commit:
+    jobs:
+      - build_on_ruby_2.3
+      - build_on_ruby_2.4
+      - build_on_ruby_2.5
+      - build_on_ruby_latest
+
+  challenge:
+    triggers:
+      - schedule:
+          # cron: "30 23 * * 5" # 8:30am every Saturday (JST)
+          cron: "0 13 * * *" # 9:00pm every day (JST)
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - rubocop_challenge
