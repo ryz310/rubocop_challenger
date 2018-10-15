@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'pr-daikou'
+
+PRDaikou.exec(*PRDaikou::CLI.parse_options)
