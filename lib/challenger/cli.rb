@@ -3,6 +3,14 @@ require 'thor'
 module Challenger
   class CLI < Thor
     desc 'rubocop_challenge', 'Run `$ rubocop -a` and create PR to GitHub'
+    option :email,
+           required: true,
+           type: :string,
+           desc: 'Pull Request committer email'
+    option :name,
+           required: true,
+           type: :string,
+           desc: 'Pull Request committer name'
     option :file_path,
            type: :string,
            default: '.rubocop_todo.yml',
@@ -13,16 +21,6 @@ module Challenger
            default: 'most_occurrence',
            desc: 'Mode to select deletion target. ' \
                  'You can choice "most_occurrence", "least_occurrence", or "random"'
-    option :email,
-           type: :string,
-           default: 'rubocop_challenge@example.com',
-           aliases: :m,
-           desc: 'Pull Request committer email'
-    option :name,
-           type: :string,
-           default: 'Rubocop Challenge',
-           aliases: :n,
-           desc: 'Pull Request committer name'
     option :base,
            type: :string,
            default: 'master',
@@ -41,18 +39,14 @@ module Challenger
 
     def pr_daikou_options(target_rule)
       {
-        email:  quauted_option(:mail),
-        name:   quauted_option(:name),
-        base:   quauted_option(:base),
+        email:  options[:mail],
+        name:   options[:name],
+        base:   options[:base],
         title:  target_rule.title,
         labels: "'#{options[:labels].join(',')}'",
         topic:  "rubocop-challenge/#{target_rule.title.tr('/', '-')}",
         commit: ":robot: #{target_rule.title}"
       }
-    end
-
-    def quauted_option(key)
-      "'#{options[key]}'"
     end
   end
 end
