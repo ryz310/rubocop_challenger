@@ -68,7 +68,7 @@ jobs:
       - run:
           name: Rubocop Challenge
           command: |
-            rake install
+            bundle exec rake install
             bundle exec exe/challenger rubocop_challenge \
               --email=ryz310@gmail.com \
               --name=ryz310
