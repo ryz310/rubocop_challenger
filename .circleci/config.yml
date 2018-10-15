@@ -86,7 +86,8 @@ workflows:
   challenge:
     triggers:
       - schedule:
-          cron: "30 23 * * 5" # 8:30am every Saturday (JST)
+          # cron: "30 23 * * 5" # 8:30am every Saturday (JST)
+          cron: "0 11 * * *" # 8:00pm every day (JST)
           filters:
             branches:
               only:
