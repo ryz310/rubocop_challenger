@@ -91,11 +91,6 @@ Style/MutableConstant:
   Exclude:
     - 'lib/challenger/version.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/ParallelAssignment:
-  Exclude:
-    - 'lib/challenger/rubocop/todo_reader.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
