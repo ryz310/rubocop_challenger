@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Challenger
   module Rubocop
     class Rule
