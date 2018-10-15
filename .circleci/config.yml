@@ -79,7 +79,8 @@ jobs:
             bundle exec rake install
             bundle exec exe/challenger rubocop_challenge \
               --email=ryz310@gmail.com \
-              --name=ryz310
+              --name=ryz310 \
+              --mode=random
 
 workflows:
   version: 2
@@ -95,7 +96,7 @@ workflows:
     triggers:
       - schedule:
           # cron: "30 23 * * 5" # 8:30am every Saturday (JST)
-          cron: "0 14 * * *" # 11:00pm every day (JST)
+          cron: "0 15 * * *" # 00:00pm every day (JST)
           filters:
             branches:
               only:
