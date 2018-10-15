@@ -89,19 +89,6 @@ Style/RescueModifier:
   Exclude:
     - 'lib/challenger/rubocop/rule.rb'
 
-# Offense count: 25
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, ConsistentQuotesInMultiline.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiterals:
-  Exclude:
-    - 'Gemfile'
-    - 'Rakefile'
-    - 'bin/console'
-    - 'challenger.gemspec'
-    - 'lib/challenger/version.rb'
-    - 'spec/challenger_spec.rb'
-    - 'spec/spec_helper.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
