@@ -72,12 +72,10 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - *restore_bundle_install_cache
-      - *bundle_install
-      - *save_bundle_install_cache
       - run:
           name: Rubocop Challenge
           command: |
+            bundle install --jobs=4 --retry=3
             bundle exec rake install
             bundle exec exe/challenger rubocop_challenge \
               --email=ryz310@gmail.com \
@@ -97,7 +95,7 @@ workflows:
     triggers:
       - schedule:
           # cron: "30 23 * * 5" # 8:30am every Saturday (JST)
-          cron: "0 13 * * *" # 9:00pm every day (JST)
+          cron: "0 14 * * *" # 11:00pm every day (JST)
           filters:
             branches:
               only:
