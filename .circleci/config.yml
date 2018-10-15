@@ -27,10 +27,10 @@ jobs:
           command: |
             mkdir /tmp/test-results
             TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
-            bundle exec rspec --format progress \
+            bundle exec rspec --format documentation \
+                              --color \
                               --format RspecJunitFormatter \
                               --out /tmp/test-results/rspec.xml \
-                              --format progress \
                               $TEST_FILES
       - store_test_results:
           path: /tmp/test-results
@@ -40,7 +40,7 @@ jobs:
       - run:
           name: Rake Build
           command: |
-            rake build
+            bundle exec rake build
 
   rubocop_challenge:
     docker:
