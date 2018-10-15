@@ -17,6 +17,8 @@ module Challenger
           else raise "`#{mode}` is not supported mode"
           end
 
+        exit if target_rule.nil?
+
         todo_writer.delete_rule(target_rule)
 
         # Run rubocop --auto-correct

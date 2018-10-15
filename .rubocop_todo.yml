@@ -30,7 +30,7 @@ Metrics/BlockLength:
 # Offense count: 1
 # Configuration parameters: CountComments, ExcludedMethods.
 Metrics/MethodLength:
-  Max: 12
+  Max: 13
 
 # Offense count: 2
 # Configuration parameters: Max.
