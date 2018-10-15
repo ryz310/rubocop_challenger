@@ -41,16 +41,18 @@ module Challenger
 
     def pr_daikou_options(target_rule)
       {
-        email:  options[:mail],
-        name:   options[:name],
-        base:   options[:base],
+        email:  quauted_option(:mail),
+        name:   quauted_option(:name),
+        base:   quauted_option(:base),
         title:  target_rule.title,
-        labels: options[:labels].join(','),
+        labels: "'#{options[:labels].join(',')}'",
         topic:  "rubocop-challenge/#{target_rule.title.tr('/', '-')}",
         commit: ":robot: #{target_rule.title}"
-      }.each_with_object({}) do |(k, v), memo|
-        memo[k] = Shellwords.escape(v)
-      end
+      }
+    end
+
+    def quauted_option(key)
+      "'#{options[key]}'"
     end
   end
 end
