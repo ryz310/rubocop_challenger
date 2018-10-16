@@ -50,11 +50,6 @@ Style/Documentation:
     - 'lib/challenger/rubocop/todo_reader.rb'
     - 'lib/challenger/rubocop/todo_writer.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/ExpandPathArguments:
-  Exclude:
-    - 'challenger.gemspec'
 
 
 
