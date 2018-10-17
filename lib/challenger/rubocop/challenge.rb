@@ -4,7 +4,7 @@ module Challenger
   module Rubocop
     class Challenge
       def self.exec(file_path, mode)
-        new(file_path, mode).exec
+        new(file_path, mode).send(:exec)
       end
 
       private
