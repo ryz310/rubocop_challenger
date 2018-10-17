@@ -72,15 +72,29 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
+      - run: bundle install --jobs=4 --retry=3
+      - run: bundle exec rake install
       - run:
           name: Rubocop Challenge
           command: |
-            bundle install --jobs=4 --retry=3
-            bundle exec rake install
             bundle exec exe/challenger rubocop_challenge \
               --email=ryz310@gmail.com \
               --name=ryz310 \
               --mode=random
+  release:
+    docker:
+       - image: circleci/ruby:2.3-node-browsers
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: Create Rubygems Credentials
+          command: |
+            mkdir ~/.gem
+            echo -e "---\n:rubygems_api_key: ${RUBYGEMS_API_KEY}" > ~/.gem/credentials
+            chmod 0600 ~/.gem/credentials
+      - run: bundle install -j4 --retry=3
+      - run: rake release
 
 workflows:
   version: 2
@@ -91,12 +105,34 @@ workflows:
       - build_on_ruby_2.4
       - build_on_ruby_2.5
       - build_on_ruby_latest
+      - rubocop_challenge:
+          requires:
+            - build_on_ruby_2.3
+            - build_on_ruby_2.4
+            - build_on_ruby_2.5
+            - build_on_ruby_latest
+          filters:
+            branches:
+              only:
+                - master
+                - production
+      - release:
+          context: RubyGems API Key
+          requires:
+            - build_on_ruby_2.3
+            - build_on_ruby_2.4
+            - build_on_ruby_2.5
+            - build_on_ruby_latest
+            - rubocop_challenge
+          filters:
+            branches:
+              only:
+                - production
 
   challenge:
     triggers:
       - schedule:
-          # cron: "30 23 * * 5" # 8:30am every Saturday (JST)
-          cron: "0 15 * * *" # 00:00pm every day (JST)
+          cron: "30 23 * * 5" # 8:30am every Saturday (JST)
           filters:
             branches:
               only:
