@@ -81,6 +81,20 @@ jobs:
               --email=ryz310@gmail.com \
               --name=ryz310 \
               --mode=random
+  release:
+    docker:
+       - image: circleci/ruby:2.3-node-browsers
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: Create Rubygems Credentials
+          command: |
+            mkdir ~/.gem
+            echo -e "---\n:rubygems_api_key: ${RUBYGEMS_API_KEY}" > ~/.gem/credentials
+            chmod 0600 ~/.gem/credentials
+      - run: bundle install -j4 --retry=3
+      - run: rake release
 
 workflows:
   version: 2
