@@ -41,7 +41,7 @@ module Challenger
 
     def pr_daikou_options(target_rule)
       {
-        email:  options[:mail],
+        email:  options[:email],
         name:   options[:name],
         base:   options[:base],
         title:  target_rule.title,
