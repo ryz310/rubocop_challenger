@@ -105,6 +105,24 @@ workflows:
       - build_on_ruby_2.4
       - build_on_ruby_2.5
       - build_on_ruby_latest
+      - rubocop_challenge:
+          filters:
+            branches:
+              only:
+                - master
+                - production
+      - release:
+          context: RubyGems API Key
+          requires:
+            - build_on_ruby_2.3
+            - build_on_ruby_2.4
+            - build_on_ruby_2.5
+            - build_on_ruby_latest
+            - rubocop_challenge
+          filters:
+            branches:
+              only:
+                - production
 
   challenge:
     triggers:
