@@ -72,11 +72,11 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
+      - run: bundle install --jobs=4 --retry=3
+      - run: bundle exec rake install
       - run:
           name: Rubocop Challenge
           command: |
-            bundle install --jobs=4 --retry=3
-            bundle exec rake install
             bundle exec exe/challenger rubocop_challenge \
               --email=ryz310@gmail.com \
               --name=ryz310 \
