@@ -85,12 +85,14 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - run: bundle install --jobs=4 --retry=3
+      - *restore_bundle_install_cache
+      - *bundle_install
+      - *save_bundle_install_cache
       - run: bundle exec rake install
       - run:
           name: Rubocop Challenge
           command: |
-            bundle exec exe/challenger rubocop_challenge \
+            bundle exec exe/rubocop_challenger go \
               --email=ryz310@gmail.com \
               --name=ryz310 \
               --mode=random
@@ -100,13 +102,15 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
+      - *restore_bundle_install_cache
+      - *bundle_install
+      - *save_bundle_install_cache
       - run:
           name: Create Rubygems Credentials
           command: |
             mkdir ~/.gem
             echo -e "---\n:rubygems_api_key: ${RUBYGEMS_API_KEY}" > ~/.gem/credentials
             chmod 0600 ~/.gem/credentials
-      - run: bundle install -j4 --retry=3
       - run: bundle exec rake release --trace
 
 workflows:

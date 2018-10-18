@@ -12,23 +12,23 @@
 # SupportedStyles: empty_lines, no_empty_lines
 Layout/EmptyLinesAroundBlockBody:
   Exclude:
-    - 'spec/lib/challenger/rubocop/todo_reader_spec.rb'
+    - 'spec/lib/rubocop_challenger/rubocop/todo_reader_spec.rb'
 
 # Offense count: 4
 Style/Documentation:
   Exclude:
     - 'spec/**/*'
     - 'test/**/*'
-    - 'lib/challenger.rb'
-    - 'lib/challenger/rubocop/rule.rb'
-    - 'lib/challenger/rubocop/todo_editor.rb'
-    - 'lib/challenger/rubocop/todo_reader.rb'
+    - 'lib/rubocop_challenger.rb'
+    - 'lib/rubocop_challenger/rubocop/rule.rb'
+    - 'lib/rubocop_challenger/rubocop/todo_editor.rb'
+    - 'lib/rubocop_challenger/rubocop/todo_reader.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
 Style/ExpandPathArguments:
   Exclude:
-    - 'challenger.gemspec'
+    - 'rubocop_challenger.gemspec'
 
 # Offense count: 13
 # Cop supports --auto-correct.
@@ -39,13 +39,13 @@ Style/FrozenStringLiteralComment:
     - 'Gemfile'
     - 'Rakefile'
     - 'bin/console'
-    - 'challenger.gemspec'
-    - 'lib/challenger.rb'
-    - 'lib/challenger/rubocop/rule.rb'
-    - 'lib/challenger/rubocop/todo_editor.rb'
-    - 'lib/challenger/rubocop/todo_reader.rb'
-    - 'lib/challenger/version.rb'
-    - 'spec/challenger/rubocop/rule_spec.rb'
-    - 'spec/challenger_spec.rb'
-    - 'spec/lib/challenger/rubocop/todo_reader_spec.rb'
+    - 'rubocop_challenger.gemspec'
+    - 'lib/rubocop_challenger.rb'
+    - 'lib/rubocop_challenger/rubocop/rule.rb'
+    - 'lib/rubocop_challenger/rubocop/todo_editor.rb'
+    - 'lib/rubocop_challenger/rubocop/todo_reader.rb'
+    - 'lib/rubocop_challenger/version.rb'
+    - 'spec/rubocop_challenger/rubocop/rule_spec.rb'
+    - 'spec/rubocop_challenger_spec.rb'
+    - 'spec/lib/rubocop_challenger/rubocop/todo_reader_spec.rb'
     - 'spec/spec_helper.rb'
