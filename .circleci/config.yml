@@ -29,7 +29,7 @@ references:
       - *bundle_install
       - *save_bundle_install_cache
       - run:
-          name: run tests
+          name: Run Rspec
           command: |
             mkdir /tmp/test-results
             TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
@@ -48,6 +48,15 @@ references:
           command: |
             bundle exec rake build
 
+  - &rubocop
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - *restore_bundle_install_cache
+      - *bundle_install
+      - *save_bundle_install_cache
+      - run: rubocop
+
 jobs:
   build_on_ruby_2.3:
     docker:
@@ -65,6 +74,10 @@ jobs:
     docker:
        - image: circleci/ruby:latest-node-browsers-legacy
     <<: *build
+  rubocop:
+    docker:
+       - image: circleci/ruby:2.3-node-browsers
+    <<: *rubocop
 
   rubocop_challenge:
     docker:
@@ -105,12 +118,14 @@ workflows:
       - build_on_ruby_2.4
       - build_on_ruby_2.5
       - build_on_ruby_latest
+      - rubocop
       - rubocop_challenge:
           requires:
             - build_on_ruby_2.3
             - build_on_ruby_2.4
             - build_on_ruby_2.5
             - build_on_ruby_latest
+            - rubocop
           filters:
             branches:
               only:
@@ -122,7 +137,7 @@ workflows:
             - build_on_ruby_2.4
             - build_on_ruby_2.5
             - build_on_ruby_latest
-            - rubocop_challenge
+            - rubocop
           filters:
             branches:
               only:
