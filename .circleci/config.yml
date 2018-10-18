@@ -111,7 +111,11 @@ jobs:
             mkdir ~/.gem
             echo -e "---\n:rubygems_api_key: ${RUBYGEMS_API_KEY}" > ~/.gem/credentials
             chmod 0600 ~/.gem/credentials
-      - run: bundle exec rake release --trace
+      - run:
+          name: Release Gem
+          command: |
+            git push --set-upstream origin ${CIRCLE_BRANCH}
+            bundle exec rake release --trace
 
 workflows:
   version: 2
