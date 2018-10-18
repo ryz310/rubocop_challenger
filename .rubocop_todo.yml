@@ -72,13 +72,6 @@ Style/RescueModifier:
     - 'lib/challenger/rubocop/rule.rb'
 
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyleForMultiline.
-# SupportedStylesForMultiline: comma, consistent_comma, no_comma
-Style/TrailingCommaInArrayLiteral:
-  Exclude:
-    - 'spec/challenger/rubocop/todo_reader_spec.rb'
 
 # Offense count: 4
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
