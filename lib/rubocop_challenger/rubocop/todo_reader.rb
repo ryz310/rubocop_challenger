@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Challenger
+module RubocopChallenger
   module Rubocop
     class TodoReader
       def initialize(rubocop_todo_file_path)

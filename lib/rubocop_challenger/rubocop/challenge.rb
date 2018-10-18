@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Challenger
+module RubocopChallenger
   module Rubocop
     class Challenge
       def self.exec(file_path, mode)

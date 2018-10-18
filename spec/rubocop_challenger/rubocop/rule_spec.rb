@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Challenger::Rubocop::Rule do
+RSpec.describe RubocopChallenger::Rubocop::Rule do
   describe '#title' do
     let(:rule) { described_class.new(<<~CONTENTS) }
       # Offense count: 2
@@ -27,10 +27,10 @@ RSpec.describe Challenger::Rubocop::Rule do
           - 'Gemfile'
           - 'Rakefile'
           - 'bin/console'
-          - 'challenger.gemspec'
-          - 'lib/challenger/rubocop/todo_reader.rb'
-          - 'lib/challenger/version.rb'
-          - 'spec/challenger_spec.rb'
+          - 'rubocop_challenger.gemspec'
+          - 'lib/rubocop_challenger/rubocop/todo_reader.rb'
+          - 'lib/rubocop_challenger/version.rb'
+          - 'spec/rubocop_challenger_spec.rb'
           - 'spec/spec_helper.rb'
     CONTENTS
 
@@ -73,7 +73,7 @@ RSpec.describe Challenger::Rubocop::Rule do
         # Cop supports --auto-correct.
         Layout/LeadingBlankLines:
           Exclude:
-            - 'challenger.gemspec'
+            - 'rubocop_challenger.gemspec'
       CONTENTS
 
       it { is_expected.to eq(1) }
@@ -85,7 +85,7 @@ RSpec.describe Challenger::Rubocop::Rule do
         # Cop supports --auto-correct.
         Style/ExpandPathArguments:
           Exclude:
-            - 'challenger.gemspec'
+            - 'rubocop_challenger.gemspec'
       CONTENTS
 
       it { is_expected.to be_zero }
@@ -98,7 +98,7 @@ RSpec.describe Challenger::Rubocop::Rule do
           Exclude:
             - 'spec/**/*'
             - 'test/**/*'
-            - 'lib/challenger.rb'
+            - 'lib/rubocop_challenger.rb'
       CONTENTS
 
       it { is_expected.to eq(-1) }
@@ -114,7 +114,7 @@ RSpec.describe Challenger::Rubocop::Rule do
         # Cop supports --auto-correct.
         Performance/StringReplacement:
           Exclude:
-            - 'lib/challenger.rb'
+            - 'lib/rubocop_challenger.rb'
       CONTENTS
 
       it { is_expected.to be_truthy }
@@ -138,7 +138,7 @@ RSpec.describe Challenger::Rubocop::Rule do
         # Cop supports --auto-correct.
         Style/RedundantSelf:
           Exclude:
-            - 'lib/challenger/rubocop/rule.rb'
+            - 'lib/rubocop_challenger/rubocop/rule.rb'
       CONTENTS
 
       it "returns rubocop gem's document url" do
@@ -154,7 +154,7 @@ RSpec.describe Challenger::Rubocop::Rule do
         # Configuration parameters: CustomTransform, IgnoredWords.
         RSpec/ExampleWording:
           Exclude:
-            - 'spec/challenger/rubocop/rule_spec.rb'
+            - 'spec/rubocop_challenger/rubocop/rule_spec.rb'
       CONTENTS
 
       it "returns rubocop-rspec gem's document url" do

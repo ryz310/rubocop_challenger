@@ -2,9 +2,9 @@
 
 require 'thor'
 
-module Challenger
+module RubocopChallenger
   class CLI < Thor
-    desc 'rubocop_challenge', 'Run `$ rubocop -a` and create PR to GitHub'
+    desc 'go', 'Run `$ rubocop -a` and create PR to GitHub'
     option :email,
            required: true,
            type: :string,
@@ -32,7 +32,7 @@ module Challenger
            default: ['rubocop challenge'],
            aliases: :l,
            desc: 'Label to give to Pull Request'
-    def rubocop_challenge
+    def go
       target_rule = Rubocop::Challenge.exec(options[:file_path], options[:mode])
       PRDaikou.exec(pr_daikou_options(target_rule), nil)
     end

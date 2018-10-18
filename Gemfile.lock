@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    challenger (0.1.0)
+    rubocop_challenger (0.1.0)
       pr-daikou (~> 0.2.0)
       rubocop
       rubocop-rspec
@@ -54,10 +54,10 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.16)
-  challenger!
   rake (~> 10.0)
   rspec
   rspec_junit_formatter
+  rubocop_challenger!
 
 BUNDLED WITH
    1.16.6

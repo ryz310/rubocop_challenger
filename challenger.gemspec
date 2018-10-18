@@ -2,17 +2,17 @@
 
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'challenger/version'
+require 'rubocop_challenger/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'challenger'
-  spec.version       = Challenger::VERSION
+  spec.name          = 'rubocop_challenger'
+  spec.version       = RubocopChallenger::VERSION
   spec.authors       = ['ryosuke_sato']
   spec.email         = ['r-sato@feedforce.jp']
 
   spec.summary       = 'Help to run `$ rubocop -a` on your CI'
   spec.description   = spec.summary
-  spec.homepage      = 'https://github.com/ryz310/challenger'
+  spec.homepage      = 'https://github.com/ryz310/rubocop_challenger'
   spec.license       = 'MIT'
 
   # Specify which files should be added to the gem when it is released.

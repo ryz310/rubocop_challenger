@@ -10,7 +10,7 @@
 # Cop supports --auto-correct.
 Layout/LeadingBlankLines:
   Exclude:
-    - 'challenger.gemspec'
+    - 'rubocop_challenger.gemspec'
 
 # Offense count: 1
 # Cop supports --auto-correct.
@@ -36,19 +36,19 @@ Metrics/MethodLength:
 # Configuration parameters: Max.
 RSpec/ExampleLength:
   Exclude:
-    - 'spec/challenger/rubocop/todo_reader_spec.rb'
+    - 'spec/rubocop_challenger/rubocop/todo_reader_spec.rb'
 
 # Offense count: 6
 Style/Documentation:
   Exclude:
     - 'spec/**/*'
     - 'test/**/*'
-    - 'lib/challenger.rb'
-    - 'lib/challenger/cli.rb'
-    - 'lib/challenger/rubocop/challenge.rb'
-    - 'lib/challenger/rubocop/rule.rb'
-    - 'lib/challenger/rubocop/todo_reader.rb'
-    - 'lib/challenger/rubocop/todo_writer.rb'
+    - 'lib/rubocop_challenger.rb'
+    - 'lib/rubocop_challenger/cli.rb'
+    - 'lib/rubocop_challenger/rubocop/challenge.rb'
+    - 'lib/rubocop_challenger/rubocop/rule.rb'
+    - 'lib/rubocop_challenger/rubocop/todo_reader.rb'
+    - 'lib/rubocop_challenger/rubocop/todo_writer.rb'
 
 
 
@@ -57,19 +57,19 @@ Style/Documentation:
 # Cop supports --auto-correct.
 Style/MutableConstant:
   Exclude:
-    - 'lib/challenger/version.rb'
+    - 'lib/rubocop_challenger/version.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/RedundantSelf:
   Exclude:
-    - 'lib/challenger/rubocop/rule.rb'
+    - 'lib/rubocop_challenger/rubocop/rule.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/RescueModifier:
   Exclude:
-    - 'lib/challenger/rubocop/rule.rb'
+    - 'lib/rubocop_challenger/rubocop/rule.rb'
 
 
 # Offense count: 2
@@ -78,7 +78,7 @@ Style/RescueModifier:
 # SupportedStylesForMultiline: comma, consistent_comma, no_comma
 Style/TrailingCommaInArrayLiteral:
   Exclude:
-    - 'spec/challenger/rubocop/todo_reader_spec.rb'
+    - 'spec/rubocop_challenger/rubocop/todo_reader_spec.rb'
 
 # Offense count: 4
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.

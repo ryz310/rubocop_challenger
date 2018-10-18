@@ -90,7 +90,7 @@ jobs:
       - run:
           name: Rubocop Challenge
           command: |
-            bundle exec exe/challenger rubocop_challenge \
+            bundle exec exe/rubocop_challenger go \
               --email=ryz310@gmail.com \
               --name=ryz310 \
               --mode=random

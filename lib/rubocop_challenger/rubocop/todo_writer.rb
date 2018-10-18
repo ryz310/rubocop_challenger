@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Challenger
+module RubocopChallenger
   module Rubocop
     class TodoWriter
       def initialize(source, destination = source)
