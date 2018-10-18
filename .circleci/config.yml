@@ -55,7 +55,7 @@ references:
       - *restore_bundle_install_cache
       - *bundle_install
       - *save_bundle_install_cache
-      - run: rubocop
+      - run: bundle exec rubocop
 
 jobs:
   build_on_ruby_2.3:
