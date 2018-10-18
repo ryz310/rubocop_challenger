@@ -139,9 +139,11 @@ workflows:
             - build_on_ruby_latest
             - rubocop
           filters:
+            tags:
+              only: /v\d+\.\d+\.\d+.*/
             branches:
               only:
-                - production
+                - master
 
   challenge:
     triggers:
