@@ -12,14 +12,6 @@ Layout/LeadingBlankLines:
   Exclude:
     - 'rubocop_challenger.gemspec'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces, SpaceBeforeBlockParameters.
-# SupportedStyles: space, no_space
-# SupportedStylesForEmptyBraces: space, no_space
-Layout/SpaceInsideBlockBraces:
-  Exclude:
-    - 'Gemfile'
 
 # Offense count: 3
 # Configuration parameters: CountComments, ExcludedMethods.
