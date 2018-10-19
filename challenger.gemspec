@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = 'Help to run `$ rubocop -a` on your CI'
   spec.description   = spec.summary
-  spec.homepage      = 'https://github.com/ryz310/rubocop-challenger'
+  spec.homepage      = 'https://github.com/ryz310/rubocop_challenger'
   spec.license       = 'MIT'
 
   # Specify which files should be added to the gem when it is released.
