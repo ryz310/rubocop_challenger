@@ -59,11 +59,6 @@ Style/MutableConstant:
   Exclude:
     - 'lib/rubocop_challenger/version.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/RedundantSelf:
-  Exclude:
-    - 'lib/rubocop_challenger/rubocop/rule.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
