@@ -81,7 +81,7 @@ jobs:
 
   rubocop_challenge:
     docker:
-       - image: circleci/ruby:2.3-node-browsers
+      - image: circleci/ruby:2.3-node-browsers
     working_directory: ~/repo
     steps:
       - checkout
@@ -96,6 +96,21 @@ jobs:
               --email=ryz310@gmail.com \
               --name=ryz310 \
               --mode=random
+
+  rubocop_challenge_from_gem:
+    docker:
+      - image: circleci/ruby:2.3-node-browsers
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: Rubocop Challenge
+          command: |
+            gem install rubocop_challenger
+            rubocop_challenger go \
+              --email=ryz310@gmail.com \
+              --name=ryz310
+
   release:
     docker:
        - image: circleci/ruby:2.3-node-browsers
@@ -160,4 +175,4 @@ workflows:
               only:
                 - master
     jobs:
-      - rubocop_challenge
+      - rubocop_challenge_from_gem
