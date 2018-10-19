@@ -2,30 +2,42 @@
 
 [![CircleCI](https://circleci.com/gh/ryz310/rubocop_challenger/tree/master.svg?style=svg&circle-token=cdf0ffce5b4c0c7804b50dde00ca5ef09cbadb67)](https://circleci.com/gh/ryz310/rubocop_challenger/tree/master) [![Gem Version](https://badge.fury.io/rb/rubocop_challenger.svg)](https://badge.fury.io/rb/rubocop_challenger)
 
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rubocop_challenger`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'rubocop_challenger'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install rubocop_challenger
-
 ## Usage
 
-    $ rubocop_challenger rubocop_challenge --email=EMAIL --name=NAME
+```yml
+# Ruby CircleCI 2.0 configuration file
+
+version: 2
+
+jobs:
+  rubocop_challenge:
+    docker:
+      - image: circleci/ruby:2.5-node-browsers
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: Rubocop Challenge
+          command: |
+            gem install rubocop_challenger
+            rubocop_challenger go \
+              --email=rubocop-challenge@example.com \
+              --name="'Rubocop Challenge'"
+
+workflows:
+  version: 2
+
+  nightly:
+    triggers:
+      - schedule:
+          cron: "30 23 * * 1,2,3" # 8:30am every Tuesday, Wednsday and Thursday (JST)
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - rubocop_challenge
+```
 
 ## Development
 
