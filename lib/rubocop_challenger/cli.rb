@@ -4,7 +4,7 @@ require 'thor'
 
 module RubocopChallenger
   class CLI < Thor
-    desc 'go', 'Run `$ rubocop -a` and create PR to GitHub'
+    desc 'go', 'Run `$ rubocop --auto-correct` and create PR to your GitHub repository'
     option :email,
            required: true,
            type: :string,
@@ -35,6 +35,11 @@ module RubocopChallenger
     def go
       target_rule = Rubocop::Challenge.exec(options[:file_path], options[:mode])
       PRDaikou.exec(pr_daikou_options(target_rule), nil)
+    end
+
+    desc 'version', 'Show current version'
+    def version
+      puts RubocopChallenger::VERSION
     end
 
     private
