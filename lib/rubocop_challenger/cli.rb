@@ -35,6 +35,8 @@ module RubocopChallenger
     def go
       target_rule = Rubocop::Challenge.exec(options[:file_path], options[:mode])
       PRDaikou.exec(pr_daikou_options(target_rule), nil)
+    rescue StandardError => e
+      puts e.message
     end
 
     desc 'version', 'Show current version'
