@@ -23,7 +23,7 @@ RSpec.describe RubocopChallenger::Rubocop::TodoWriter do
       File.delete(destination)
     end
 
-    it do
+    it 'deletes target rule' do
       todo_editor.delete_rule(rule)
       expect(File.read(destination)).to eq expected
     end
