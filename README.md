@@ -2,11 +2,23 @@
 
 [![CircleCI](https://circleci.com/gh/ryz310/rubocop_challenger/tree/master.svg?style=svg&circle-token=cdf0ffce5b4c0c7804b50dde00ca5ef09cbadb67)](https://circleci.com/gh/ryz310/rubocop_challenger/tree/master) [![Gem Version](https://badge.fury.io/rb/rubocop_challenger.svg)](https://badge.fury.io/rb/rubocop_challenger) [![Waffle.io - Columns and their card count](https://badge.waffle.io/ryz310/rubocop_challenger.svg?columns=all)](https://waffle.io/ryz310/rubocop_challenger)
 
-## Usage
+If you introduce [`rubocop`](https://github.com/rubocop-hq/rubocop) to an existing Rails project later, you will use [`$ rubocop --auto-gen-config`](https://github.com/rubocop-hq/rubocop/blob/master/manual/configuration.md#automatically-generated-configuration). But it will make a huge `.rubocop_todo.yml` and make you despair.
+On the other hand, `rubocop` has [`--auto-correct`](https://github.com/rubocop-hq/rubocop/blob/master/manual/basic_usage.md#other-useful-command-line-flags) option, it is possible to automatically repair the writing which does not conform to the rule. But since it occasionally destroys your code, it is quite dangerous to apply all at once.
+It is ideal that to remove a disabled rule from `.rubocop_todo.yml` every day, to check whether it passes test, and can be obtained consent from the team. But it requires strong persistence and time.
+I call such work *Rubocop Challenge*. And the *RubocopChallenger* is a gem to support this challenge!
+
+## Rubocop Challenge Flow
+
+1. Run *RubocopChallenger* periodically from CI tool etc.
+2. When *RubocopChallenger* starts, delete a disabled rule from `.rubocop_todo.yml` existing in your project, execute `$ rubocop --auto-correct` and create a PR which include modified results
+3. You confirm the PR passes testing and then merge it if there is no problem
+
+## Example
+
+### Using [CircleCI 2.0](https://circleci.com)
 
 ```yml
-# Ruby CircleCI 2.0 configuration file
-
+# .circleci/config.yml
 version: 2
 
 jobs:
@@ -39,6 +51,44 @@ workflows:
       - rubocop_challenge
 ```
 
+## Usage
+
+```sh
+$ rubocop_challenger help
+
+Commands:
+  rubocop_challenger go --email=EMAIL --name=NAME  # Run `$ rubocop --auto-correct` and create PR to your GitHub repository
+  rubocop_challenger help [COMMAND]                # Describe available commands or one specific command
+  rubocop_challenger version                       # Show current version
+```
+
+### Command-line Flags
+
+```sh
+$ rubocop_challenger help go
+
+Usage:
+  rubocop_challenger go --email=EMAIL --name=NAME
+
+Options:
+      --email=EMAIL            # Pull Request committer email
+      --name=NAME              # Pull Request committer name
+  f, [--file-path=FILE_PATH]   # Set your ".rubocop_todo.yml" path
+                               # Default: .rubocop_todo.yml
+      [--mode=MODE]            # Mode to select deletion target. You can choice "most_occurrence", "least_occurrence", or "random"
+                               # Default: most_occurrence
+      [--base=BASE]            # Base branch of Pull Request
+                               # Default: master
+  l, [--labels=one two three]  # Label to give to Pull Request
+                               # Default: ["rubocop challenge"]
+
+Run `$ rubocop --auto-correct` and create PR to your GitHub repository
+```
+
+## Requirement
+
+* Ruby 2.3 or higher
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
@@ -47,7 +97,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/rubocop_challenger. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/ryz310/rubocop_challenger. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
@@ -55,4 +105,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the RubocopChallenger project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/rubocop_challenger/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the RubocopChallenger project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/ryz310/rubocop_challenger/blob/master/CODE_OF_CONDUCT.md).
