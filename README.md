@@ -10,8 +10,8 @@ I call such work *Rubocop Challenge*. And the *RubocopChallenger* is a gem to su
 ## Rubocop Challenge Flow
 
 1. Run *RubocopChallenger* periodically from CI tool etc.
-2. When *RubocopChallenger* starts, delete a disabled rule from `.rubocop_todo.yml` existing in your project, execute `$ rubocop --auto-correct` and create a PR which include modified results
-3. You confirm the PR passes testing and then merge it if there is no problem
+1. When *RubocopChallenger* starts, delete a disabled rule from `.rubocop_todo.yml` existing in your project, execute `$ rubocop --auto-correct` and create a PR which include modified results
+1. You confirm the PR passes testing and then merge it if there is no problem
 
 ## Example
 
