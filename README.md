@@ -13,9 +13,21 @@ I call such work *Rubocop Challenge*. And the *RubocopChallenger* is a gem to su
 1. When *RubocopChallenger* starts, delete a disabled rule from `.rubocop_todo.yml` existing in your project, execute `$ rubocop --auto-correct` and create a PR which include modified results
 1. You confirm the PR passes testing and then merge it if there is no problem
 
-## Example
+## Usage
 
-### Using [CircleCI 2.0](https://circleci.com)
+### 1. Setting GitHub personal access token
+
+GitHub personal access token is required for sending pull requests to your repository.
+
+1. Go to [your account's settings page](https://github.com/settings/tokens) and [generate a new token](https://github.com/settings/tokens/new) with "repo" scope
+  ![generate token](images/generate_token.png)
+1. On [CircleCI](https://circleci.com) dashboard, go to your application's "Project Settings" -> "Environment Variables"
+1. Add an environment variable `GITHUB_ACCESS_TOKEN` with your GitHub personal access token
+  ![circleci environment variables](images/circleci_environment_variables.png)
+
+### 2. Configure .circleci/config.yml
+
+Configure your `.circleci/config.yml` to run rubocop_challenger, for example:
 
 ```yml
 # .circleci/config.yml
@@ -51,7 +63,7 @@ workflows:
       - rubocop_challenge
 ```
 
-## Usage
+## CLI command references
 
 ```sh
 $ rubocop_challenger help
@@ -88,6 +100,7 @@ Run `$ rubocop --auto-correct` and create PR to your GitHub repository
 ## Requirement
 
 * Ruby 2.3 or higher
+    * NOTE: Ruby 2.3 will EOL soon (See: [Ruby Maintenance Branches](https://www.ruby-lang.org/en/downloads/branches/))
 
 ## Development
 
