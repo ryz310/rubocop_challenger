@@ -46,11 +46,6 @@ Style/RedundantSelf:
   Exclude:
     - 'lib/rubocop_challenger/rubocop/rule.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/RescueModifier:
-  Exclude:
-    - 'lib/rubocop_challenger/rubocop/rule.rb'
 
 # Offense count: 6
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
