@@ -14,7 +14,7 @@ module RubocopChallenger
       end
 
       def <=>(other)
-        self.offense_count <=> other.offense_count
+        offense_count <=> other.offense_count
       end
 
       def auto_correctable?
@@ -31,7 +31,11 @@ module RubocopChallenger
 
       def description
         message_const = "RuboCop::Cop::#{title.sub('/', '::')}::MSG"
-        Object.const_get(message_const) rescue '**NO DESCRIPTION**'
+        begin
+          Object.const_get(message_const)
+        rescue StandardError
+          '**NO DESCRIPTION**'
+        end
       end
 
       private
