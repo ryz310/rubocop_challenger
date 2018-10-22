@@ -43,7 +43,7 @@ jobs:
       - run:
           name: Rubocop Challenge
           command: |
-            gem install rubocop_challenger
+            gem install -N rubocop_challenger
             rubocop_challenger go \
               --email=rubocop-challenge@example.com \
               --name="'Rubocop Challenge'"
