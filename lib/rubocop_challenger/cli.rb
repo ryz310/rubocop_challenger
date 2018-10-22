@@ -41,11 +41,20 @@ module RubocopChallenger
       PRDaikou.exec(pr_daikou_options(target_rule), nil) unless options[:'no-commit']
     rescue StandardError => e
       puts e.message
+      exit!
     end
 
     desc 'version', 'Show current version'
     def version
       puts RubocopChallenger::VERSION
+    end
+
+    module ClassMethods
+      # Workaround to return exit code 1 when an error occurs
+      # @see https://github.com/erikhuda/thor/issues/244
+      def exit_on_failure?
+        true
+      end
     end
 
     private
