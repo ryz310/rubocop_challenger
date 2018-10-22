@@ -32,9 +32,13 @@ module RubocopChallenger
            default: ['rubocop challenge'],
            aliases: :l,
            desc: 'Label to give to Pull Request'
+    option :'no-commit',
+           type: :boolean,
+           default: false,
+           desc: 'No commit after autocorrect'
     def go
       target_rule = Rubocop::Challenge.exec(options[:file_path], options[:mode])
-      PRDaikou.exec(pr_daikou_options(target_rule), nil)
+      PRDaikou.exec(pr_daikou_options(target_rule), nil) unless options[:'no-commit']
     rescue StandardError => e
       puts e.message
     end

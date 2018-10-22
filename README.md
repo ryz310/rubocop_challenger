@@ -43,7 +43,7 @@ jobs:
       - run:
           name: Rubocop Challenge
           command: |
-            gem install rubocop_challenger
+            gem install -N rubocop_challenger
             rubocop_challenger go \
               --email=rubocop-challenge@example.com \
               --name="'Rubocop Challenge'"
@@ -93,6 +93,7 @@ Options:
                                # Default: master
   l, [--labels=one two three]  # Label to give to Pull Request
                                # Default: ["rubocop challenge"]
+      [--no-commit]            # No commit after autocorrect
 
 Run `$ rubocop --auto-correct` and create PR to your GitHub repository
 ```
