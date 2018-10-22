@@ -6,9 +6,7 @@ module RubocopChallenger
       def initialize(rule, template_path = nil)
         template_path ||= './lib/templates/default.md.erb'
         @template = File.read(template_path)
-        @title       = rule.title
-        @rubydoc_url = rule.rubydoc_url
-        @description = rule.description
+        @rule = rule
       end
 
       def generate_pullrequest_markdown
@@ -20,7 +18,19 @@ module RubocopChallenger
 
       private
 
-      attr_reader :template, :title, :rubydoc_url, :description
+      attr_reader :template, :rule
+
+      def title
+        rule.title
+      end
+
+      def rubydoc_url
+        rule.rubydoc_url
+      end
+
+      def description
+        rule.description
+      end
     end
   end
 end
