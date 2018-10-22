@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'erb'
+require 'yard'
 require 'rubocop'
 require 'rubocop-rspec'
 require 'rubocop_challenger/rubocop/rule'

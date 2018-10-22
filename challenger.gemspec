@@ -28,6 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'rubocop'
   spec.add_runtime_dependency 'rubocop-rspec'
   spec.add_runtime_dependency 'thor'
+  spec.add_runtime_dependency 'yard'
 
   spec.add_development_dependency 'bundler', '~> 1.16'
   spec.add_development_dependency 'rake', '~> 10.0'
