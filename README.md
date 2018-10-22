@@ -93,6 +93,7 @@ Options:
                                # Default: master
   l, [--labels=one two three]  # Label to give to Pull Request
                                # Default: ["rubocop challenge"]
+      [--no-commit]            # No commit after autocorrect
 
 Run `$ rubocop --auto-correct` and create PR to your GitHub repository
 ```
