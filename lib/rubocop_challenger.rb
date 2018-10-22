@@ -10,6 +10,3 @@ require 'rubocop_challenger/rubocop/challenge'
 require 'rubocop_challenger/cli'
 require 'rubocop_challenger/version'
 require 'pr-daikou'
-
-module RubocopChallenger
-end
