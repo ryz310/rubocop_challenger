@@ -83,17 +83,18 @@ Usage:
   rubocop_challenger go --email=EMAIL --name=NAME
 
 Options:
-      --email=EMAIL            # Pull Request committer email
-      --name=NAME              # Pull Request committer name
-  f, [--file-path=FILE_PATH]   # Set your ".rubocop_todo.yml" path
-                               # Default: .rubocop_todo.yml
-      [--mode=MODE]            # Mode to select deletion target. You can choice "most_occurrence", "least_occurrence", or "random"
-                               # Default: most_occurrence
-      [--base=BASE]            # Base branch of Pull Request
-                               # Default: master
-  l, [--labels=one two three]  # Label to give to Pull Request
-                               # Default: ["rubocop challenge"]
-      [--no-commit]            # No commit after autocorrect
+      --email=EMAIL                                                # Pull Request committer email
+      --name=NAME                                                  # Pull Request committer name
+  f, [--file-path=FILE_PATH]                                       # Set your ".rubocop_todo.yml" path
+                                                                   # Default: .rubocop_todo.yml
+      [--mode=MODE]                                                # Mode to select deletion target. You can choice "most_occurrence", "least_occurrence", or "random"
+                                                                   # Default: most_occurrence
+      [--base=BASE]                                                # Base branch of Pull Request
+                                                                   # Default: master
+  l, [--labels=one two three]                                      # Label to give to Pull Request
+                                                                   # Default: ["rubocop challenge"]
+      [--regenerate-rubocop-todo], [--no-regenerate-rubocop-todo]  # Rerun `$ rubocop --auto-gen-config` after autocorrect
+      [--no-commit]                                                # No commit after autocorrect
 
 Run `$ rubocop --auto-correct` and create PR to your GitHub repository
 ```

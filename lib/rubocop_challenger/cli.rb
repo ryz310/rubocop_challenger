@@ -32,12 +32,17 @@ module RubocopChallenger
            default: ['rubocop challenge'],
            aliases: :l,
            desc: 'Label to give to Pull Request'
+    option :'regenerate-rubocop-todo',
+           type: :boolean,
+           default: false,
+           desc: 'Rerun `$ rubocop --auto-gen-config` after autocorrect'
     option :'no-commit',
            type: :boolean,
            default: false,
            desc: 'No commit after autocorrect'
     def go
       target_rule = Rubocop::Challenge.exec(options[:file_path], options[:mode])
+      regenerate_rubocop_todo if options[:'regenerate-rubocop-todo']
       PRDaikou.exec(pr_daikou_options(target_rule), nil) unless options[:'no-commit']
     rescue StandardError => e
       puts e.message
@@ -49,6 +54,10 @@ module RubocopChallenger
     end
 
     private
+
+    def regenerate_rubocop_todo
+      Rubocop::Command.new.auto_gen_config
+    end
 
     def pr_daikou_options(target_rule)
       {
