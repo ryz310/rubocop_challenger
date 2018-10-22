@@ -106,7 +106,7 @@ jobs:
       - run:
           name: Rubocop Challenge
           command: |
-            gem install rubocop_challenger
+            gem install -N rubocop_challenger
             rubocop_challenger go \
               --email=ryz310@gmail.com \
               --name=ryz310
