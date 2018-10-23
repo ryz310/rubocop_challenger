@@ -31,7 +31,11 @@ module RubocopChallenger
 
       def description
         message_const = "RuboCop::Cop::#{title.sub('/', '::')}::MSG"
-        Object.const_get(message_const) rescue '**NO DESCRIPTION**'
+        begin
+          Object.const_get(message_const)
+        rescue StandardError
+          '**NO DESCRIPTION**'
+        end
       end
 
       private
