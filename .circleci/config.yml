@@ -78,8 +78,7 @@ jobs:
     docker:
        - image: circleci/ruby:2.3-node-browsers
     <<: *rubocop
-
-  rubocop_challenge:
+  verify_rubocop_challenge:
     docker:
       - image: circleci/ruby:2.3-node-browsers
     working_directory: ~/repo
@@ -90,15 +89,16 @@ jobs:
       - *save_bundle_install_cache
       - run: bundle exec rake install
       - run:
-          name: Rubocop Challenge
+          name: Verify Rubocop Challenge
           command: |
             bundle exec exe/rubocop_challenger go \
               --email=ryz310@gmail.com \
               --name=ryz310 \
               --mode=random \
-              --regenerate-rubocop-todo
+              --regenerate-rubocop-todo \
+              --no-commit
 
-  rubocop_challenge_from_gem:
+  rubocop_challenge:
     docker:
       - image: circleci/ruby:2.3-node-browsers
     working_directory: ~/repo
@@ -144,17 +144,7 @@ workflows:
       - build_on_ruby_2.5
       - build_on_ruby_latest
       - rubocop
-      - rubocop_challenge:
-          requires:
-            - build_on_ruby_2.3
-            - build_on_ruby_2.4
-            - build_on_ruby_2.5
-            - build_on_ruby_latest
-            - rubocop
-          filters:
-            branches:
-              only:
-                - master
+      - verify_rubocop_challenge
       - release:
           context: RubyGems API Key
           requires:
@@ -171,10 +161,10 @@ workflows:
   challenge:
     triggers:
       - schedule:
-          cron: "30 23 * * 5" # 8:30am every Saturday (JST)
+          cron: "30 23 * * *" # 8:30am every day (JST)
           filters:
             branches:
               only:
                 - master
     jobs:
-      - rubocop_challenge_from_gem
+      - rubocop_challenge
