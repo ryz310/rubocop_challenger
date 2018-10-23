@@ -41,10 +41,9 @@ module RubocopChallenger
            default: false,
            desc: 'No commit after autocorrect'
     def go
-      target_rule = Rubocop::Challenge.exec(options[:file_path], options[:mode])
-      regenerate_rubocop_todo if options[:'regenerate-rubocop-todo']
-      pr_daikou_options = generate_pr_daikou_options(target_rule)
-      PRDaikou.exec(pr_daikou_options, nil) unless options[:'no-commit']
+      target_rule = rubocop_challenge
+      regenerate_rubocop_todo
+      create_pull_request(target_rule)
     rescue StandardError => e
       puts e.message
       exit!
@@ -65,8 +64,21 @@ module RubocopChallenger
 
     private
 
+    def rubocop_challenge
+      Rubocop::Challenge.exec(options[:file_path], options[:mode])
+    end
+
     def regenerate_rubocop_todo
+      return unless options[:'regenerate-rubocop-todo']
+
       Rubocop::Command.new.auto_gen_config
+    end
+
+    def create_pull_request(rule)
+      pr_daikou_options = generate_pr_daikou_options(rule)
+      return if options[:'no-commit']
+
+      PRDaikou.exec(pr_daikou_options, nil)
     end
 
     def generate_pr_daikou_options(target_rule)
