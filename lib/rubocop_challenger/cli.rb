@@ -66,6 +66,7 @@ module RubocopChallenger
         name:   options[:name],
         base:   options[:base],
         title:  target_rule.title,
+        description: pr_template(target_rule),
         labels: options[:labels].join(','),
         topic:  generate_topic(target_rule),
         commit: ":robot: #{target_rule.title}"
@@ -74,6 +75,10 @@ module RubocopChallenger
 
     def generate_topic(rule)
       "rubocop-challenge/#{rule.title.tr('/', '-')}-#{timestamp}"
+    end
+
+    def pr_template(rule)
+      Github::PrTemplate.new(rule).generate_pullrequest_markdown
     end
 
     def timestamp
