@@ -10,12 +10,24 @@ I call such work *Rubocop Challenge*. And the *RubocopChallenger* is a gem to su
 ## Rubocop Challenge Flow
 
 1. Run *RubocopChallenger* periodically from CI tool etc.
-2. When *RubocopChallenger* starts, delete a disabled rule from `.rubocop_todo.yml` existing in your project, execute `$ rubocop --auto-correct` and create a PR which include modified results
-3. You confirm the PR passes testing and then merge it if there is no problem
+1. When *RubocopChallenger* starts, delete a disabled rule from `.rubocop_todo.yml` existing in your project, execute `$ rubocop --auto-correct` and create a PR which include modified results
+1. You confirm the PR passes testing and then merge it if there is no problem
 
-## Example
+## Usage
 
-### Using [CircleCI 2.0](https://circleci.com)
+### 1. Setting GitHub personal access token
+
+GitHub personal access token is required for sending pull requests to your repository.
+
+1. Go to [your account's settings page](https://github.com/settings/tokens) and [generate a new token](https://github.com/settings/tokens/new) with "repo" scope
+  ![generate token](images/generate_token.png)
+1. On [CircleCI](https://circleci.com) dashboard, go to your application's "Project Settings" -> "Environment Variables"
+1. Add an environment variable `GITHUB_ACCESS_TOKEN` with your GitHub personal access token
+  ![circleci environment variables](images/circleci_environment_variables.png)
+
+### 2. Configure .circleci/config.yml
+
+Configure your `.circleci/config.yml` to run rubocop_challenger, for example:
 
 ```yml
 # .circleci/config.yml
@@ -31,7 +43,7 @@ jobs:
       - run:
           name: Rubocop Challenge
           command: |
-            gem install rubocop_challenger
+            gem install -N rubocop_challenger
             rubocop_challenger go \
               --email=rubocop-challenge@example.com \
               --name="'Rubocop Challenge'"
@@ -51,7 +63,7 @@ workflows:
       - rubocop_challenge
 ```
 
-## Usage
+## CLI command references
 
 ```sh
 $ rubocop_challenger help
@@ -71,16 +83,18 @@ Usage:
   rubocop_challenger go --email=EMAIL --name=NAME
 
 Options:
-      --email=EMAIL            # Pull Request committer email
-      --name=NAME              # Pull Request committer name
-  f, [--file-path=FILE_PATH]   # Set your ".rubocop_todo.yml" path
-                               # Default: .rubocop_todo.yml
-      [--mode=MODE]            # Mode to select deletion target. You can choice "most_occurrence", "least_occurrence", or "random"
-                               # Default: most_occurrence
-      [--base=BASE]            # Base branch of Pull Request
-                               # Default: master
-  l, [--labels=one two three]  # Label to give to Pull Request
-                               # Default: ["rubocop challenge"]
+      --email=EMAIL                                                # Pull Request committer email
+      --name=NAME                                                  # Pull Request committer name
+  f, [--file-path=FILE_PATH]                                       # Set your ".rubocop_todo.yml" path
+                                                                   # Default: .rubocop_todo.yml
+      [--mode=MODE]                                                # Mode to select deletion target. You can choice "most_occurrence", "least_occurrence", or "random"
+                                                                   # Default: most_occurrence
+      [--base=BASE]                                                # Base branch of Pull Request
+                                                                   # Default: master
+  l, [--labels=one two three]                                      # Label to give to Pull Request
+                                                                   # Default: ["rubocop challenge"]
+      [--regenerate-rubocop-todo], [--no-regenerate-rubocop-todo]  # Rerun `$ rubocop --auto-gen-config` after autocorrect
+      [--no-commit]                                                # No commit after autocorrect
 
 Run `$ rubocop --auto-correct` and create PR to your GitHub repository
 ```
@@ -88,6 +102,7 @@ Run `$ rubocop --auto-correct` and create PR to your GitHub repository
 ## Requirement
 
 * Ruby 2.3 or higher
+    * NOTE: Ruby 2.3 will EOL soon (See: [Ruby Maintenance Branches](https://www.ruby-lang.org/en/downloads/branches/))
 
 ## Development
 

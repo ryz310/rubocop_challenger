@@ -32,11 +32,21 @@ module RubocopChallenger
            default: ['rubocop challenge'],
            aliases: :l,
            desc: 'Label to give to Pull Request'
+    option :'regenerate-rubocop-todo',
+           type: :boolean,
+           default: false,
+           desc: 'Rerun `$ rubocop --auto-gen-config` after autocorrect'
+    option :'no-commit',
+           type: :boolean,
+           default: false,
+           desc: 'No commit after autocorrect'
     def go
-      target_rule = Rubocop::Challenge.exec(options[:file_path], options[:mode])
-      PRDaikou.exec(pr_daikou_options(target_rule), nil)
+      target_rule = rubocop_challenge
+      regenerate_rubocop_todo
+      create_pull_request(target_rule)
     rescue StandardError => e
       puts e.message
+      exit!
     end
 
     desc 'version', 'Show current version'
@@ -44,22 +54,52 @@ module RubocopChallenger
       puts RubocopChallenger::VERSION
     end
 
+    module ClassMethods
+      # Workaround to return exit code 1 when an error occurs
+      # @see https://github.com/erikhuda/thor/issues/244
+      def exit_on_failure?
+        true
+      end
+    end
+
     private
 
-    def pr_daikou_options(target_rule)
+    def rubocop_challenge
+      Rubocop::Challenge.exec(options[:file_path], options[:mode])
+    end
+
+    def regenerate_rubocop_todo
+      return unless options[:'regenerate-rubocop-todo']
+
+      Rubocop::Command.new.auto_gen_config
+    end
+
+    def create_pull_request(rule)
+      pr_daikou_options = generate_pr_daikou_options(rule)
+      return if options[:'no-commit']
+
+      PRDaikou.exec(pr_daikou_options, nil)
+    end
+
+    def generate_pr_daikou_options(target_rule)
       {
-        email:  options[:email],
-        name:   options[:name],
-        base:   options[:base],
-        title:  target_rule.title,
-        labels: options[:labels].join(','),
-        topic:  topic(target_rule),
-        commit: ":robot: #{target_rule.title}"
+        email:       options[:email],
+        name:        options[:name],
+        base:        options[:base],
+        title:       target_rule.title,
+        description: pr_template(target_rule),
+        labels:      options[:labels].join(','),
+        topic:       generate_topic(target_rule),
+        commit:      ":robot: #{target_rule.title}"
       }
     end
 
-    def topic(rule)
+    def generate_topic(rule)
       "rubocop-challenge/#{rule.title.tr('/', '-')}-#{timestamp}"
+    end
+
+    def pr_template(rule)
+      Github::PrTemplate.new(rule).generate_pullrequest_markdown
     end
 
     def timestamp
