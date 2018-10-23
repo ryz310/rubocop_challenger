@@ -12,6 +12,3 @@ require 'rubocop_challenger/cli'
 require 'rubocop_challenger/version'
 require 'rubocop_challenger/github/pr_template.rb'
 require 'pr-daikou'
-
-module RubocopChallenger
-end
