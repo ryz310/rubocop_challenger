@@ -52,18 +52,23 @@ module RubocopChallenger
 
     def pr_daikou_options(target_rule)
       {
-        email:  options[:email],
-        name:   options[:name],
-        base:   options[:base],
-        title:  target_rule.title,
-        labels: options[:labels].join(','),
-        topic:  topic(target_rule),
-        commit: ":robot: #{target_rule.title}"
+        email:       options[:email],
+        name:        options[:name],
+        base:        options[:base],
+        title:       target_rule.title,
+        description: pr_template(target_rule),
+        labels:      options[:labels].join(','),
+        topic:       topic(target_rule),
+        commit:      ":robot: #{target_rule.title}"
       }
     end
 
     def topic(rule)
       "rubocop-challenge/#{rule.title.tr('/', '-')}-#{timestamp}"
+    end
+
+    def pr_template(rule)
+      Github::PrTemplate.new(rule).generate_pullrequest_markdown
     end
 
     def timestamp
