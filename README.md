@@ -87,6 +87,7 @@ Options:
       --name=NAME                                                  # Pull Request committer name
   f, [--file-path=FILE_PATH]                                       # Set your ".rubocop_todo.yml" path
                                                                    # Default: .rubocop_todo.yml
+  t, [--template=TEMPLATE]                                         # Pull Request template `erb` file path.You can use variable that `title`, `rubydoc_url` and `description` into the erb file.
       [--mode=MODE]                                                # Mode to select deletion target. You can choice "most_occurrence", "least_occurrence", or "random"
                                                                    # Default: most_occurrence
       [--base=BASE]                                                # Base branch of Pull Request
