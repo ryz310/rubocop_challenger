@@ -95,6 +95,7 @@ jobs:
               --email=ryz310@gmail.com \
               --name=ryz310 \
               --mode=random \
+              --labels='rubocop challenge' 'in progress' \
               --regenerate-rubocop-todo \
               --no-commit
 
@@ -111,6 +112,8 @@ jobs:
             rubocop_challenger go \
               --email=ryz310@gmail.com \
               --name=ryz310 \
+              --template=./lib/templates/checklist.md.erb \
+              --labels='rubocop challenge' 'in progress' \
               --regenerate-rubocop-todo
 
   release:
@@ -157,6 +160,9 @@ workflows:
             branches:
               only:
                 - production
+      - rubocop_challenge:
+          requires:
+            - release
 
   challenge:
     triggers:
