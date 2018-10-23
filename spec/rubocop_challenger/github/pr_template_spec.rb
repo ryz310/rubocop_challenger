@@ -15,8 +15,11 @@ RSpec.describe RubocopChallenger::Github::PrTemplate do
     CONTENTS
 
     let(:expected_template) { <<~EXPECTED }
-      Rubocop challenge!
+      # Rubocop challenge!
+
       [Style/ExpandPathArguments](https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/ExpandPathArguments)
+
+      ## Description
 
       > Use `expand_path(%<new_path>s%<new_default_dir>s)` instead of `expand_path(%<current_path>s, __FILE__)`.
 
