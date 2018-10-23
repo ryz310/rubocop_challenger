@@ -112,6 +112,7 @@ jobs:
             rubocop_challenger go \
               --email=ryz310@gmail.com \
               --name=ryz310 \
+              --template=./lib/templates/checklist.md.erb \
               --labels='rubocop challenge' 'in progress' \
               --regenerate-rubocop-todo
 
