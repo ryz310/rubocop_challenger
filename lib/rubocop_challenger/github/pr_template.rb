@@ -4,7 +4,7 @@ module RubocopChallenger
   module Github
     class PrTemplate
       def initialize(rule, template_path = nil)
-        template_path ||= './lib/templates/default.md.erb'
+        template_path ||= File.expand_path('../../templates/default.md.erb', __dir__)
         @template = File.read(template_path)
         @rule = rule
       end
