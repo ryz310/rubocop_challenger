@@ -95,7 +95,8 @@ jobs:
               --email=ryz310@gmail.com \
               --name=ryz310 \
               --mode=random \
-              --no-commit=true
+              --regenerate-rubocop-todo \
+              --no-commit
 
   rubocop_challenge:
     docker:
@@ -109,7 +110,8 @@ jobs:
             gem install -N rubocop_challenger
             rubocop_challenger go \
               --email=ryz310@gmail.com \
-              --name=ryz310
+              --name=ryz310 \
+              --regenerate-rubocop-todo
 
   release:
     docker:
