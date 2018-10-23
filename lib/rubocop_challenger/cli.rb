@@ -18,6 +18,12 @@ module RubocopChallenger
            default: '.rubocop_todo.yml',
            aliases: :f,
            desc: 'Set your ".rubocop_todo.yml" path'
+    option :template,
+           type: :string,
+           aliases: :t,
+           desc: 'Pull Request template `erb` file path.' \
+                 'You can use variable that `title`, `rubydoc_url` and ' \
+                 '`description` into the erb file.'
     option :mode,
            type: :string,
            default: 'most_occurrence',
@@ -99,7 +105,9 @@ module RubocopChallenger
     end
 
     def pr_template(rule)
-      Github::PrTemplate.new(rule).generate_pullrequest_markdown
+      Github::PrTemplate
+        .new(rule, options[:template])
+        .generate_pullrequest_markdown
     end
 
     def timestamp
