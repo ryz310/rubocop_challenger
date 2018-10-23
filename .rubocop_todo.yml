@@ -41,11 +41,6 @@ Style/Documentation:
     - 'lib/rubocop_challenger/rubocop/todo_reader.rb'
     - 'lib/rubocop_challenger/rubocop/todo_writer.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/RedundantSelf:
-  Exclude:
-    - 'lib/rubocop_challenger/rubocop/rule.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
