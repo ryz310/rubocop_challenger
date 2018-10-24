@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'bundler/setup'
+require 'rubocop_challenger'
+
+def exit_process(error_message)
+  puts error_message
+  exit!
+end
+
+VERSION_FORMAT = /\A\d+\.\d+\.\d+\z/
+version = ARGV[0]
+
+exit_process 'usage: bin/create_release_pr version' if version.nil?
+exit_process 'A version must be like a `1.2.3`' unless version =~ VERSION_FORMAT
+exit_process 'There is uncommitted modify' unless `git diff --numstat` == ''
+
+File.write('lib/rubocop_challenger/version.rb', <<~VERSION)
+  # frozen_string_literal: true
+
+  module RubocopChallenger
+    VERSION = '#{version}'
+  end
+VERSION
