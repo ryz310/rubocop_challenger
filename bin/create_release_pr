@@ -11,13 +11,17 @@ def exit_process(error_message)
   exit!
 end
 
+def exist_uncommitted_modify?
+  `git add -n .; git diff --name-only` != ''
+end
+
 VERSION_FORMAT = /\A\d+\.\d+\.\d+\z/
 version = ARGV[0]
 
 # Verifying
 exit_process 'usage: bin/create_release_pr VERSION' if version.nil?
 exit_process 'A version must be like a `1.2.3`' unless version =~ VERSION_FORMAT
-exit_process 'There is uncommitted modify' unless `git diff --numstat` == ''
+exit_process 'There are uncommitted modify' if exist_uncommitted_modify?
 
 # Modify a version file
 File.write('lib/rubocop_challenger/version.rb', <<~VERSION)
