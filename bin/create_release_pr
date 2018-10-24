@@ -42,6 +42,7 @@ PRDaikou.exec(
     name:        `git config user.name`,
     base:        'master',
     title:       "Update v#{version}",
+    labels:      '',
     topic:       "update/v#{version}",
     commit:      "Update v#{version}"
   }, nil
