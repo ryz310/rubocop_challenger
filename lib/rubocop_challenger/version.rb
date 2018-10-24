@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module RubocopChallenger
-  VERSION = '0.3.1'
+  VERSION = '1.2.3'
 end
