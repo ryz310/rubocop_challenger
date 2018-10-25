@@ -2,21 +2,25 @@
 
 module RubocopChallenger
   module Rubocop
-    class YardocReader
+    class Yardoc
       def initialize(title)
         @cop_class = Object.const_get("RuboCop::Cop::#{title.sub('/', '::')}")
+        YARD.parse(source_file_path)
+        @yardoc = YARD::Registry.all(:class).first
+        YARD::Registry.clear
       end
 
-      def read
-        YARD.parse(source_file_path)
-        yardoc = YARD::Registry.all(:class).first.docstring
-        YARD::Registry.clear
-        yardoc
+      def description
+        yardoc.docstring
+      end
+
+      def examples
+        yardoc.tags('example').map(&:text)
       end
 
       private
 
-      attr_reader :cop_class
+      attr_reader :cop_class, :yardoc
 
       def instance_methods
         [

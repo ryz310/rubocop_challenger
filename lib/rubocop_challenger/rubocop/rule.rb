@@ -5,12 +5,15 @@ module RubocopChallenger
     class Rule
       include Comparable
 
-      attr_reader :title, :offense_count, :contents
+      attr_reader :title, :offense_count, :contents, :description, :examples
 
       def initialize(contents)
         @contents = contents.dup
         @title = extract_title
         @offense_count = extract_offense_count
+        yardoc = Yardoc.new(title)
+        @description = yardoc.description
+        @examples = yardoc.examples
       end
 
       def <=>(other)
@@ -27,12 +30,6 @@ module RubocopChallenger
         else
           "https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/#{title}"
         end
-      end
-
-      def description
-        YardocReader.new(title).read
-      rescue StandardError
-        '**NO DESCRIPTION**'
       end
 
       private
