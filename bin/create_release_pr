@@ -1,0 +1,49 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# usage: bin/create_release_pr VERSION
+
+require 'bundler/setup'
+require 'rubocop_challenger'
+
+def exit_process(error_message)
+  puts error_message
+  exit!
+end
+
+def exist_uncommitted_modify?
+  `git add -n .; git diff --name-only` != ''
+end
+
+VERSION_FORMAT = /\A\d+\.\d+\.\d+\z/
+version = ARGV[0]
+
+# Verifying
+exit_process 'usage: bin/create_release_pr VERSION' if version.nil?
+exit_process 'A version must be like a `1.2.3`' unless version =~ VERSION_FORMAT
+exit_process 'There are uncommitted modify' if exist_uncommitted_modify?
+
+# Modify a version file
+File.write('lib/rubocop_challenger/version.rb', <<~VERSION)
+  # frozen_string_literal: true
+
+  module RubocopChallenger
+    VERSION = '#{version}'
+  end
+VERSION
+
+# Bundle Install
+`bundle install`
+
+# Create PR
+PRDaikou.exec(
+  {
+    email:       `git config user.email`,
+    name:        `git config user.name`,
+    base:        'master',
+    title:       "Update v#{version}",
+    labels:      '',
+    topic:       "update/v#{version}",
+    commit:      "Update v#{version}"
+  }, nil
+)
