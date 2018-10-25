@@ -176,12 +176,19 @@ RSpec.describe RubocopChallenger::Rubocop::Rule do
           Max: 112
       CONTENTS
 
-      it "returns the cop class' description" do
-        expect(description).to eq RuboCop::Cop::Metrics::BlockLength::MSG
+      let(:yardoc) { <<~YARDOC }
+        This cop checks if the length of a block exceeds some maximum value.
+        Comment lines can optionally be ignored.
+        The maximum allowed length is configurable.
+        The cop can be configured to ignore blocks passed to certain methods.
+      YARDOC
+
+      it "returns the cop class' yardoc" do
+        expect(description).to eq yardoc
       end
     end
 
-    context 'when the rule dose not have constant variable `MSG`' do
+    context 'when raise some error' do
       let(:rule) { described_class.new(<<~CONTENTS) }
         # Offense count: 1
         # Cop supports --auto-correct.
@@ -192,6 +199,10 @@ RSpec.describe RubocopChallenger::Rubocop::Rule do
           Exclude:
             - 'Gemfile'
       CONTENTS
+
+      before do
+        allow(RubocopChallenger::Rubocop::YardocReader).to receive(:new).and_raise
+      end
 
       it { is_expected.to eq '**NO DESCRIPTION**' }
     end
