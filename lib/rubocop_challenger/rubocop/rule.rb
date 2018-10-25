@@ -30,10 +30,7 @@ module RubocopChallenger
       end
 
       def description
-        YARD.parse(rubocop_class_file_path)
-        yardoc = YARD::Registry.all(:class).first.format
-        YARD::Registry.clear
-        yardoc.strip!
+        YardocReader.new(title).read
       rescue StandardError
         '**NO DESCRIPTION**'
       end
@@ -48,19 +45,6 @@ module RubocopChallenger
       def extract_offense_count
         contents =~ /# Offense count: (\d+)/
         Regexp.last_match(1).to_i
-      end
-
-      def rubocop_class_file_path
-        cop = Object.const_get("RuboCop::Cop::#{title.sub('/', '::')}").new
-        source_locations =
-          cop
-          .methods
-          .map { cop.method(m).source_location }
-          .reject(&:nil?)
-
-        source_locations.find do |source_location|
-          source_location.end_with? ''
-        end
       end
     end
   end
