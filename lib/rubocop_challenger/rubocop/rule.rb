@@ -14,7 +14,7 @@ module RubocopChallenger
       end
 
       def <=>(other)
-        self.offense_count <=> other.offense_count
+        offense_count <=> other.offense_count
       end
 
       def auto_correctable?
