@@ -5,15 +5,12 @@ module RubocopChallenger
     class Rule
       include Comparable
 
-      attr_reader :title, :offense_count, :contents, :description, :examples
+      attr_reader :title, :offense_count, :contents
 
       def initialize(contents)
         @contents = contents.dup
         @title = extract_title
         @offense_count = extract_offense_count
-        yardoc = Yardoc.new(title)
-        @description = yardoc.description
-        @examples = yardoc.examples
       end
 
       def <=>(other)

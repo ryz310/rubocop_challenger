@@ -163,48 +163,4 @@ RSpec.describe RubocopChallenger::Rubocop::Rule do
       end
     end
   end
-
-  describe '#description' do
-    subject(:description) { rule.description }
-
-    let(:rule) { described_class.new('contents') }
-
-    let(:yardoc) do
-      double(
-        RubocopChallenger::Rubocop::Yardoc,
-        description: 'description',
-        examples: %w[example1 example2]
-      )
-    end
-
-    before do
-      allow(RubocopChallenger::Rubocop::Yardoc).to receive(:new).and_return(yardoc)
-    end
-
-    it "returns the cop class' description using RubocopChallenger::Rubocop::Yardoc" do
-      expect(description).to eq 'description'
-    end
-  end
-
-  describe '#examples' do
-    subject(:examples) { rule.examples }
-
-    let(:rule) { described_class.new('contents') }
-
-    let(:yardoc) do
-      double(
-        RubocopChallenger::Rubocop::Yardoc,
-        description: 'description',
-        examples: %w[example1 example2]
-      )
-    end
-
-    before do
-      allow(RubocopChallenger::Rubocop::Yardoc).to receive(:new).and_return(yardoc)
-    end
-
-    it "returns the cop class' examples using RubocopChallenger::Rubocop::Yardoc" do
-      expect(examples).to eq %w[example1 example2]
-    end
-  end
 end

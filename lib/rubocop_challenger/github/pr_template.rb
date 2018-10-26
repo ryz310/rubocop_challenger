@@ -7,6 +7,7 @@ module RubocopChallenger
         template_path ||= File.expand_path('../../templates/default.md.erb', __dir__)
         @template = File.read(template_path)
         @rule = rule
+        @yardoc = Rubocop::Yardoc.new(title)
       end
 
       def generate_pullrequest_markdown
@@ -18,7 +19,7 @@ module RubocopChallenger
 
       private
 
-      attr_reader :template, :rule
+      attr_reader :template, :rule, :yardoc
 
       def title
         rule.title
@@ -29,7 +30,11 @@ module RubocopChallenger
       end
 
       def description
-        rule.description
+        yardoc.description
+      end
+
+      def examples
+        yardoc.examples
       end
     end
   end
