@@ -22,8 +22,8 @@ module RubocopChallenger
            type: :string,
            aliases: :t,
            desc: 'Pull Request template `erb` file path.' \
-                 'You can use variable that `title`, `rubydoc_url` and ' \
-                 '`description` into the erb file.'
+                 'You can use variable that `title`, `rubydoc_url`, ' \
+                 '`description` and `examples` into the erb file.'
     option :mode,
            type: :string,
            default: 'most_occurrence',
