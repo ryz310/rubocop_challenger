@@ -15,7 +15,7 @@ def exist_uncommitted_modify?
   `git add -n .; git diff --name-only` != ''
 end
 
-VERSION_FORMAT = /\A\d+\.\d+\.\d+\z/
+VERSION_FORMAT = /\A\d+\.\d+\.\d+\z/.freeze
 version = ARGV[0]
 
 # Verifying
@@ -38,12 +38,12 @@ VERSION
 # Create PR
 PRDaikou.exec(
   {
-    email:       `git config user.email`,
-    name:        `git config user.name`,
-    base:        'master',
-    title:       "Update v#{version}",
-    labels:      '',
-    topic:       "update/v#{version}",
-    commit:      "Update v#{version}"
+    email: `git config user.email`,
+    name: `git config user.name`,
+    base: 'master',
+    title: "Update v#{version}",
+    labels: '',
+    topic: "update/v#{version}",
+    commit: "Update v#{version}"
   }, nil
 )
