@@ -1,11 +1,12 @@
 PATH
   remote: .
   specs:
-    rubocop_challenger (0.3.1)
+    rubocop_challenger (0.4.0)
       pr-daikou (~> 0.2.0)
       rubocop
       rubocop-rspec
       thor
+      yard
 
 GEM
   remote: https://rubygems.org/
@@ -48,6 +49,7 @@ GEM
     ruby-progressbar (1.10.0)
     thor (0.20.0)
     unicode-display_width (1.4.0)
+    yard (0.9.16)
 
 PLATFORMS
   ruby

@@ -4,6 +4,18 @@
 
 ## Description
 
+> ### Overview
+>
 <% description.each_line do |line| -%>
-> <%= line.chomp %>
+<%= "> #{line}".chomp.strip %>
+<% end -%>
+>
+> ### Examples
+<% examples.each do |example| -%>
+>
+> ```rb
+<% example.each_line do |line| -%>
+<%= "> #{line}".chomp.strip %>
+<% end -%>
+> ```
 <% end -%>
