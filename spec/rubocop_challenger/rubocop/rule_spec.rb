@@ -167,44 +167,44 @@ RSpec.describe RubocopChallenger::Rubocop::Rule do
   describe '#description' do
     subject(:description) { rule.description }
 
-    context 'when the rule has constant variable `MSG`' do
-      let(:rule) { described_class.new(<<~CONTENTS) }
-        # Offense count: 2
-        # Configuration parameters: CountComments, ExcludedMethods.
-        # ExcludedMethods: refine
-        Metrics/BlockLength:
-          Max: 112
-      CONTENTS
+    let(:rule) { described_class.new('contents') }
 
-      let(:yardoc) { <<~YARDOC }
-        This cop checks if the length of a block exceeds some maximum value.
-        Comment lines can optionally be ignored.
-        The maximum allowed length is configurable.
-        The cop can be configured to ignore blocks passed to certain methods.
-      YARDOC
-
-      it "returns the cop class' yardoc" do
-        expect(description).to eq yardoc
-      end
+    let(:yardoc) do
+      double(
+        RubocopChallenger::Rubocop::Yardoc,
+        description: 'description',
+        examples: %w[example1 example2]
+      )
     end
 
-    context 'when raise some error' do
-      let(:rule) { described_class.new(<<~CONTENTS) }
-        # Offense count: 1
-        # Cop supports --auto-correct.
-        # Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces, SpaceBeforeBlockParameters.
-        # SupportedStyles: space, no_space
-        # SupportedStylesForEmptyBraces: space, no_space
-        Layout/SpaceInsideBlockBraces:
-          Exclude:
-            - 'Gemfile'
-      CONTENTS
+    before do
+      allow(RubocopChallenger::Rubocop::Yardoc).to receive(:new).and_return(yardoc)
+    end
 
-      before do
-        allow(RubocopChallenger::Rubocop::YardocReader).to receive(:new).and_raise
-      end
+    it "returns the cop class' description using RubocopChallenger::Rubocop::Yardoc" do
+      expect(description).to eq 'description'
+    end
+  end
 
-      it { is_expected.to eq '**NO DESCRIPTION**' }
+  describe '#examples' do
+    subject(:examples) { rule.examples }
+
+    let(:rule) { described_class.new('contents') }
+
+    let(:yardoc) do
+      double(
+        RubocopChallenger::Rubocop::Yardoc,
+        description: 'description',
+        examples: %w[example1 example2]
+      )
+    end
+
+    before do
+      allow(RubocopChallenger::Rubocop::Yardoc).to receive(:new).and_return(yardoc)
+    end
+
+    it "returns the cop class' examples using RubocopChallenger::Rubocop::Yardoc" do
+      expect(examples).to eq %w[example1 example2]
     end
   end
 end
