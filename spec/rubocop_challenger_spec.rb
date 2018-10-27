@@ -13,10 +13,11 @@ RSpec.describe RubocopChallenger do
     end
 
     it 'includes following execution result: `$ rubocop_challenger help`' do
-      execution_result = strip_whitespace(`bundle exec exe/rubocop_challenger help`)
+      result = `bundle exec exe/rubocop_challenger help`
       puts '=' * 100
-      puts "readme_file : \n#{readme_file}"
+      puts "result : \n#{result}"
       puts '=' * 100
+      execution_result = strip_whitespace(result)
       puts "execution_result : \n#{execution_result}"
       puts '=' * 100
       expect(readme_file).to include execution_result
