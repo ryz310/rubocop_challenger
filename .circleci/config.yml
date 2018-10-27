@@ -108,8 +108,8 @@ jobs:
       - run:
           name: Rubocop Challenge
           command: |
-            gem install -N rubocop_challenger
-            rubocop_challenger go \
+            bundle install
+            bundle exec rubocop_challenger go \
               --email=ryz310@gmail.com \
               --name=ryz310 \
               --template=./lib/templates/checklist.md.erb \
