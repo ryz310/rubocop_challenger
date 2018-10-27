@@ -17,6 +17,9 @@ RSpec.describe RubocopChallenger do
       puts '=' * 100
       puts "execution_result : \n#{execution_result}"
       puts '=' * 100
+      execution_result = strip_whitespace(`bundle exec exe/rubocop_challenger help`)
+      puts "execution_result2 : \n#{execution_result}"
+      puts '=' * 100
       expect(readme_file).to include execution_result
     end
 
