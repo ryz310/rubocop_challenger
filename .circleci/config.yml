@@ -160,9 +160,6 @@ workflows:
             branches:
               only:
                 - production
-      - rubocop_challenge:
-          requires:
-            - release
 
   challenge:
     triggers:
