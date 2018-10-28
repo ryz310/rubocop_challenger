@@ -15,7 +15,15 @@ I call such work *Rubocop Challenge*. And the *RubocopChallenger* is a gem to su
 
 ## Usage
 
-### 1. Setting GitHub personal access token
+### 1. Edit your Gemfile
+
+Put this line in your Gemfile.
+
+```rb
+gem 'rubocop_challenger', group: :development, require: false
+```
+
+### 2. Setting GitHub personal access token
 
 GitHub personal access token is required for sending pull requests to your repository.
 
@@ -25,7 +33,7 @@ GitHub personal access token is required for sending pull requests to your repos
 1. Add an environment variable `GITHUB_ACCESS_TOKEN` with your GitHub personal access token
   ![circleci environment variables](images/circleci_environment_variables.png)
 
-### 2. Configure .circleci/config.yml
+### 3. Configure .circleci/config.yml
 
 Configure your `.circleci/config.yml` to run rubocop_challenger, for example:
 
@@ -43,8 +51,8 @@ jobs:
       - run:
           name: Rubocop Challenge
           command: |
-            gem install -N rubocop_challenger
-            rubocop_challenger go \
+            bundle install
+            bundle exec rubocop_challenger go \
               --email=rubocop-challenge@example.com \
               --name="'Rubocop Challenge'"
 
