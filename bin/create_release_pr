@@ -38,12 +38,12 @@ VERSION
 # Create PR
 PRDaikou.exec(
   {
-    email:       `git config user.email`,
-    name:        `git config user.name`,
-    base:        'master',
-    title:       "Update v#{version}",
-    labels:      '',
-    topic:       "update/v#{version}",
-    commit:      "Update v#{version}"
+    email: `git config user.email`,
+    name: `git config user.name`,
+    base: 'master',
+    title: "Update v#{version}",
+    labels: '',
+    topic: "update/v#{version}",
+    commit: "Update v#{version}"
   }, nil
 )
