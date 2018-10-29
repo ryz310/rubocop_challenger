@@ -7,6 +7,8 @@ On the other hand, `rubocop` has [`--auto-correct`](https://github.com/rubocop-h
 It is ideal that to remove a disabled rule from `.rubocop_todo.yml` every day, to check whether it passes test, and can be obtained consent from the team. But it requires strong persistence and time.
 I call such work *Rubocop Challenge*. And the *RubocopChallenger* is a gem to support this challenge!
 
+[![Rubocop Challenge](images/rubocop_challenge.png)](https://github.com/ryz310/rubocop_challenger/pull/97)
+
 ## Rubocop Challenge Flow
 
 1. Run *RubocopChallenger* periodically from CI tool etc.
