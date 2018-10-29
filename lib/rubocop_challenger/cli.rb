@@ -89,14 +89,14 @@ module RubocopChallenger
 
     def generate_pr_daikou_options(target_rule)
       {
-        email:       options[:email],
-        name:        options[:name],
-        base:        options[:base],
-        title:       target_rule.title,
+        email: options[:email],
+        name: options[:name],
+        base: options[:base],
+        title: target_rule.title,
         description: pr_template(target_rule),
-        labels:      options[:labels].join(','),
-        topic:       generate_topic(target_rule),
-        commit:      ":robot: #{target_rule.title}"
+        labels: options[:labels].join(','),
+        topic: generate_topic(target_rule),
+        commit: ":robot: #{target_rule.title}"
       }
     end
 
