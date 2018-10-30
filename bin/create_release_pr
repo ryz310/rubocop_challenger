@@ -32,18 +32,18 @@ File.write('lib/rubocop_challenger/version.rb', <<~VERSION)
   end
 VERSION
 
-# Bundle Install
-`bundle install`
+# Bundle Update
+`bundle update`
 
 # Create PR
 PRDaikou.exec(
   {
-    email:       `git config user.email`,
-    name:        `git config user.name`,
-    base:        'master',
-    title:       "Update v#{version}",
-    labels:      '',
-    topic:       "update/v#{version}",
-    commit:      "Update v#{version}"
+    email: `git config user.email`,
+    name: `git config user.name`,
+    base: 'master',
+    title: "Update v#{version}",
+    labels: '',
+    topic: "update/v#{version}",
+    commit: "Update v#{version}"
   }, nil
 )

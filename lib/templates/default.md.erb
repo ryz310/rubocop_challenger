@@ -11,10 +11,14 @@
 <% end -%>
 >
 > ### Examples
-<% examples.each do |example| -%>
+<% examples.each do |name, text| -%>
+<% unless name.empty? -%>
+>
+> #### <%= name %>
+<% end -%>
 >
 > ```rb
-<% example.each_line do |line| -%>
+<% text.each_line do |line| -%>
 <%= "> #{line}".chomp.strip %>
 <% end -%>
 > ```

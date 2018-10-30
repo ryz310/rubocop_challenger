@@ -4,11 +4,11 @@ module RubocopChallenger
   module Rubocop
     class Command
       def auto_correct
-        `rubocop --auto-correct || true`
+        `bundle exec rubocop --auto-correct || true`
       end
 
       def auto_gen_config
-        `rubocop --auto-gen-config || true`
+        `bundle exec rubocop --auto-gen-config || true`
       end
     end
   end
