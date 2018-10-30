@@ -4,12 +4,13 @@ require 'spec_helper'
 
 RSpec.describe RubocopChallenger::Rubocop::Yardoc do
   let(:yardoc) { described_class.new(title) }
-  let(:title) { 'Layout/SpaceInsidePercentLiteralDelimiters' }
+  let(:title) { 'Style/Alias' }
 
   describe '#description' do
     let(:docstring) { <<~DOCSTRING.chomp }
-      Checks for unnecessary additional spaces inside the delimiters of
-      %i/%w/%x literals.
+      This cop enforces the use of either `#alias` or `#alias_method`
+      depending on configuration.
+      It also flags uses of `alias :symbol` rather than `alias bareword`.
     DOCSTRING
 
     it 'returns cop description using yardoc' do
@@ -18,20 +19,29 @@ RSpec.describe RubocopChallenger::Rubocop::Yardoc do
   end
 
   describe '#examples' do
-    let(:example) { <<~EXAMPLE.chomp }
+    let(:example_1) { <<~EXAMPLE.chomp }
+      # bad
+      alias_method :bar, :foo
+      alias :bar :foo
 
       # good
-      %i(foo bar baz)
-
-      # bad
-      %w( foo bar baz )
-
-      # bad
-      %x(  ls -l )
+      alias bar foo
     EXAMPLE
 
-    it 'returns cop examples using yardoc' do
-      expect(yardoc.examples).to eq [example]
+    let(:example_2) { <<~EXAMPLE.chomp }
+      # bad
+      alias :bar :foo
+      alias bar foo
+
+      # good
+      alias_method :bar, :foo
+    EXAMPLE
+
+    it 'returns Array which includes cop examples name and text using yardoc' do
+      expect(yardoc.examples).to eq [
+        ['EnforcedStyle: prefer_alias (default)', example_1],
+        ['EnforcedStyle: prefer_alias_method',    example_2]
+      ]
     end
   end
 end

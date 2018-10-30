@@ -15,7 +15,7 @@ module RubocopChallenger
       end
 
       def examples
-        yardoc.tags('example').map(&:text)
+        yardoc.tags('example').map { |tag| [tag.name, tag.text] }
       end
 
       private
