@@ -32,8 +32,8 @@ File.write('lib/rubocop_challenger/version.rb', <<~VERSION)
   end
 VERSION
 
-# Bundle Install
-`bundle install`
+# Bundle Update
+`bundle update`
 
 # Create PR
 PRDaikou.exec(
