@@ -15,7 +15,7 @@ def exist_uncommitted_modify?
   `git add -n .; git diff --name-only` != ''
 end
 
-VERSION_FORMAT = /\A\d+\.\d+\.\d+\z/
+VERSION_FORMAT = /\A\d+\.\d+\.\d+\z/.freeze
 version = ARGV[0]
 
 # Verifying
