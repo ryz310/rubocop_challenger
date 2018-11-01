@@ -2,6 +2,7 @@
 
 module RubocopChallenger
   module Rubocop
+    # To edit `.rubocop_todo.yml`
     class TodoWriter
       def initialize(source, destination = source)
         @source = source
@@ -10,7 +11,8 @@ module RubocopChallenger
 
       def delete_rule(rubocop_rule)
         current_data = File.read(source)
-        File.write(destination, current_data.sub("\n#{rubocop_rule.contents}", ''))
+        contents = current_data.sub("\n#{rubocop_rule.contents}", '')
+        File.write(destination, contents)
       end
 
       private

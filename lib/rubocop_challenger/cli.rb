@@ -3,8 +3,9 @@
 require 'thor'
 
 module RubocopChallenger
+  # To define CLI commands
   class CLI < Thor
-    desc 'go', 'Run `$ rubocop --auto-correct` and create PR to your GitHub repository'
+    desc 'go', 'Run `$ rubocop --auto-correct` and create PR to GitHub repo'
     option :email,
            required: true,
            type: :string,
@@ -28,7 +29,8 @@ module RubocopChallenger
            type: :string,
            default: 'most_occurrence',
            desc: 'Mode to select deletion target. ' \
-                 'You can choice "most_occurrence", "least_occurrence", or "random"'
+                 'You can choice "most_occurrence", "least_occurrence", ' \
+                 'or "random"'
     option :base,
            type: :string,
            default: 'master',
@@ -60,9 +62,9 @@ module RubocopChallenger
       puts RubocopChallenger::VERSION
     end
 
+    # Workaround to return exit code 1 when an error occurs
+    # @see https://github.com/erikhuda/thor/issues/244
     module ClassMethods
-      # Workaround to return exit code 1 when an error occurs
-      # @see https://github.com/erikhuda/thor/issues/244
       def exit_on_failure?
         true
       end

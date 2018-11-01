@@ -66,27 +66,32 @@ RSpec.describe RubocopChallenger::Rubocop::TodoReader do
   end
 
   describe '#all_rules' do
+    let(:rules_which_ordered_by_offense_count) do
+      [
+        autocorrectable_rule_which_offence_count_is_1,
+        autocorrectable_rule_which_offence_count_is_2,
+        unautocorrectable_rule_which_offence_count_is_4,
+        autocorrectable_rule_which_offence_count_is_13
+      ]
+    end
+
     it 'returns all rubocop rules which ordered by offense count' do
-      expect(todo_reader.all_rules).to eq(
-        [
-          autocorrectable_rule_which_offence_count_is_1,
-          autocorrectable_rule_which_offence_count_is_2,
-          unautocorrectable_rule_which_offence_count_is_4,
-          autocorrectable_rule_which_offence_count_is_13
-        ]
-      )
+      expect(todo_reader.all_rules).to eq rules_which_ordered_by_offense_count
     end
   end
 
   describe '#auto_correctable_rules' do
+    let(:rules_which_ordered_by_offense_count) do
+      [
+        autocorrectable_rule_which_offence_count_is_1,
+        autocorrectable_rule_which_offence_count_is_2,
+        autocorrectable_rule_which_offence_count_is_13
+      ]
+    end
+
     it 'returns just auto correctable rules which ordered by offense count' do
-      expect(todo_reader.auto_correctable_rules).to eq(
-        [
-          autocorrectable_rule_which_offence_count_is_1,
-          autocorrectable_rule_which_offence_count_is_2,
-          autocorrectable_rule_which_offence_count_is_13
-        ]
-      )
+      expect(todo_reader.auto_correctable_rules)
+        .to eq rules_which_ordered_by_offense_count
     end
   end
 
@@ -108,7 +113,7 @@ RSpec.describe RubocopChallenger::Rubocop::TodoReader do
 
   describe '#any_rule' do
     it 'returns a auto correctable rule at random' do
-      expect(todo_reader.most_occurrence_rule)
+      expect(todo_reader.any_rule)
         .to eq(autocorrectable_rule_which_offence_count_is_1)
         .or eq(autocorrectable_rule_which_offence_count_is_2)
         .or eq(autocorrectable_rule_which_offence_count_is_13)
