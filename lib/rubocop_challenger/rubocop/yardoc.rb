@@ -2,6 +2,7 @@
 
 module RubocopChallenger
   module Rubocop
+    # To read YARD style documentation from rubocop gem source code
     class Yardoc
       def initialize(title)
         @cop_class = Object.const_get("RuboCop::Cop::#{title.sub('/', '::')}")

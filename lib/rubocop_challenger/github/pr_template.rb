@@ -2,6 +2,7 @@
 
 module RubocopChallenger
   module Github
+    # To generate Pull Request template as markdown
     class PrTemplate
       def initialize(rule, template_path = nil)
         template_path ||= File.expand_path('../../templates/default.md.erb', __dir__)

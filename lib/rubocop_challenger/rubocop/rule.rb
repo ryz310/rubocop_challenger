@@ -2,6 +2,7 @@
 
 module RubocopChallenger
   module Rubocop
+    # Parse rubocop rule which loaded from Rubocop::TodoReader class
     class Rule
       include Comparable
 

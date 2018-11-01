@@ -2,6 +2,7 @@
 
 module RubocopChallenger
   module Rubocop
+    # To read `.rubocop_todo.yml` and parse each rules
     class TodoReader
       def initialize(rubocop_todo_file_path)
         @rubocop_todo_file_path = rubocop_todo_file_path
