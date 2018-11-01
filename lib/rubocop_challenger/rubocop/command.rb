@@ -2,6 +2,7 @@
 
 module RubocopChallenger
   module Rubocop
+    # To execute rubocop gem command (Mainly for mock when testing)
     class Command
       def auto_correct
         `bundle exec rubocop --auto-correct || true`

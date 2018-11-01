@@ -2,6 +2,7 @@
 
 module RubocopChallenger
   module Rubocop
+    # To execute Rubocop Challenge flow
     class Challenge
       def self.exec(file_path, mode)
         new(file_path, mode).send(:exec)

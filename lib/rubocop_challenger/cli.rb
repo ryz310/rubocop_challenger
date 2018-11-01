@@ -3,6 +3,7 @@
 require 'thor'
 
 module RubocopChallenger
+  # To define CLI commands
   class CLI < Thor
     desc 'go', 'Run `$ rubocop --auto-correct` and create PR to your GitHub repository'
     option :email,
@@ -60,9 +61,9 @@ module RubocopChallenger
       puts RubocopChallenger::VERSION
     end
 
+    # Workaround to return exit code 1 when an error occurs
+    # @see https://github.com/erikhuda/thor/issues/244
     module ClassMethods
-      # Workaround to return exit code 1 when an error occurs
-      # @see https://github.com/erikhuda/thor/issues/244
       def exit_on_failure?
         true
       end

@@ -2,6 +2,7 @@
 
 module RubocopChallenger
   module Rubocop
+    # To edit `.rubocop_todo.yml`
     class TodoWriter
       def initialize(source, destination = source)
         @source = source

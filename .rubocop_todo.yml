@@ -6,20 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 9
-Style/Documentation:
-  Exclude:
-    - 'spec/**/*'
-    - 'test/**/*'
-    - 'lib/rubocop_challenger/cli.rb'
-    - 'lib/rubocop_challenger/github/pr_template.rb'
-    - 'lib/rubocop_challenger/rubocop/challenge.rb'
-    - 'lib/rubocop_challenger/rubocop/command.rb'
-    - 'lib/rubocop_challenger/rubocop/rule.rb'
-    - 'lib/rubocop_challenger/rubocop/todo_reader.rb'
-    - 'lib/rubocop_challenger/rubocop/todo_writer.rb'
-    - 'lib/rubocop_challenger/rubocop/yardoc.rb'
-
 # Offense count: 7
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https
