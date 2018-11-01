@@ -113,7 +113,7 @@ RSpec.describe RubocopChallenger::Rubocop::TodoReader do
 
   describe '#any_rule' do
     it 'returns a auto correctable rule at random' do
-      expect(todo_reader.most_occurrence_rule)
+      expect(todo_reader.any_rule)
         .to eq(autocorrectable_rule_which_offence_count_is_1)
         .or eq(autocorrectable_rule_which_offence_count_is_2)
         .or eq(autocorrectable_rule_which_offence_count_is_13)
