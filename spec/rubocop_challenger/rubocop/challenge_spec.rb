@@ -4,7 +4,9 @@ require 'spec_helper'
 
 RSpec.describe RubocopChallenger::Rubocop::Challenge do
   describe '.exec' do
-    subject(:rubocop_challenge_execute) { described_class.exec(file_path, mode) }
+    subject(:rubocop_challenge_execute) do
+      described_class.exec(file_path, mode)
+    end
 
     let(:file_path) { './spec/fixtures/.rubocop_todo.yml' }
 
