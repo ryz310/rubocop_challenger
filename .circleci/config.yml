@@ -39,7 +39,7 @@ references:
                             --format RspecJunitFormatter \
                             --out /tmp/test-results/rspec.xml \
                             $TEST_FILES
-          ./cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?
+          ./tmp/cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?
 
   - &build
     working_directory: ~/repo
