@@ -20,6 +20,17 @@ references:
       paths:
         - ./vendor/bundle
       key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+  - &run_rspec
+    run:
+        name: Run Rspec
+        command: |
+          mkdir /tmp/test-results
+          TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+          bundle exec rspec --format documentation \
+                            --color \
+                            --format RspecJunitFormatter \
+                            --out /tmp/test-results/rspec.xml \
+                            $TEST_FILES
 
   - &build
     working_directory: ~/repo
@@ -28,16 +39,7 @@ references:
       - *restore_bundle_install_cache
       - *bundle_install
       - *save_bundle_install_cache
-      - run:
-          name: Run Rspec
-          command: |
-            mkdir /tmp/test-results
-            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
-            bundle exec rspec --format documentation \
-                              --color \
-                              --format RspecJunitFormatter \
-                              --out /tmp/test-results/rspec.xml \
-                              $TEST_FILES
+      - *run_rspec
       - store_test_results:
           path: /tmp/test-results
       - store_artifacts:
