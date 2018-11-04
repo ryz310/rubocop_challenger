@@ -35,6 +35,9 @@ VERSION
 # Bundle Update
 `bundle update`
 
+# Regenerate .rubocop_todo.yml
+`bundle exec rubocop --auto-gen-config`
+
 # Create PR
 PRDaikou.exec(
   {
