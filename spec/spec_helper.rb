@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-# NOTE: If uninstalled `coveralls`, you should uncomment following codes
-# require 'simplecov'
-# SimpleCov.start
+require 'simplecov'
+SimpleCov.start
 
 require 'bundler/setup'
 require 'rubocop_challenger'
