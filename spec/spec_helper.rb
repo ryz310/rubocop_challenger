@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'coveralls'
-Coveralls.wear!
-
 # NOTE: If uninstalled `coveralls`, you should uncomment following codes
 # require 'simplecov'
 # SimpleCov.start
