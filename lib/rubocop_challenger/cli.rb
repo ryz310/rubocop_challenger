@@ -72,29 +72,32 @@ module RubocopChallenger
 
     private
 
+    def pr_creater
+      @pr_creater ||= GitHub::PrCreater.new(
+        ENV['GITHUB_ACCESS_TOKEN'],
+        branch: topic_branch_name,
+        user_name: options[:name],
+        user_email: options[:email]
+      )
+    end
+
     def rubocop_challenge
-      Rubocop::Challenge.exec(options[:file_path], options[:mode])
+      target_rule = Rubocop::Challenge.exec(options[:file_path], options[:mode])
+      pr_creater.commit(":robot: #{target_rule.title}")
+      target_rule
     end
 
     def regenerate_rubocop_todo
       return unless options[:'regenerate-rubocop-todo']
 
       Rubocop::Command.new.auto_gen_config
+      pr_creater.commit(':robot: regenerate rubocop todo')
     end
 
     def create_pull_request(rule)
       pr_creater_options = generate_pr_creater_options(rule)
       return if options[:'no-commit']
 
-      pr_creater =
-        GitHub::PrCreater.new(
-          ENV['GITHUB_ACCESS_TOKEN'],
-          branch: generate_topic_branch_name(rule),
-          user_name: options[:name],
-          user_email: options[:email]
-        )
-
-      pr_creater.commit(":robot: #{rule.title}")
       pr_creater.exec(pr_creater_options)
     end
 
@@ -113,8 +116,8 @@ module RubocopChallenger
         .generate_pullrequest_markdown
     end
 
-    def generate_topic_branch_name(rule)
-      "rubocop-challenge/#{rule.title.tr('/', '-')}-#{timestamp}"
+    def topic_branch_name
+      "rubocop-challenge/#{timestamp}"
     end
 
     def timestamp
