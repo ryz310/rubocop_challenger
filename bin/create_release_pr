@@ -11,17 +11,15 @@ def exit_process(error_message)
   exit!
 end
 
-def exist_uncommitted_modify?
-  `git add -n .; git diff --name-only` != ''
-end
-
 VERSION_FORMAT = /\A\d+\.\d+\.\d+\z/.freeze
 version = ARGV[0]
+git = RubocopChallenger::Git::Command.new
+rubocop = RubocopChallenger::Rubocop::Command.new
 
 # Verifying
 exit_process 'usage: bin/create_release_pr VERSION' if version.nil?
 exit_process 'A version must be like a `1.2.3`' unless version =~ VERSION_FORMAT
-exit_process 'There are uncommitted modify' if exist_uncommitted_modify?
+exit_process 'There are uncommitted modify' if git.exist_uncommitted_modify?
 
 # Modify a version file
 File.write('lib/rubocop_challenger/version.rb', <<~VERSION)
@@ -36,13 +34,13 @@ VERSION
 `bundle update`
 
 # Regenerate .rubocop_todo.yml
-`bundle exec rubocop --auto-gen-config`
+rubocop.auto_gen_config
 
 # Create PR
 PRDaikou.exec(
   {
-    email: `git config user.email`,
-    name: `git config user.name`,
+    email: git.user_email,
+    name: git.user_name,
     base: 'master',
     title: "Update v#{version}",
     labels: '',
