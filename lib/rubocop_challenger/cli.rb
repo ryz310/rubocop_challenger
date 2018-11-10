@@ -86,15 +86,16 @@ module RubocopChallenger
       pr_creater_options = generate_pr_creater_options(rule)
       return if options[:'no-commit']
 
-      pr_creater.exec(pr_creater_options)
-    end
+      pr_creater =
+        GitHub::PrCreater.new(
+          ENV['GITHUB_ACCESS_TOKEN'],
+          branch: generate_topic_branch_name(rule),
+          user_name: options[:name],
+          user_email: options[:email]
+        )
 
-    def pr_creater
-      @pr_creater ||= GitHub::PrCreater.new(
-        ENV['GITHUB_ACCESS_TOKEN'],
-        options[:name],
-        options[:email]
-      )
+      pr_creater.commit(":robot: #{rule.title}")
+      pr_creater.exec(pr_creater_options)
     end
 
     def generate_pr_creater_options(rule)
@@ -102,8 +103,6 @@ module RubocopChallenger
         title: "#{rule.title}-#{timestamp}",
         body: generate_pr_body(rule),
         base: options[:base],
-        topic: generate_topic_branch_name(rule),
-        message: ":robot: #{rule.title}",
         labels: options[:labels]
       }
     end
