@@ -67,4 +67,29 @@ RSpec.describe RubocopChallenger::Git::Command do
       expect(command).to have_received(:execute).with('git add foo.rb bar.rb')
     end
   end
+
+  describe '#commit' do
+    it do
+      command.commit('message')
+      expect(command).to have_received(:execute).with('git commit -m "message"')
+    end
+  end
+
+  describe '#push' do
+    it do
+      command.push('origin', 'new_branch')
+      expect(command)
+        .to have_received(:execute)
+        .with('git push origin new_branch')
+    end
+  end
+
+  describe '#remote_url' do
+    it do
+      command.remote_url('origin')
+      expect(command)
+        .to have_received(:execute)
+        .with('git remote get-url --push origin')
+    end
+  end
 end

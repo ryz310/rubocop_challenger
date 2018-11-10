@@ -29,6 +29,18 @@ module RubocopChallenger
         run('add', *files)
       end
 
+      def commit(message)
+        run('commit', '-m', "\"#{message}\"")
+      end
+
+      def push(remote, branch)
+        run('push', remote, branch)
+      end
+
+      def remote_url(remote)
+        run('remote', 'get-url', '--push', remote)
+      end
+
       private
 
       def run(*subcommands)
