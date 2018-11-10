@@ -98,7 +98,7 @@ module RubocopChallenger
       pr_creater_options = generate_pr_creater_options(rule)
       return if options[:'no-commit']
 
-      pr_creater.exec(pr_creater_options)
+      pr_creater.create_pr(pr_creater_options)
     end
 
     def generate_pr_creater_options(rule)

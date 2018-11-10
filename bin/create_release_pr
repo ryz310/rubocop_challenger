@@ -47,8 +47,4 @@ rubocop.auto_gen_config
 pr_creater.commit('Regenerate .rubocop_todo.yml')
 
 # Create PR
-pr_creater.exec(
-  title: "Update v#{version}",
-  body: '',
-  base: 'master'
-)
+pr_creater.create_pr(title: "Update v#{version}", body: '', base: 'master')

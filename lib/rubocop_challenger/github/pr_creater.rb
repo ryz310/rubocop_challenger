@@ -16,7 +16,7 @@ module RubocopChallenger
         git.commit(message)
       end
 
-      def exec(title:, body:, base:, labels: [])
+      def create_pr(title:, body:, base:, labels: [])
         return unless git.current_branch?(topic_branch)
 
         git.push('origin', topic_branch)
