@@ -25,9 +25,25 @@ RSpec.describe RubocopChallenger::Git::Command do
   end
 
   describe '#exist_uncommitted_modify?' do
+    subject(:execute) { command.exist_uncommitted_modify? }
+
     it do
-      command.user_email
-      expect(command).to have_received(:execute).with('git config user.email')
+      execute
+      expect(command)
+        .to have_received(:execute)
+        .with('git add -n .; git diff --name-only')
+    end
+
+    context 'when exist uncommitted modify' do
+      before { allow(command).to receive(:execute).and_return('foo.rb') }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context 'when does not exist uncommitted modify' do
+      before { allow(command).to receive(:execute).and_return('') }
+
+      it { is_expected.to be_falsey }
     end
   end
 
