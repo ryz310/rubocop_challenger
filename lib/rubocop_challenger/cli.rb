@@ -75,7 +75,7 @@ module RubocopChallenger
     def pr_creater
       @pr_creater ||= GitHub::PrCreater.new(
         ENV['GITHUB_ACCESS_TOKEN'],
-        branch: topic_branch_name,
+        branch: "rubocop-challenge/#{timestamp}",
         user_name: options[:name],
         user_email: options[:email]
       )
@@ -114,10 +114,6 @@ module RubocopChallenger
       Github::PrTemplate
         .new(rule, options[:template])
         .generate_pullrequest_markdown
-    end
-
-    def topic_branch_name
-      "rubocop-challenge/#{timestamp}"
     end
 
     def timestamp
