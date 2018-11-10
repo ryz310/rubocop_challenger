@@ -15,6 +15,13 @@ VERSION_FORMAT = /\A\d+\.\d+\.\d+\z/.freeze
 version = ARGV[0]
 git = RubocopChallenger::Git::Command.new
 rubocop = RubocopChallenger::Rubocop::Command.new
+pr_creater =
+  GitHub::PrCreater.new(
+    ENV['GITHUB_ACCESS_TOKEN'],
+    branch: "update/v#{version}",
+    user_name: options[:name],
+    user_email: options[:email]
+  )
 
 # Verifying
 exit_process 'usage: bin/create_release_pr VERSION' if version.nil?
@@ -29,22 +36,19 @@ File.write('lib/rubocop_challenger/version.rb', <<~VERSION)
     VERSION = '#{version}'
   end
 VERSION
+pr_creater.commit('Update version')
 
 # Bundle Update
 `bundle update`
+pr_creater.commit('Run $ bundle update')
 
 # Regenerate .rubocop_todo.yml
 rubocop.auto_gen_config
+pr_creater.commit('Regenerate .rubocop_todo.yml')
 
 # Create PR
-PRDaikou.exec(
-  {
-    email: git.user_email,
-    name: git.user_name,
-    base: 'master',
-    title: "Update v#{version}",
-    labels: '',
-    topic: "update/v#{version}",
-    commit: "Update v#{version}"
-  }, nil
+pr_creater.exec(
+  title: "Update v#{version}",
+  body: '',
+  base: 'master'
 )
