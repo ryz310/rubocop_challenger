@@ -3,7 +3,6 @@ PATH
   specs:
     rubocop_challenger (0.5.2)
       octokit
-      pr-daikou (~> 0.2.0)
       rubocop
       rubocop-rspec
       thor
@@ -28,7 +27,6 @@ GEM
     parser (2.5.3.0)
       ast (~> 2.4.0)
     powerpack (0.1.2)
-    pr-daikou (0.2.0)
     public_suffix (3.0.3)
     rainbow (3.0.0)
     rake (10.5.0)
