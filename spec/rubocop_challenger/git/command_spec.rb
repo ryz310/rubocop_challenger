@@ -84,6 +84,35 @@ RSpec.describe RubocopChallenger::Git::Command do
     end
   end
 
+  describe '#current_branch' do
+    it do
+      command.current_branch
+      expect(command)
+        .to have_received(:execute)
+        .with('git rev-parse --abbrev-ref HEAD')
+    end
+  end
+
+  describe '#current_branch?' do
+    subject { command.current_branch?('branch_name') }
+
+    context 'when current branch name and argument ones are same' do
+      before do
+        allow(command).to receive(:current_branch).and_return('branch_name')
+      end
+
+      it { is_expected.to be_truthy }
+    end
+
+    context 'when current branch name and argument ones are different' do
+      before do
+        allow(command).to receive(:current_branch).and_return('another_branch')
+      end
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
   describe '#remote_url' do
     it do
       command.remote_url('origin')

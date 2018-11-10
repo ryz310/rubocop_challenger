@@ -37,6 +37,14 @@ module RubocopChallenger
         run('push', remote, branch)
       end
 
+      def current_branch
+        run('rev-parse', '--abbrev-ref', 'HEAD')
+      end
+
+      def current_branch?(branch)
+        current_branch == branch
+      end
+
       def remote_url(remote)
         run('remote', 'get-url', '--push', remote)
       end
