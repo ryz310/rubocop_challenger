@@ -3,7 +3,7 @@
 module RubocopChallenger
   module Git
     # To execute git command
-    class Command
+    class Command < CommandLine
       def initialize(user_name: nil, user_email: nil)
         config('user.name', user_name) unless user_name.nil?
         config('user.email`', user_email) unless user_email.nil?
@@ -34,13 +34,6 @@ module RubocopChallenger
       def run(*subcommands)
         command = "git #{subcommands.join(' ')}"
         execute(command)
-      end
-
-      def execute(command)
-        puts "BEGIN: #{command}"
-        result = `#{command}`
-        puts "END: #{command}"
-        result
       end
 
       def config(key, value = nil)
