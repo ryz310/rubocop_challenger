@@ -83,27 +83,30 @@ module RubocopChallenger
     end
 
     def create_pull_request(rule)
-      pr_daikou_options = generate_pr_daikou_options(rule)
+      git = Git::Command.new(
+        user_name: options[:name],
+        user_email: options[:email]
+      )
+      return unless git.exist_uncommitted_modify?
+
+      access_token = ENV['GITHUB_ACCESS_TOKEN']
+      github = Github::Client.new(access_token, git.remote_url)
+
+      new_branch = "rubocop-challenge/#{rule.title.tr('/', '-')}-#{timestamp}"
+      git.checkout_with(new_branch)
+      git.add('.')
+      git.commit(":robot: #{rule.title}")
+      git.push('origin', new_branch)
+
       return if options[:'no-commit']
 
-      PRDaikou.exec(pr_daikou_options, nil)
-    end
-
-    def generate_pr_daikou_options(target_rule)
-      {
-        email: options[:email],
-        name: options[:name],
+      pr_number = github.create_pull_request(
         base: options[:base],
-        title: target_rule.title,
-        description: pr_template(target_rule),
-        labels: options[:labels].join(','),
-        topic: generate_topic(target_rule),
-        commit: ":robot: #{target_rule.title}"
-      }
-    end
-
-    def generate_topic(rule)
-      "rubocop-challenge/#{rule.title.tr('/', '-')}-#{timestamp}"
+        head: new_branch,
+        title: "#{rule.title}-#{timestamp}",
+        body: pr_template(rule)
+      )
+      github.add_labels(pr_number, options[:labels])
     end
 
     def pr_template(rule)
@@ -113,7 +116,7 @@ module RubocopChallenger
     end
 
     def timestamp
-      Time.now.strftime('%Y%m%d%H%M%S')
+      @timestamp ||= Time.now.strftime('%Y%m%d%H%M%S')
     end
   end
 end
