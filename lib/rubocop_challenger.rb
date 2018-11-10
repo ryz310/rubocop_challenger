@@ -2,6 +2,7 @@
 
 require 'erb'
 require 'yard'
+require 'octokit'
 require 'rubocop'
 require 'rubocop-rspec'
 require 'rubocop_challenger/command_line'
