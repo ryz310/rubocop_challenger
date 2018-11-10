@@ -83,36 +83,39 @@ module RubocopChallenger
     end
 
     def create_pull_request(rule)
-      git = Git::Command.new(
-        user_name: options[:name],
-        user_email: options[:email]
-      )
-      return unless git.exist_uncommitted_modify?
-
-      access_token = ENV['GITHUB_ACCESS_TOKEN']
-      github = Github::Client.new(access_token, git.remote_url)
-
-      new_branch = "rubocop-challenge/#{rule.title.tr('/', '-')}-#{timestamp}"
-      git.checkout_with(new_branch)
-      git.add('.')
-      git.commit(":robot: #{rule.title}")
-      git.push('origin', new_branch)
-
+      pr_creater_options = generate_pr_creater_options(rule)
       return if options[:'no-commit']
 
-      pr_number = github.create_pull_request(
-        base: options[:base],
-        head: new_branch,
-        title: "#{rule.title}-#{timestamp}",
-        body: pr_template(rule)
-      )
-      github.add_labels(pr_number, options[:labels])
+      pr_creater.exec(pr_creater_options)
     end
 
-    def pr_template(rule)
+    def pr_creater
+      @pr_creater ||= GitHub::PrCreater.new(
+        ENV['GITHUB_ACCESS_TOKEN'],
+        options[:name],
+        options[:email]
+      )
+    end
+
+    def generate_pr_creater_options(rule)
+      {
+        title: "#{rule.title}-#{timestamp}",
+        body: generate_pr_body(rule),
+        base: options[:base],
+        topic: generate_topic_branch_name(rule),
+        message: ":robot: #{rule.title}",
+        labels: options[:labels]
+      }
+    end
+
+    def generate_pr_body(rule)
       Github::PrTemplate
         .new(rule, options[:template])
         .generate_pullrequest_markdown
+    end
+
+    def generate_topic_branch_name(rule)
+      "rubocop-challenge/#{rule.title.tr('/', '-')}-#{timestamp}"
     end
 
     def timestamp
