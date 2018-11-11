@@ -101,9 +101,22 @@ RSpec.describe RubocopChallenger::Git::Command do
   end
 
   describe '#commit' do
+    before do
+      allow(command).to receive(:user_name).and_return('CommitterName')
+      allow(command).to receive(:user_email).and_return('committer@example.com')
+    end
+
+    let(:expected_command) do
+      'GIT_AUTHOR_NAME="CommitterName" ' \
+      'GIT_AUTHOR_EMAIL="committer@example.com" ' \
+      'GIT_COMMITTER_NAME="CommitterName" ' \
+      'GIT_COMMITTER_EMAIL="committer@example.com" ' \
+      'git commit -m "message"'
+    end
+
     it do
       command.commit('message')
-      expect(command).to have_received(:execute).with('git commit -m "message"')
+      expect(command).to have_received(:execute).with(expected_command)
     end
   end
 

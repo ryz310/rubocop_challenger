@@ -30,7 +30,7 @@ module RubocopChallenger
       end
 
       def commit(message)
-        run('commit', '-m', "\"#{message}\"")
+        run_with_environments('commit', '-m', "\"#{message}\"")
       end
 
       def push(remote, branch)
@@ -56,8 +56,22 @@ module RubocopChallenger
         execute(command)
       end
 
+      def run_with_environments(*subcommands)
+        command = "#{environments} git #{subcommands.join(' ')}"
+        execute(command)
+      end
+
       def config(key)
         run('config', key)
+      end
+
+      def environments
+        @environments ||= [
+          "GIT_AUTHOR_NAME=\"#{user_name}\"",
+          "GIT_AUTHOR_EMAIL=\"#{user_email}\"",
+          "GIT_COMMITTER_NAME=\"#{user_name}\"",
+          "GIT_COMMITTER_EMAIL=\"#{user_email}\""
+        ].join(' ')
       end
     end
   end
