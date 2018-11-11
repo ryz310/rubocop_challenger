@@ -5,6 +5,10 @@ module RubocopChallenger
   class CommandLine
     private
 
+    # Execute a command
+    #
+    # @param command [String] The command you want to execute
+    # @return [String] Execution result
     def execute(command)
       puts "BEGIN: #{command}"
       result = `#{command}`
