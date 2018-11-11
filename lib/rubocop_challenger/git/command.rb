@@ -5,16 +5,16 @@ module RubocopChallenger
     # To execute git command
     class Command < CommandLine
       def initialize(user_name: nil, user_email: nil)
-        config('user.name', user_name) unless user_name.nil?
-        config('user.email`', user_email) unless user_email.nil?
+        @user_name = user_name
+        @user_email = user_email
       end
 
       def user_name
-        @user_name ||= config('user', 'name')
+        @user_name ||= config('user.name')
       end
 
       def user_email
-        @user_email ||= config('user', 'email')
+        @user_email ||= config('user.email')
       end
 
       def exist_uncommitted_modify?
@@ -56,8 +56,8 @@ module RubocopChallenger
         execute(command)
       end
 
-      def config(key, value = nil)
-        run('config', "#{key}.#{value}")
+      def config(key)
+        run('config', key)
       end
     end
   end

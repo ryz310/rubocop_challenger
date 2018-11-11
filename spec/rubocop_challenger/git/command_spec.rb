@@ -11,16 +11,48 @@ RSpec.describe RubocopChallenger::Git::Command do
   before { allow(command).to receive(:execute) }
 
   describe '#user_name' do
-    it do
-      command.user_name
-      expect(command).to have_received(:execute).with('git config user.name')
+    before do
+      allow(command)
+        .to receive(:execute)
+        .with('git config user.name')
+        .and_return('Git User Name')
+    end
+
+    context 'with `user_name` on initializing arguments' do
+      let(:params) { { user_name: 'Rubocop Challenger' } }
+
+      it 'returns `user_name` from arguments' do
+        expect(command.user_name).to eq 'Rubocop Challenger'
+      end
+    end
+
+    context 'without `user_name` on initializing arguments' do
+      it 'returns `user_name` from `$ git config user.name`' do
+        expect(command.user_name).to eq 'Git User Name'
+      end
     end
   end
 
   describe '#user_email' do
-    it do
-      command.user_email
-      expect(command).to have_received(:execute).with('git config user.email')
+    before do
+      allow(command)
+        .to receive(:execute)
+        .with('git config user.email')
+        .and_return('git-user-email@example.com')
+    end
+
+    context 'with `user_email` on initializing arguments' do
+      let(:params) { { user_email: 'rubocop-challenger@example.com' } }
+
+      it 'returns `user_email` from arguments' do
+        expect(command.user_email).to eq 'rubocop-challenger@example.com'
+      end
+    end
+
+    context 'without `user_email` on initializing arguments' do
+      it 'returns `user_email` from `$ git config user.email`' do
+        expect(command.user_email).to eq 'git-user-email@example.com'
+      end
     end
   end
 
