@@ -82,9 +82,9 @@ module RubocopChallenger
     end
 
     def rubocop_challenge
-      pr_creater.commit ":robot: #{target_rule.title}" do
-        Rubocop::Challenge.exec(options[:file_path], options[:mode])
-      end
+      target_rule = Rubocop::Challenge.exec(options[:file_path], options[:mode])
+      pr_creater.commit ":robot: #{target_rule.title}"
+      target_rule
     end
 
     def regenerate_rubocop_todo
