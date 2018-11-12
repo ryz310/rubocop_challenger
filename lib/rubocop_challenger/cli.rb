@@ -42,7 +42,7 @@ module RubocopChallenger
            desc: 'Label to give to Pull Request'
     option :'regenerate-rubocop-todo',
            type: :boolean,
-           default: false,
+           default: true,
            desc: 'Rerun `$ rubocop --auto-gen-config` after autocorrect'
     option :'no-commit',
            type: :boolean,
