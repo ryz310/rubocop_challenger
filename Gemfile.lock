@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rubocop_challenger (0.5.2)
+    rubocop_challenger (1.2.3)
       octokit
       rubocop
       rubocop-rspec
