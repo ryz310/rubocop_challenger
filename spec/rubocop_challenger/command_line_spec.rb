@@ -14,11 +14,8 @@ RSpec.describe RubocopChallenger::CommandLine do
       expect(execute).to eq 'Hello world'
     end
 
-    it 'outputs command execution beginning and ending to stdout' do
-      expect { execute }.to output(<<~OUTPUT).to_stdout
-        BEGIN: echo Hello world
-        END: echo Hello world
-      OUTPUT
+    it 'outputs command execution to stdout' do
+      expect { execute }.to output("$ echo Hello world\n").to_stdout
     end
   end
 end

@@ -10,10 +10,8 @@ module RubocopChallenger
     # @param command [String] The command you want to execute
     # @return [String] Execution result
     def execute(command)
-      puts "BEGIN: #{command}"
-      result = `#{command}`
-      puts "END: #{command}"
-      result.chomp
+      puts "$ #{command}"
+      `#{command}`.chomp
     end
   end
 end
