@@ -42,7 +42,7 @@ module RubocopChallenger
            desc: 'Label to give to Pull Request'
     option :'regenerate-rubocop-todo',
            type: :boolean,
-           default: false,
+           default: true,
            desc: 'Rerun `$ rubocop --auto-gen-config` after autocorrect'
     option :'no-commit',
            type: :boolean,
@@ -72,48 +72,53 @@ module RubocopChallenger
 
     private
 
+    def pr_creater
+      @pr_creater ||= Github::PrCreater.new(
+        access_token: ENV['GITHUB_ACCESS_TOKEN'],
+        branch: "rubocop-challenge/#{timestamp}",
+        user_name: options[:name],
+        user_email: options[:email]
+      )
+    end
+
     def rubocop_challenge
-      Rubocop::Challenge.exec(options[:file_path], options[:mode])
+      target_rule = Rubocop::Challenge.exec(options[:file_path], options[:mode])
+      pr_creater.commit ":robot: #{target_rule.title}"
+      target_rule
     end
 
     def regenerate_rubocop_todo
       return unless options[:'regenerate-rubocop-todo']
 
-      Rubocop::Command.new.auto_gen_config
+      pr_creater.commit ':robot: regenerate rubocop todo' do
+        Rubocop::Command.new.auto_gen_config
+      end
     end
 
     def create_pull_request(rule)
-      pr_daikou_options = generate_pr_daikou_options(rule)
+      pr_creater_options = generate_pr_creater_options(rule)
       return if options[:'no-commit']
 
-      PRDaikou.exec(pr_daikou_options, nil)
+      pr_creater.create_pr(pr_creater_options)
     end
 
-    def generate_pr_daikou_options(target_rule)
+    def generate_pr_creater_options(rule)
       {
-        email: options[:email],
-        name: options[:name],
+        title: "#{rule.title}-#{timestamp}",
+        body: generate_pr_body(rule),
         base: options[:base],
-        title: target_rule.title,
-        description: pr_template(target_rule),
-        labels: options[:labels].join(','),
-        topic: generate_topic(target_rule),
-        commit: ":robot: #{target_rule.title}"
+        labels: options[:labels]
       }
     end
 
-    def generate_topic(rule)
-      "rubocop-challenge/#{rule.title.tr('/', '-')}-#{timestamp}"
-    end
-
-    def pr_template(rule)
+    def generate_pr_body(rule)
       Github::PrTemplate
         .new(rule, options[:template])
         .generate_pullrequest_markdown
     end
 
     def timestamp
-      Time.now.strftime('%Y%m%d%H%M%S')
+      @timestamp ||= Time.now.strftime('%Y%m%d%H%M%S')
     end
   end
 end
