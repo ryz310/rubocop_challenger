@@ -128,11 +128,26 @@ RSpec.describe RubocopChallenger::Git::Command do
   end
 
   describe '#push' do
-    it do
-      command.push('origin', 'new_branch')
-      expect(command)
-        .to have_received(:execute)
-        .with('git push origin new_branch')
+    context 'with a branch argument' do
+      it do
+        command.push('origin', 'new_branch')
+        expect(command)
+          .to have_received(:execute)
+          .with('git push origin new_branch')
+      end
+    end
+
+    context 'without branch argument' do
+      before do
+        allow(command).to receive(:current_branch).and_return('current_branch')
+      end
+
+      it do
+        command.push('origin')
+        expect(command)
+          .to have_received(:execute)
+          .with('git push origin current_branch')
+      end
     end
   end
 

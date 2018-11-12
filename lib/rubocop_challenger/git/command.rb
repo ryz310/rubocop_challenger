@@ -37,7 +37,7 @@ module RubocopChallenger
         run_with_environments('commit', '-m', "\"#{message}\"")
       end
 
-      def push(remote, branch)
+      def push(remote, branch = current_branch)
         run('push', remote, branch)
       end
 
