@@ -21,6 +21,9 @@ module RubocopChallenger
       def create_pull_request(base:, head:, title:, body:)
         response =
           client.create_pull_request(repository, base, head, title, body)
+        puts '=' * 100
+        puts " response: #{response.inspect}"
+        puts '=' * 100
         response.data.number
       end
 
