@@ -4,6 +4,13 @@ module RubocopChallenger
   module Github
     # To create Pull Request
     class PrCreater
+      # Returns a new instance of Github::PrCreater
+      #
+      # @param access_token [String] The GitHub access token
+      # @param branch [String] The branch where your changes are going to
+      #                        implement.
+      # @param user_name [String] The username to use for committer and author
+      # @param user_email [String] The email to use for committer and author
       def initialize(access_token, branch:, user_name: nil, user_email: nil)
         @topic_branch = branch
         @git = Git::Command.new(user_name: user_name, user_email: user_email)
@@ -11,6 +18,9 @@ module RubocopChallenger
         @initial_sha1 = git.current_sha1
       end
 
+      # Add and commit local files to this branch
+      #
+      # @param message [String] The commit message
       def commit(message)
         git.checkout_with(topic_branch) unless git.current_branch?(topic_branch)
         git.add('.')
