@@ -79,6 +79,13 @@ RSpec.describe RubocopChallenger::Git::Command do
     end
   end
 
+  describe '#checkout' do
+    it do
+      command.checkout('{branch}')
+      expect(command).to have_received(:execute).with('git checkout {branch}')
+    end
+  end
+
   describe '#checkout_with' do
     it do
       command.checkout_with('{new branch}')

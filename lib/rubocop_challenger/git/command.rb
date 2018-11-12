@@ -21,6 +21,10 @@ module RubocopChallenger
         execute('git add -n .; git diff --name-only') != ''
       end
 
+      def checkout(branch)
+        run('checkout', branch)
+      end
+
       def checkout_with(new_branch)
         run('checkout', '-b', new_branch)
       end
