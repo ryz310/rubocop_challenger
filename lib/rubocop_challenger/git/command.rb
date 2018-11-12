@@ -41,6 +41,14 @@ module RubocopChallenger
         run('push', remote, branch)
       end
 
+      def current_sha1
+        run('rev-parse', 'HEAD')
+      end
+
+      def current_sha1?(sha1)
+        current_sha1 == sha1.to_s
+      end
+
       def current_branch
         run('rev-parse', '--abbrev-ref', 'HEAD')
       end

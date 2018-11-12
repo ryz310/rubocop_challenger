@@ -151,6 +151,33 @@ RSpec.describe RubocopChallenger::Git::Command do
     end
   end
 
+  describe '#current_sha1' do
+    it do
+      command.current_sha1
+      expect(command).to have_received(:execute).with('git rev-parse HEAD')
+    end
+  end
+
+  describe '#current_sha1?' do
+    subject { command.current_sha1?('currentsha1') }
+
+    context 'when current sha-1 and argument ones are same' do
+      before do
+        allow(command).to receive(:current_sha1).and_return('currentsha1')
+      end
+
+      it { is_expected.to be_truthy }
+    end
+
+    context 'when current sha-1 and argument ones are different' do
+      before do
+        allow(command).to receive(:current_sha1).and_return('anothersha1')
+      end
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
   describe '#current_branch' do
     it do
       command.current_branch
