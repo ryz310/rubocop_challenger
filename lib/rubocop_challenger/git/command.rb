@@ -42,7 +42,7 @@ module RubocopChallenger
       end
 
       def current_branch?(branch)
-        current_branch == branch
+        current_branch == branch.to_s
       end
 
       def remote_url(remote)
