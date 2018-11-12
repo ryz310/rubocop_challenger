@@ -21,7 +21,7 @@ module RubocopChallenger
       def create_pull_request(base:, head:, title:, body:)
         response =
           client.create_pull_request(repository, base, head, title, body)
-        response.data.number
+        response.number
       end
 
       # Description of #add_labels

@@ -36,8 +36,7 @@ RSpec.describe RubocopChallenger::Github::Client do
     let(:octokit_mock) do
       instance_double(Octokit::Client, create_pull_request: sawyer_response)
     end
-    let(:sawyer_response) { OpenStruct.new(data: response_data) }
-    let(:response_data) { OpenStruct.new(number: 123) }
+    let(:sawyer_response) { OpenStruct.new(number: 123) }
 
     it 'calls Octokit::Client#create_pull_request' do
       create_pull_request
