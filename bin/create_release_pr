@@ -15,7 +15,7 @@ VERSION_FORMAT = /\A\d+\.\d+\.\d+\z/.freeze
 version = ARGV[0]
 rubocop = RubocopChallenger::Rubocop::Command.new
 pr_creater =
-  GitHub::PrCreater.new(
+  Github::PrCreater.new(
     access_token: ENV['GITHUB_ACCESS_TOKEN'],
     branch: "update/v#{version}",
     user_name: options[:name],
