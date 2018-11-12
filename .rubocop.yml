@@ -8,3 +8,8 @@ AllCops:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+
+# For integration testing
+RSpec/MultipleExpectations:
+  Exclude:
+    - 'spec/rubocop_challenger/cli_spec.rb'
