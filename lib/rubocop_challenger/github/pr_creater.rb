@@ -41,21 +41,24 @@ module RubocopChallenger
       # @param base [String] The branch you want your changes pulled into
       # @param labels [Array<String>] An array of labels to apply to this PR
       # @return [Boolean] Return true if its successed
-      def create_pr(title:, body:, base:, labels: [])
-        return false if git.current_sha1?(initial_sha1)
-        return false unless git.current_branch?(topic_branch)
+      def create_pr(title:, body:, base:, labels: nil)
+        return false unless git_condition_valid?
 
         git.push('origin', topic_branch)
         pr_number = github.create_pull_request(
           base: base, head: topic_branch, title: title, body: body
         )
-        github.add_labels(pr_number, labels)
+        github.add_labels(pr_number, labels) unless labels.nil?
         true
       end
 
       private
 
       attr_reader :git, :github, :topic_branch, :initial_sha1
+
+      def git_condition_valid?
+        !git.current_sha1?(initial_sha1) && git.current_branch?(topic_branch)
+      end
 
       def modify_files
         raise Errors::ExistUncommittedModify if git.exist_uncommitted_modify?
