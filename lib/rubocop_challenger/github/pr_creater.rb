@@ -11,20 +11,26 @@ module RubocopChallenger
       #                        implement.
       # @param user_name [String] The username to use for committer and author
       # @param user_email [String] The email to use for committer and author
-      def initialize(access_token, branch:, user_name: nil, user_email: nil)
+      def initialize(access_token:, branch:, user_name: nil, user_email: nil)
         @topic_branch = branch
         @git = Git::Command.new(user_name: user_name, user_email: user_email)
-        @github = Github::Client.new(access_token, git.remote_url)
+        @github = Github::Client.new(access_token, git.remote_url('origin'))
         @initial_sha1 = git.current_sha1
       end
 
       # Add and commit local files to this branch
       #
       # @param message [String] The commit message
-      def commit(message)
+      # @yield Some commands where modify local files
+      # @return [Object] Return result of yield if you use &block
+      # @raise [RubocopChallenger::Errors::ExistUncommittedModify]
+      #        Raise error if you use &block and exists someuncommitted files
+      def commit(message, &block)
         git.checkout_with(topic_branch) unless git.current_branch?(topic_branch)
+        result = modify_files(&block) if block_given?
         git.add('.')
         git.commit(message)
+        result
       end
 
       # Create a pull request
@@ -50,6 +56,12 @@ module RubocopChallenger
       private
 
       attr_reader :git, :github, :topic_branch, :initial_sha1
+
+      def modify_files
+        raise Errors::ExistUncommittedModify if git.exist_uncommitted_modify?
+
+        yield
+      end
     end
   end
 end

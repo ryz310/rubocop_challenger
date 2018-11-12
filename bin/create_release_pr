@@ -13,11 +13,10 @@ end
 
 VERSION_FORMAT = /\A\d+\.\d+\.\d+\z/.freeze
 version = ARGV[0]
-git = RubocopChallenger::Git::Command.new
 rubocop = RubocopChallenger::Rubocop::Command.new
 pr_creater =
   GitHub::PrCreater.new(
-    ENV['GITHUB_ACCESS_TOKEN'],
+    access_token: ENV['GITHUB_ACCESS_TOKEN'],
     branch: "update/v#{version}",
     user_name: options[:name],
     user_email: options[:email]
@@ -26,25 +25,27 @@ pr_creater =
 # Verifying
 exit_process 'usage: bin/create_release_pr VERSION' if version.nil?
 exit_process 'A version must be like a `1.2.3`' unless version =~ VERSION_FORMAT
-exit_process 'There are uncommitted modify' if git.exist_uncommitted_modify?
 
 # Modify a version file
-File.write('lib/rubocop_challenger/version.rb', <<~VERSION)
-  # frozen_string_literal: true
+pr_creater.commit 'Update version' do
+  File.write('lib/rubocop_challenger/version.rb', <<~VERSION)
+    # frozen_string_literal: true
 
-  module RubocopChallenger
-    VERSION = '#{version}'
-  end
-VERSION
-pr_creater.commit('Update version')
+    module RubocopChallenger
+      VERSION = '#{version}'
+    end
+  VERSION
+end
 
 # Bundle Update
-`bundle update`
-pr_creater.commit('Run $ bundle update')
+pr_creater.commit 'Run $ bundle update' do
+  `bundle update`
+end
 
 # Regenerate .rubocop_todo.yml
-rubocop.auto_gen_config
-pr_creater.commit('Regenerate .rubocop_todo.yml')
+pr_creater.commit 'Regenerate .rubocop_todo.yml' do
+  rubocop.auto_gen_config
+end
 
 # Create PR
 pr_creater.create_pr(title: "Update v#{version}", body: '', base: 'master')

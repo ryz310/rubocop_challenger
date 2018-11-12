@@ -74,7 +74,7 @@ module RubocopChallenger
 
     def pr_creater
       @pr_creater ||= GitHub::PrCreater.new(
-        ENV['GITHUB_ACCESS_TOKEN'],
+        access_token: ENV['GITHUB_ACCESS_TOKEN'],
         branch: "rubocop-challenge/#{timestamp}",
         user_name: options[:name],
         user_email: options[:email]
@@ -82,16 +82,17 @@ module RubocopChallenger
     end
 
     def rubocop_challenge
-      target_rule = Rubocop::Challenge.exec(options[:file_path], options[:mode])
-      pr_creater.commit(":robot: #{target_rule.title}")
-      target_rule
+      pr_creater.commit ":robot: #{target_rule.title}" do
+        Rubocop::Challenge.exec(options[:file_path], options[:mode])
+      end
     end
 
     def regenerate_rubocop_todo
       return unless options[:'regenerate-rubocop-todo']
 
-      Rubocop::Command.new.auto_gen_config
-      pr_creater.commit(':robot: regenerate rubocop todo')
+      pr_creater.commit ':robot: regenerate rubocop todo' do
+        Rubocop::Command.new.auto_gen_config
+      end
     end
 
     def create_pull_request(rule)
