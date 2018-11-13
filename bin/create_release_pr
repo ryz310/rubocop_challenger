@@ -11,7 +11,7 @@ def exit_process(error_message)
   exit!
 end
 
-VERSION_FORMAT = /\A\d+\.\d+\.\d+\z/.freeze
+VERSION_FORMAT = /\A\d+\.\d+\.\d+(\.(pre|beta|rc)\d?)?\z/.freeze
 version = ARGV[0]
 rubocop = RubocopChallenger::Rubocop::Command.new
 pr_creater =
