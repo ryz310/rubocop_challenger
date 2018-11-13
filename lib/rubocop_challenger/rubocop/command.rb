@@ -3,13 +3,20 @@
 module RubocopChallenger
   module Rubocop
     # To execute rubocop gem command (Mainly for mock when testing)
-    class Command
+    class Command < CommandLine
       def auto_correct
-        `bundle exec rubocop --auto-correct || true`
+        run('--auto-correct')
       end
 
       def auto_gen_config
-        `bundle exec rubocop --auto-gen-config || true`
+        run('--auto-gen-config')
+      end
+
+      private
+
+      def run(*subcommands)
+        command = "bundle exec rubocop #{subcommands.join(' ')} || true"
+        execute(command)
       end
     end
   end

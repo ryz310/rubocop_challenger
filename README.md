@@ -55,8 +55,8 @@ jobs:
           command: |
             bundle install
             bundle exec rubocop_challenger go \
-              --email=rubocop-challenge@example.com \
-              --name="'Rubocop Challenge'"
+              --email=rubocop-challenger@example.com \
+              --name="'Rubocop Challenger'"
 
 workflows:
   version: 2
@@ -79,7 +79,7 @@ workflows:
 $ rubocop_challenger help
 
 Commands:
-  rubocop_challenger go --email=EMAIL --name=NAME  # Run `$ rubocop --auto-correct` and create PR to your GitHub repository
+  rubocop_challenger go --email=EMAIL --name=NAME  # Run `$ rubocop --auto-correct` and create PR to GitHub repo
   rubocop_challenger help [COMMAND]                # Describe available commands or one specific command
   rubocop_challenger version                       # Show current version
 ```
@@ -105,9 +105,10 @@ Options:
   l, [--labels=one two three]                                      # Label to give to Pull Request
                                                                    # Default: ["rubocop challenge"]
       [--regenerate-rubocop-todo], [--no-regenerate-rubocop-todo]  # Rerun `$ rubocop --auto-gen-config` after autocorrect
+                                                                   # Default: true
       [--no-commit]                                                # No commit after autocorrect
 
-Run `$ rubocop --auto-correct` and create PR to your GitHub repository
+Run `$ rubocop --auto-correct` and create PR to GitHub repo
 ```
 
 ## Requirement
