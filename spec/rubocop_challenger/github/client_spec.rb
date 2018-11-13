@@ -5,6 +5,16 @@ require 'spec_helper'
 RSpec.describe RubocopChallenger::Github::Client do
   let(:client) { described_class.new('GITHUB_ACCESS_TOKEN', remote_url) }
   let(:remote_url) { 'https://github.com/ryz310/rubocop_challenger.git' }
+  let(:octokit_mock) do
+    instance_double(
+      Octokit::Client,
+      create_pull_request: sawyer_response,
+      add_labels_to_an_issue: nil
+    )
+  end
+  let(:sawyer_response) { OpenStruct.new(number: 123) }
+
+  before { allow(Octokit::Client).to receive(:new).and_return(octokit_mock) }
 
   describe '#repository' do
     context 'when use https protocol to the git remote URL' do
@@ -31,13 +41,6 @@ RSpec.describe RubocopChallenger::Github::Client do
       )
     end
 
-    before { allow(Octokit::Client).to receive(:new).and_return(octokit_mock) }
-
-    let(:octokit_mock) do
-      instance_double(Octokit::Client, create_pull_request: sawyer_response)
-    end
-    let(:sawyer_response) { OpenStruct.new(number: 123) }
-
     it 'calls Octokit::Client#create_pull_request' do
       create_pull_request
       expect(octokit_mock)
@@ -47,6 +50,17 @@ RSpec.describe RubocopChallenger::Github::Client do
 
     it 'returns created pull request number' do
       expect(create_pull_request).to eq 123
+    end
+  end
+
+  describe '#add_labels' do
+    subject(:add_labels) { client.add_labels(1234, 'label a', 'label b') }
+
+    it 'calls Octokit::Client#add_labels_to_an_issue' do
+      add_labels
+      expect(octokit_mock)
+        .to have_received(:add_labels_to_an_issue)
+        .with('ryz310/rubocop_challenger', 1234, ['label a', 'label b'])
     end
   end
 end
