@@ -15,7 +15,7 @@ RSpec.describe RubocopChallenger::Github::PrCreater do
       RubocopChallenger::Git::Command,
       add: '',
       commit: '',
-      push: '',
+      push_to_github: '',
       remote_url: 'git@github.com:ryz310/rubocop_challenger.git',
       current_sha1: '1234567890',
       'current_sha1?': false,
@@ -28,6 +28,7 @@ RSpec.describe RubocopChallenger::Github::PrCreater do
     instance_double(
       RubocopChallenger::Github::Client,
       create_pull_request: 1234,
+      repository: 'ryz310/rubocop_challenger',
       add_labels: ''
     )
   end

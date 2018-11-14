@@ -12,6 +12,7 @@ module RubocopChallenger
       # @param user_name [String] The username to use for committer and author
       # @param user_email [String] The email to use for committer and author
       def initialize(access_token:, branch:, user_name: nil, user_email: nil)
+        @access_token = access_token
         @topic_branch = branch
         @git = Git::Command.new(user_name: user_name, user_email: user_email)
         @github = Github::Client.new(access_token, git.remote_url('origin'))
@@ -44,7 +45,7 @@ module RubocopChallenger
       def create_pr(title:, body:, base:, labels: nil)
         return false unless git_condition_valid?
 
-        git.push('origin', topic_branch)
+        git.push_to_github(access_token, github.repository, topic_branch)
         pr_number = github.create_pull_request(
           base: base, head: topic_branch, title: title, body: body
         )
@@ -54,7 +55,7 @@ module RubocopChallenger
 
       private
 
-      attr_reader :git, :github, :topic_branch, :initial_sha1
+      attr_reader :access_token, :git, :github, :topic_branch, :initial_sha1
 
       def git_condition_valid?
         !git.current_sha1?(initial_sha1) && git.current_branch?(topic_branch)
