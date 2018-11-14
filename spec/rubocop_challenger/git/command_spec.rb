@@ -151,6 +151,44 @@ RSpec.describe RubocopChallenger::Git::Command do
     end
   end
 
+  describe '#push_to_github' do
+    let(:expected_push_url) do
+      'https://access_token@github.com/ryz310/rubocop_challenger'
+    end
+
+    context 'with a branch argument' do
+      subject(:push_to_github) do
+        command.push_to_github(
+          'access_token', 'ryz310/rubocop_challenger', 'new_branch'
+        )
+      end
+
+      it do
+        push_to_github
+        expect(command)
+          .to have_received(:execute)
+          .with("git push #{expected_push_url} new_branch")
+      end
+    end
+
+    context 'without branch argument' do
+      subject(:push_to_github) do
+        command.push_to_github('access_token', 'ryz310/rubocop_challenger')
+      end
+
+      before do
+        allow(command).to receive(:current_branch).and_return('current_branch')
+      end
+
+      it do
+        push_to_github
+        expect(command)
+          .to have_received(:execute)
+          .with("git push #{expected_push_url} current_branch")
+      end
+    end
+  end
+
   describe '#current_sha1' do
     it do
       command.current_sha1
