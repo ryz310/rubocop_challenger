@@ -5,7 +5,7 @@ require 'spec_helper'
 RSpec.describe RubocopChallenger::Github::PrCreater do
   let(:pr_creater) do
     described_class.new(
-      access_token: 'GITHUB_ACCESS_TOKEN',
+      access_token: '<GITHUB_ACCESS_TOKEN>',
       branch: 'topic_branch'
     )
   end
@@ -28,6 +28,7 @@ RSpec.describe RubocopChallenger::Github::PrCreater do
     instance_double(
       RubocopChallenger::Github::Client,
       create_pull_request: 1234,
+      repository: 'ryz310/rubocop_challenger',
       add_labels: ''
     )
   end
@@ -92,7 +93,18 @@ RSpec.describe RubocopChallenger::Github::PrCreater do
         }
       end
 
+      let(:expected_remote_url) do
+        'https://<GITHUB_ACCESS_TOKEN>@github.com/ryz310/rubocop_challenger'
+      end
+
       it { is_expected.to be_truthy }
+
+      it do
+        create_pr
+        expect(git_command)
+          .to have_received(:push)
+          .with(expected_remote_url, 'topic_branch')
+      end
 
       it do
         create_pr
@@ -116,6 +128,11 @@ RSpec.describe RubocopChallenger::Github::PrCreater do
 
       it do
         create_pr
+        expect(git_command).not_to have_received(:push)
+      end
+
+      it do
+        create_pr
         expect(github_client).not_to have_received(:create_pull_request)
       end
     end
@@ -128,7 +145,7 @@ RSpec.describe RubocopChallenger::Github::PrCreater do
           create_pr
           expect(github_client)
             .to have_received(:add_labels)
-            .with(1234, ['label a', 'label b'])
+            .with(1234, 'label a', 'label b')
         end
       end
     end

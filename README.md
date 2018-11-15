@@ -56,7 +56,7 @@ jobs:
             bundle install
             bundle exec rubocop_challenger go \
               --email=rubocop-challenger@example.com \
-              --name="'Rubocop Challenger'"
+              --name="Rubocop Challenger"
 
 workflows:
   version: 2
