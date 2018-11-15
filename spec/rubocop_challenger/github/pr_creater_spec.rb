@@ -5,7 +5,7 @@ require 'spec_helper'
 RSpec.describe RubocopChallenger::Github::PrCreater do
   let(:pr_creater) do
     described_class.new(
-      access_token: 'GITHUB_ACCESS_TOKEN',
+      access_token: '<GITHUB_ACCESS_TOKEN>',
       branch: 'topic_branch'
     )
   end
@@ -15,7 +15,7 @@ RSpec.describe RubocopChallenger::Github::PrCreater do
       RubocopChallenger::Git::Command,
       add: '',
       commit: '',
-      push_to_github: '',
+      push: '',
       remote_url: 'git@github.com:ryz310/rubocop_challenger.git',
       current_sha1: '1234567890',
       'current_sha1?': false,
@@ -93,7 +93,18 @@ RSpec.describe RubocopChallenger::Github::PrCreater do
         }
       end
 
+      let(:expected_remote_url) do
+        'https://<GITHUB_ACCESS_TOKEN>@github.com/ryz310/rubocop_challenger'
+      end
+
       it { is_expected.to be_truthy }
+
+      it do
+        create_pr
+        expect(git_command)
+          .to have_received(:push)
+          .with(expected_remote_url, 'topic_branch')
+      end
 
       it do
         create_pr
@@ -114,6 +125,11 @@ RSpec.describe RubocopChallenger::Github::PrCreater do
       end
 
       it { is_expected.to be_falsey }
+
+      it do
+        create_pr
+        expect(git_command).not_to have_received(:push)
+      end
 
       it do
         create_pr

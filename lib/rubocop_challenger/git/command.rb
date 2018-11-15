@@ -41,10 +41,6 @@ module RubocopChallenger
         run('push', remote, branch)
       end
 
-      def push_to_github(access_token, repository, branch = current_branch)
-        run('push', "https://#{access_token}@github.com/#{repository}", branch)
-      end
-
       def current_sha1
         run('rev-parse', 'HEAD')
       end

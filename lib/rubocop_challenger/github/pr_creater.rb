@@ -45,7 +45,7 @@ module RubocopChallenger
       def create_pr(title:, body:, base:, labels: nil)
         return false unless git_condition_valid?
 
-        git.push_to_github(access_token, github.repository, topic_branch)
+        git.push(github_token_url, topic_branch)
         pr_number = github.create_pull_request(
           base: base, head: topic_branch, title: title, body: body
         )
@@ -65,6 +65,10 @@ module RubocopChallenger
         raise Errors::ExistUncommittedModify if git.exist_uncommitted_modify?
 
         yield
+      end
+
+      def github_token_url
+        "https://#{access_token}@github.com/#{github.repository}"
       end
     end
   end
