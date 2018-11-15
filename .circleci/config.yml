@@ -108,7 +108,6 @@ jobs:
               --name=ryz310 \
               --mode=random \
               --labels='rubocop challenge' 'in progress' \
-              --regenerate-rubocop-todo \
               --no-commit
 
   rubocop_challenge:
@@ -125,8 +124,7 @@ jobs:
               --email=ryz310@gmail.com \
               --name=ryz310 \
               --template=./lib/templates/checklist.md.erb \
-              --labels='rubocop challenge' 'in progress' \
-              --regenerate-rubocop-todo
+              --labels='rubocop challenge' 'in progress'
 
   release:
     docker:
