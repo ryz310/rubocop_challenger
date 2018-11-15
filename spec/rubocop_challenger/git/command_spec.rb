@@ -212,7 +212,7 @@ RSpec.describe RubocopChallenger::Git::Command do
       command.remote_url('origin')
       expect(command)
         .to have_received(:execute)
-        .with('git remote get-url --push origin')
+        .with('git config --get remote.origin.url')
     end
   end
 end

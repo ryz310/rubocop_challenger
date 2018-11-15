@@ -58,7 +58,7 @@ module RubocopChallenger
       end
 
       def remote_url(remote)
-        run('remote', 'get-url', '--push', remote)
+        config("--get remote.#{remote}.url")
       end
 
       private
