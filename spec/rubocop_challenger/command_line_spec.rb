@@ -15,7 +15,10 @@ RSpec.describe RubocopChallenger::CommandLine do
     end
 
     it 'outputs command execution to stdout' do
-      expect { execute }.to output("$ echo Hello world\n").to_stdout
+      expect { execute }.to output(<<~STDOUT).to_stdout
+        $ echo Hello world
+        \e[32mHello world\e[0m
+      STDOUT
     end
   end
 end
