@@ -49,7 +49,7 @@ module RubocopChallenger
         pr_number = github.create_pull_request(
           base: base, head: topic_branch, title: title, body: body
         )
-        github.add_labels(pr_number, labels) unless labels.nil?
+        github.add_labels(pr_number, *labels) unless labels.nil?
         true
       end
 

@@ -145,7 +145,7 @@ RSpec.describe RubocopChallenger::Github::PrCreater do
           create_pr
           expect(github_client)
             .to have_received(:add_labels)
-            .with(1234, ['label a', 'label b'])
+            .with(1234, 'label a', 'label b')
         end
       end
     end
