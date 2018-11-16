@@ -7,15 +7,15 @@ module RubocopChallenger
   class CLI < Thor
     include CommandLine
 
-    desc 'go', 'Run `$ rubocop --auto-correct` and create PR to GitHub repo'
+    desc 'go', 'Run `$ rubocop --auto-correct` and create a PR to GitHub repo'
     option :email,
            required: true,
            type: :string,
-           desc: 'Pull Request committer email'
+           desc: 'The Pull Request committer email'
     option :name,
            required: true,
            type: :string,
-           desc: 'Pull Request committer name'
+           desc: 'The Pull Request committer name'
     option :file_path,
            type: :string,
            default: '.rubocop_todo.yml',
@@ -24,15 +24,14 @@ module RubocopChallenger
     option :template,
            type: :string,
            aliases: :t,
-           desc: 'Pull Request template `erb` file path.' \
+           desc: 'A Pull Request template `erb` file path.' \
                  'You can use variable that `title`, `rubydoc_url`, ' \
                  '`description` and `examples` into the erb file.'
     option :mode,
            type: :string,
            default: 'most_occurrence',
-           desc: 'Mode to select deletion target. ' \
-                 'You can choice "most_occurrence", "least_occurrence", ' \
-                 'or "random"'
+           desc: 'Mode to select deletion target. You can choice ' \
+                 '"most_occurrence", "least_occurrence", or "random"'
     option :base,
            type: :string,
            default: 'master',
