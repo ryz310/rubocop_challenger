@@ -2,7 +2,7 @@
 
 module RubocopChallenger
   # To execute command line. You should inherit this class to use.
-  class CommandLine
+  module CommandLine
     private
 
     # Execute a command

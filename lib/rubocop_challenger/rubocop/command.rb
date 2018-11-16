@@ -3,7 +3,9 @@
 module RubocopChallenger
   module Rubocop
     # To execute rubocop gem command (Mainly for mock when testing)
-    class Command < CommandLine
+    class Command
+      include CommandLine
+
       def auto_correct
         run('--auto-correct')
       end
