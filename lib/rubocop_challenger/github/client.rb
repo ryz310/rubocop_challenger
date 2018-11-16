@@ -22,7 +22,7 @@ module RubocopChallenger
         response =
           client.create_pull_request(repository, base, head, title, body)
         response.number
-      end
+        end
 
       # Description of #add_labels
       #
