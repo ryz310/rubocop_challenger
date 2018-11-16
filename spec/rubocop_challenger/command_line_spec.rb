@@ -3,7 +3,12 @@
 require 'spec_helper'
 
 RSpec.describe RubocopChallenger::CommandLine do
-  let(:command_line) { described_class.new }
+  let(:command_line) do
+    class MockClass
+      include RubocopChallenger::CommandLine
+    end
+    MockClass.new
+  end
 
   describe '#execute' do
     subject(:execute) { command_line.send(:execute, command) }
