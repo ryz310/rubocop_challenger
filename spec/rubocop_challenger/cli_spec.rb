@@ -37,10 +37,11 @@ RSpec.describe RubocopChallenger::CLI do
   end
 
   before do
-    allow(cli)
-      .to receive(:options).and_return(options)
-    allow(cli)
-      .to receive(:timestamp).and_return('20181112212509')
+    allow(cli).to receive(:options).and_return(options)
+    allow(cli).to receive(:timestamp).and_return('20181112212509')
+    allow(cli).to receive(:color_puts)
+    allow(cli).to receive(:exit_process!)
+
     allow(RubocopChallenger::Rubocop::Challenge)
       .to receive(:exec).and_return(target_rule)
     allow(RubocopChallenger::Rubocop::Command)
@@ -63,12 +64,28 @@ RSpec.describe RubocopChallenger::CLI do
       }
     end
 
-    it do
-      go
-      expect(RubocopChallenger::Rubocop::Challenge)
-        .to have_received(:exec).ordered
-      expect(pr_creater)
-        .to have_received(:create_pr).with(expected_params).ordered
+    context 'without a exception' do
+      it 'executes Rubocop Challenge and creates a Pull Request' do
+        go
+        expect(RubocopChallenger::Rubocop::Challenge)
+          .to have_received(:exec).ordered
+        expect(pr_creater)
+          .to have_received(:create_pr).with(expected_params).ordered
+      end
+    end
+
+    context 'with a exception' do
+      before do
+        allow(cli).to receive(:rubocop_challenge).and_raise('Error message')
+      end
+
+      it 'outputs a error message and exit process' do
+        go
+        expect(cli)
+          .to have_received(:color_puts).with('Error message', 31).ordered
+        expect(cli)
+          .to have_received(:exit_process!).ordered
+      end
     end
   end
 

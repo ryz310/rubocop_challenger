@@ -5,6 +5,8 @@ require 'thor'
 module RubocopChallenger
   # To define CLI commands
   class CLI < Thor
+    include CommandLine
+
     desc 'go', 'Run `$ rubocop --auto-correct` and create PR to GitHub repo'
     option :email,
            required: true,
@@ -53,8 +55,8 @@ module RubocopChallenger
       regenerate_rubocop_todo
       create_pull_request(target_rule)
     rescue StandardError => e
-      puts e.message
-      exit!
+      color_puts e.message, CommandLine::RED
+      exit_process!
     end
 
     desc 'version', 'Show current version'
@@ -119,6 +121,11 @@ module RubocopChallenger
 
     def timestamp
       @timestamp ||= Time.now.strftime('%Y%m%d%H%M%S')
+    end
+
+    # Exit process (Mainly for mock when testing)
+    def exit_process!
+      exit!
     end
   end
 end
