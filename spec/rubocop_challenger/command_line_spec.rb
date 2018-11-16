@@ -13,17 +13,34 @@ RSpec.describe RubocopChallenger::CommandLine do
   describe '#execute' do
     subject(:execute) { command_line.send(:execute, command) }
 
-    let(:command) { 'echo Hello world' }
+    context 'when the execution was succeeded' do
+      let(:command) { 'echo Hello world' }
 
-    it 'returns executed command standard output' do
-      expect(execute).to eq 'Hello world'
+      it 'returns a executed command standard output' do
+        expect(execute).to eq 'Hello world'
+      end
+
+      it 'outputs the command execution to stdout with color code GREEN' do
+        expect { execute }.to output(<<~STDOUT).to_stdout
+          $ echo Hello world
+          \e[32mHello world\e[0m
+        STDOUT
+      end
     end
 
-    it 'outputs command execution to stdout' do
-      expect { execute }.to output(<<~STDOUT).to_stdout
-        $ echo Hello world
-        \e[32mHello world\e[0m
-      STDOUT
+    context 'when the execution was failed' do
+      let(:command) { 'echo Hello world && false' }
+
+      it 'returns a executed command standard output' do
+        expect(execute).to eq 'Hello world'
+      end
+
+      it 'outputs the command execution to stdout with color code RED' do
+        expect { execute }.to output(<<~STDOUT).to_stdout
+          $ echo Hello world && false
+          \e[31mHello world\e[0m
+        STDOUT
+      end
     end
   end
 end
