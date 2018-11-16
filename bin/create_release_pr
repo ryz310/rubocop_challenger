@@ -15,10 +15,7 @@ VERSION_FORMAT = /\A\d+\.\d+\.\d+(\.(pre|beta|rc)\d?)?\z/.freeze
 version = ARGV[0]
 rubocop = RubocopChallenger::Rubocop::Command.new
 pr_creater =
-  RubocopChallenger::Github::PrCreater.new(
-    access_token: ENV['GITHUB_ACCESS_TOKEN'],
-    branch: "update/v#{version}"
-  )
+  RubocopChallenger::Github::PrCreater.new(branch: "update/v#{version}")
 
 # Verifying
 exit_process 'usage: bin/create_release_pr VERSION' if version.nil?
