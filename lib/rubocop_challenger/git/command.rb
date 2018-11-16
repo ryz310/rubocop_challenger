@@ -3,7 +3,9 @@
 module RubocopChallenger
   module Git
     # To execute git command
-    class Command < CommandLine
+    class Command
+      include CommandLine
+
       def initialize(user_name: nil, user_email: nil)
         @user_name = user_name
         @user_email = user_email
