@@ -75,7 +75,6 @@ module RubocopChallenger
 
     def pr_creater
       @pr_creater ||= Github::PrCreater.new(
-        access_token: ENV['GITHUB_ACCESS_TOKEN'],
         branch: "rubocop-challenge/#{timestamp}",
         user_name: options[:name],
         user_email: options[:email]

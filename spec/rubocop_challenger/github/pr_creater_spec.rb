@@ -3,12 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe RubocopChallenger::Github::PrCreater do
-  let(:pr_creater) do
-    described_class.new(
-      access_token: '<GITHUB_ACCESS_TOKEN>',
-      branch: 'topic_branch'
-    )
-  end
+  let(:pr_creater) { described_class.new(branch: 'topic_branch') }
 
   let(:git_command) do
     instance_double(
@@ -94,7 +89,7 @@ RSpec.describe RubocopChallenger::Github::PrCreater do
       end
 
       let(:expected_remote_url) do
-        'https://<GITHUB_ACCESS_TOKEN>@github.com/ryz310/rubocop_challenger'
+        'https://${GITHUB_ACCESS_TOKEN}@github.com/ryz310/rubocop_challenger'
       end
 
       it { is_expected.to be_truthy }

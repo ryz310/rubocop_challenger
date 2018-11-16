@@ -6,13 +6,14 @@ module RubocopChallenger
     class PrCreater
       # Returns a new instance of Github::PrCreater
       #
-      # @param access_token [String] The GitHub access token
+      # @note You have to set ENV['GITHUB_ACCESS_TOKEN']
       # @param branch [String] The branch where your changes are going to
       #                        implement.
       # @param user_name [String] The username to use for committer and author
       # @param user_email [String] The email to use for committer and author
-      def initialize(access_token:, branch:, user_name: nil, user_email: nil)
-        @access_token = access_token
+      def initialize(branch:, user_name: nil, user_email: nil)
+        raise "You have to set ENV['GITHUB_ACCESS_TOKEN']" if access_token.nil?
+
         @topic_branch = branch
         @git = Git::Command.new(user_name: user_name, user_email: user_email)
         @github = Github::Client.new(access_token, git.remote_url('origin'))
@@ -55,7 +56,7 @@ module RubocopChallenger
 
       private
 
-      attr_reader :access_token, :git, :github, :topic_branch, :initial_sha1
+      attr_reader :git, :github, :topic_branch, :initial_sha1
 
       def git_condition_valid?
         !git.current_sha1?(initial_sha1) && git.current_branch?(topic_branch)
@@ -67,8 +68,14 @@ module RubocopChallenger
         yield
       end
 
+      def access_token
+        ENV['GITHUB_ACCESS_TOKEN']
+      end
+
+      # @note You *MUST NOT* use `#access_token` in the URL because this string
+      #       will be output STDOUT via `RubocopChallenger::CommandLine` module.
       def github_token_url
-        "https://#{access_token}@github.com/#{github.repository}"
+        "https://${GITHUB_ACCESS_TOKEN}@github.com/#{github.repository}"
       end
     end
   end
