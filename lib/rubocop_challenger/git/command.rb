@@ -39,8 +39,14 @@ module RubocopChallenger
         run_with_environments('commit', '-m', "\"#{message}\"")
       end
 
+      # Execute git push command
+      #
+      # @note For security, this command add a quiet option automatically.
+      # @param remote [String] The remote repository name.
+      # @param branch [String] The target branch. default: `#current_branch`
+      # @return [String] The command's standard output.
       def push(remote, branch = current_branch)
-        run('push', remote, branch)
+        run('push', '-q', remote, branch)
       end
 
       def current_sha1

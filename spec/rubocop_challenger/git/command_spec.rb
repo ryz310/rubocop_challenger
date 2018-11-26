@@ -133,7 +133,7 @@ RSpec.describe RubocopChallenger::Git::Command do
         command.push('origin', 'new_branch')
         expect(command)
           .to have_received(:execute)
-          .with('git push origin new_branch')
+          .with('git push -q origin new_branch')
       end
     end
 
@@ -146,7 +146,7 @@ RSpec.describe RubocopChallenger::Git::Command do
         command.push('origin')
         expect(command)
           .to have_received(:execute)
-          .with('git push origin current_branch')
+          .with('git push -q origin current_branch')
       end
     end
   end

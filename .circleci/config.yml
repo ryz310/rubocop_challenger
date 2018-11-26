@@ -69,6 +69,18 @@ references:
       - *save_bundle_install_cache
       - run: bundle exec rubocop
 
+  - &yardoc
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - *restore_bundle_install_cache
+      - *bundle_install
+      - *save_bundle_install_cache
+      - run:  bundle exec yardoc -o ./yardoc
+      - store_artifacts:
+          path: ./yardoc
+          destination: yardoc
+
 jobs:
   build_on_ruby_2.3:
     docker:
@@ -90,6 +102,10 @@ jobs:
     docker:
        - image: circleci/ruby:2.3-node-browsers
     <<: *rubocop
+  yardoc:
+    docker:
+       - image: circleci/ruby:2.3-node-browsers
+    <<: *yardoc
   verify_rubocop_challenge:
     docker:
       - image: circleci/ruby:2.3-node-browsers
@@ -100,6 +116,7 @@ jobs:
       - *bundle_install
       - *save_bundle_install_cache
       - run: bundle exec rake install
+      - run: bundle exec bin/jailbreak
       - run:
           name: Verify Rubocop Challenge
           command: |
@@ -157,6 +174,7 @@ workflows:
       - build_on_ruby_2.5
       - build_on_ruby_latest
       - rubocop
+      - yardoc
       - verify_rubocop_challenge
       - release:
           context: RubyGems API Key
