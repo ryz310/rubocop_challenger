@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# usage: bin/create_release_pr VERSION
+
+require 'bundler/setup'
+require 'rubocop_challenger'
+
+VERSION_FILE_PATH = 'lib/rubocop_challenger/version.rb'
+rubocop = RubocopChallenger::Rubocop::Command.new
+
+# Read any ruby file
+version_file = File.read(VERSION_FILE_PATH)
+
+# Modify the file contents
+version_file.sub!('# frozen_string_literal: true', '')
+version_file.gsub!("\n", "  \n  ")
+
+# Write the origin ruby file
+File.write(VERSION_FILE_PATH, version_file)
+
+# Regenerate .rubocop_todo.yml
+rubocop.auto_gen_config
