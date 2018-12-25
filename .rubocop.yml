@@ -9,6 +9,15 @@ Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
 
+Metrics/ClassLength:
+  Exclude:
+    - 'lib/rubocop_challenger/cli.rb'
+
+# For integration testing
+RSpec/ExampleLength:
+  Exclude:
+    - 'spec/rubocop_challenger/cli_spec.rb'
+
 # For integration testing
 RSpec/MultipleExpectations:
   Exclude:
