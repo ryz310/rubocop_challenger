@@ -87,6 +87,25 @@ RSpec.describe RubocopChallenger::CLI do
           .to have_received(:exit_process!).ordered
       end
     end
+
+    context 'when raise Errors::NoAutoCorrectableRule' do
+      before do
+        allow(RubocopChallenger::Rubocop::Challenge)
+          .to receive(:exec)
+          .and_raise(RubocopChallenger::Errors::NoAutoCorrectableRule)
+      end
+
+      it 'outputs a description and exit process' do
+        go
+        expect(RubocopChallenger::Rubocop::Challenge)
+          .to have_received(:exec).ordered
+        expect(cli)
+          .to have_received(:color_puts)
+          .with('There is no auto-correctable rule', 33).ordered
+        expect(cli)
+          .to have_received(:exit_process!).at_least(:once)
+      end
+    end
   end
 
   describe '#version' do
