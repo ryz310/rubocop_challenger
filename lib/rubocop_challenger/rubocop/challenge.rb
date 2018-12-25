@@ -4,6 +4,17 @@ module RubocopChallenger
   module Rubocop
     # To execute Rubocop Challenge flow
     class Challenge
+      # Execute Rubocop Challenge flow.
+      #
+      # @param file_path [String]
+      #   Path to `.rubocop_todo.yml`
+      # @param mode [String]
+      #   How to select for auto-correctable rule. You can choose a mode in the
+      #   following: `least_occurrence`, `random`, `most_occurrence`
+      # @return [RubocopChallenger::Rubocop::Rule]
+      #   A corrected rule.
+      # @raise [RubocopChallenger::Errors::NoAutoCorrectableRule]
+      #   Raise if no auto-correctable rule in the `.rubocop_todo.yml`.
       def self.exec(file_path, mode)
         new(file_path, mode).send(:exec)
       end
