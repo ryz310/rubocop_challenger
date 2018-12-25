@@ -50,6 +50,7 @@ module RubocopChallenger
            default: false,
            desc: 'No commit after autocorrect'
     def go
+      regenerate_rubocop_todo
       target_rule = rubocop_challenge
       regenerate_rubocop_todo
       create_pull_request(target_rule)
