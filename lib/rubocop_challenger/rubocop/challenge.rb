@@ -29,8 +29,7 @@ module RubocopChallenger
       def verify_target_rule
         return unless target_rule.nil?
 
-        puts 'There is no auto-correctable rule'
-        exit
+        raise Errors::NoAutoCorrectableRule
       end
 
       def target_rule

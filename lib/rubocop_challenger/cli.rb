@@ -85,6 +85,9 @@ module RubocopChallenger
       target_rule = Rubocop::Challenge.exec(options[:file_path], options[:mode])
       pr_creater.commit ":robot: #{target_rule.title}"
       target_rule
+    rescue Errors::NoAutoCorrectableRule => e
+      color_puts e.message, CommandLine::YELLOW
+      exit_process!
     end
 
     def regenerate_rubocop_todo
