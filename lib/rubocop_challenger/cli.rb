@@ -83,14 +83,14 @@ module RubocopChallenger
 
     def rubocop_challenge
       target_rule = Rubocop::Challenge.exec(options[:file_path], options[:mode])
-      pr_creater.commit ":robot: #{target_rule.title}"
+      pr_creater.commit ":police_car: #{target_rule.title}"
       target_rule
     end
 
     def regenerate_rubocop_todo
       return unless options[:'regenerate-rubocop-todo']
 
-      pr_creater.commit ':robot: regenerate rubocop todo' do
+      pr_creater.commit ':police_car: regenerate rubocop todo' do
         Rubocop::Command.new.auto_gen_config
       end
     end
