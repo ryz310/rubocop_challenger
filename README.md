@@ -46,7 +46,7 @@ version: 2
 jobs:
   rubocop_challenge:
     docker:
-      - image: circleci/ruby:2.5-node-browsers
+      - image: circleci/ruby:2.6-node-browsers
     working_directory: ~/repo
     steps:
       - checkout

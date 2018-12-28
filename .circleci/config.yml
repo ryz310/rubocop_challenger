@@ -94,6 +94,10 @@ jobs:
     docker:
        - image: circleci/ruby:2.5-node-browsers
     <<: *build
+  build_on_ruby_2.6:
+    docker:
+       - image: circleci/ruby:2.6-node-browsers
+    <<: *build
   build_on_ruby_latest:
     docker:
        - image: circleci/ruby:latest-node-browsers-legacy
@@ -172,6 +176,7 @@ workflows:
       - build_on_ruby_2.3
       - build_on_ruby_2.4
       - build_on_ruby_2.5
+      - build_on_ruby_2.6
       - build_on_ruby_latest
       - rubocop
       - yardoc
@@ -182,6 +187,7 @@ workflows:
             - build_on_ruby_2.3
             - build_on_ruby_2.4
             - build_on_ruby_2.5
+            - build_on_ruby_2.6
             - build_on_ruby_latest
             - rubocop
           filters:
