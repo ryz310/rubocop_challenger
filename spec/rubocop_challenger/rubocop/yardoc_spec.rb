@@ -6,6 +6,14 @@ RSpec.describe RubocopChallenger::Rubocop::Yardoc do
   let(:yardoc) { described_class.new(title) }
   let(:title) { 'Style/Alias' }
 
+  describe '#initialize' do
+    let(:title) { 'Capybara/CurrentPathExpectation' }
+
+    it 'find from rubocop/rspec if cannot find a class from rubocop gem' do
+      expect { yardoc }.not_to raise_error
+    end
+  end
+
   describe '#description' do
     let(:docstring) { <<~DOCSTRING.chomp }
       This cop enforces the use of either `#alias` or `#alias_method`
