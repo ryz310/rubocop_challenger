@@ -13,6 +13,13 @@ module RubocopChallenger
         @data = FileTest.exist?(FILE_PATH) ? YAML.load_file(FILE_PATH) : {}
       end
 
+      # Get ignored rules
+      #
+      # @return [Array<String>] Ignored rules
+      def ignored_rules
+        data[:ignore] || []
+      end
+
       def add_ignore(rule)
         data[:ignore] ||= []
         data[:ignore] << rule.title
