@@ -20,12 +20,14 @@ module RubocopChallenger
         data[:ignore] || []
       end
 
+      # Add ignore rule to the config data
       def add_ignore(rule)
         data[:ignore] ||= []
         data[:ignore] << rule.title
         data[:ignore].sort!
       end
 
+      # Save setting to the config file as YAML
       def save
         YAML.dump(data, File.open(FILE_PATH, 'w'))
       end

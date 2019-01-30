@@ -71,6 +71,7 @@ module RubocopChallenger
 
     private
 
+    # GitHub PR creater instance.
     def pr_creater
       @pr_creater ||= Github::PrCreater.new(
         branch: "rubocop-challenge/#{timestamp}",
@@ -79,12 +80,14 @@ module RubocopChallenger
       )
     end
 
+    # Run rubocop challenge.
     def rubocop_challenge
       target_rule = Rubocop::Challenge.exec(options[:file_path], options[:mode])
       pr_creater.commit ":police_car: #{target_rule.title}"
       target_rule
     end
 
+    # Re-generate .rubocop_todo.yml and run git commit.
     def regenerate_rubocop_todo
       pr_creater.commit ':police_car: regenerate rubocop todo' do
         Rubocop::Command.new.auto_gen_config
@@ -107,6 +110,9 @@ module RubocopChallenger
       config_editor.save
     end
 
+    # Create a PR with description of what modification were made.
+    #
+    # @param rule [Rubocop::Rule] The target rule
     def create_pull_request(rule)
       pr_creater_options = generate_pr_creater_options(rule)
       return if options[:'no-commit']
