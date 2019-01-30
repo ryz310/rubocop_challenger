@@ -120,7 +120,13 @@ jobs:
       - *bundle_install
       - *save_bundle_install_cache
       - run: bundle exec rake install
-      - run: bundle exec bin/jailbreak
+      - run:
+          name: Jailbreak
+          command: |
+            git config --global user.email "testing@example.com"
+            git config --global user.name "Testing"
+            bundle exec bin/jailbreak
+            git commit -am "jailbreak"
       - run:
           name: Verify Rubocop Challenge
           command: |

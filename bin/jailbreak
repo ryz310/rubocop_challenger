@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# usage: bin/create_release_pr VERSION
+# usage: bin/jailbreak
 
 require 'bundler/setup'
 require 'rubocop_challenger'
