@@ -49,6 +49,7 @@ module RubocopChallenger
       regenerate_rubocop_todo
       target_rule = rubocop_challenge
       regenerate_rubocop_todo
+      check_challenge_result(target_rule)
       create_pull_request(target_rule)
     rescue StandardError => e
       color_puts e.message, CommandLine::RED
@@ -88,6 +89,22 @@ module RubocopChallenger
       pr_creater.commit ':police_car: regenerate rubocop todo' do
         Rubocop::Command.new.auto_gen_config
       end
+    end
+
+    # Check the challenge result. When the challenge successed, the rule dose
+    # not exist in the .rubocop_todo.yml after regenerate it too.
+    # If still exist the rule, the rule regard as cannot correct automatically
+    # then add to ignore list and it is not chosen as target rule from next
+    # time.
+    #
+    # @param rule [Rubocop::Rule] The target rule
+    def check_challenge_result(rule)
+      todo_reader = Rubocop::TodoReader.new(options[:file_path])
+      return unless todo_reader.all_rules.include?(rule)
+
+      config_editor = Rubocop::ConfigEditor.new
+      config_editor.add_ignore(rule)
+      config_editor.save
     end
 
     def create_pull_request(rule)
