@@ -41,10 +41,6 @@ module RubocopChallenger
            default: ['rubocop challenge'],
            aliases: :l,
            desc: 'Label to give to Pull Request'
-    option :'regenerate-rubocop-todo',
-           type: :boolean,
-           default: true,
-           desc: 'Rerun `$ rubocop --auto-gen-config` after autocorrect'
     option :'no-commit',
            type: :boolean,
            default: false,
@@ -89,8 +85,6 @@ module RubocopChallenger
     end
 
     def regenerate_rubocop_todo
-      return unless options[:'regenerate-rubocop-todo']
-
       pr_creater.commit ':police_car: regenerate rubocop todo' do
         Rubocop::Command.new.auto_gen_config
       end

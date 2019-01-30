@@ -12,7 +12,6 @@ RSpec.describe RubocopChallenger::CLI do
       mode: 'most_occurrence',
       base: 'master',
       labels: ['rubocop challenge'],
-      'regenerate-rubocop-todo': false,
       'no-commit': false
     }
   end

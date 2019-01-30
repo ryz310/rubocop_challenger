@@ -104,8 +104,6 @@ Options:
                                                                    # Default: master
   l, [--labels=one two three]                                      # Label to give to Pull Request
                                                                    # Default: ["rubocop challenge"]
-      [--regenerate-rubocop-todo], [--no-regenerate-rubocop-todo]  # Rerun `$ rubocop --auto-gen-config` after autocorrect
-                                                                   # Default: true
       [--no-commit]                                                # No commit after autocorrect
 
 Run `$ rubocop --auto-correct` and create PR to GitHub repo
