@@ -123,6 +123,8 @@ jobs:
       - run:
           name: Jailbreak
           command: |
+            git config --global user.email "testing@example.com"
+            git config --global user.name "Testing"
             bundle exec bin/jailbreak
             git commit -am "jailbreak"
       - run:
