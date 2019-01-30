@@ -54,6 +54,44 @@ RSpec.describe RubocopChallenger::Rubocop::Rule do
     end
   end
 
+  describe '#==' do
+    subject { rule == other }
+
+    let(:rule) { described_class.new(<<~CONTENTS) }
+      # Offense count: 2
+      # Cop supports --auto-correct.
+      # Configuration parameters: EnforcedStyle, UseHashRocketsWithSymbolValues, PreferHashRocketsForNonAlnumEndingSymbols.
+      # SupportedStyles: ruby19, hash_rockets, no_mixed_keys, ruby19_no_mixed_keys
+      Style/HashSyntax:
+        Exclude:
+          - 'Rakefile'
+    CONTENTS
+
+    context 'when the rule title is same to other one' do
+      let(:other) { described_class.new(<<~CONTENTS) }
+        # Offense count: 1
+        # Cop supports --auto-correct.
+        Style/HashSyntax:
+          Exclude:
+            - 'rubocop_challenger.gemspec'
+      CONTENTS
+
+      it { is_expected.to be_truthy }
+    end
+
+    context 'when the rule title is different to other one' do
+      let(:other) { described_class.new(<<~CONTENTS) }
+        # Offense count: 1
+        # Cop supports --auto-correct.
+        Layout/LeadingBlankLines:
+          Exclude:
+            - 'rubocop_challenger.gemspec'
+      CONTENTS
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
   describe '#<=>' do
     subject { rule <=> other }
 
