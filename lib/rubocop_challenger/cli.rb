@@ -105,9 +105,11 @@ module RubocopChallenger
       todo_reader = Rubocop::TodoReader.new(options[:file_path])
       return unless todo_reader.all_rules.include?(rule)
 
-      config_editor = Rubocop::ConfigEditor.new
-      config_editor.add_ignore(rule)
-      config_editor.save
+      pr_creater.commit ':police_car: add the rule to the ignore list' do
+        config_editor = Rubocop::ConfigEditor.new
+        config_editor.add_ignore(rule)
+        config_editor.save
+      end
     end
 
     # Create a PR with description of what modification were made.
