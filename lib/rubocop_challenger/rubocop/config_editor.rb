@@ -26,7 +26,7 @@ module RubocopChallenger
       def add_ignore(rule)
         data[:Ignore] ||= []
         data[:Ignore] << rule.title
-        data[:Ignore].sort!
+        data[:Ignore].uniq!.sort!
       end
 
       # Save setting to the config file as YAML
