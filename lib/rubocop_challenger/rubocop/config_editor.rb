@@ -31,7 +31,9 @@ module RubocopChallenger
 
       # Save setting to the config file as YAML
       def save
-        YAML.dump(data, File.open(file_path, 'w'))
+        File.open(file_path, 'w') do |file|
+          YAML.dump(data, file)
+        end
       end
     end
   end
