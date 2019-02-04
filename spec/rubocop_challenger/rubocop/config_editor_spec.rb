@@ -22,6 +22,32 @@ RSpec.describe RubocopChallenger::Rubocop::ConfigEditor do
     end
   end
 
+  describe '#ignored_rules' do
+    subject(:ignored_rules) { config_editor.ignored_rules }
+
+    before do
+      rule1 = RubocopChallenger::Rubocop::Rule.new(<<~CONTENTS)
+        Layout/AlignParameters:
+          Enabled: false
+      CONTENTS
+
+      rule2 = RubocopChallenger::Rubocop::Rule.new(<<~CONTENTS)
+        Metrics/AbcSize:
+          Max: 100
+      CONTENTS
+
+      config_editor.add_ignore(rule1, rule2)
+    end
+
+    it 'returns ignored rules in ascending order by name' do
+      expect(ignored_rules).to eq %w[
+        Layout/AlignParameters
+        Metrics/AbcSize
+        Style/Semicolon
+      ]
+    end
+  end
+
   describe '#add_ignore' do
     subject(:add_ignore) { config_editor.add_ignore(rule) }
 

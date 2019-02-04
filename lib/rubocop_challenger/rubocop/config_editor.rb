@@ -24,10 +24,10 @@ module RubocopChallenger
 
       # Add ignore rule to the config data
       #
-      # @param rule [Rubocop::Rule] The target rule
-      def add_ignore(rule)
+      # @param rule [Array<Rubocop::Rule>] The target rules
+      def add_ignore(*rules)
         data['Ignore'] ||= []
-        data['Ignore'] << rule.title
+        rules.each { |rule| data['Ignore'] << rule.title }
         data['Ignore'].sort!.uniq!
       end
 
