@@ -19,14 +19,16 @@ module RubocopChallenger
       #
       # @return [Array<String>] Ignored rules
       def ignored_rules
-        data[:Ignore] || []
+        data['Ignore'] || []
       end
 
       # Add ignore rule to the config data
+      #
+      # @param rule [Rubocop::Rule] The target rule
       def add_ignore(rule)
-        data[:Ignore] ||= []
-        data[:Ignore] << rule.title
-        data[:Ignore].uniq!.sort!
+        data['Ignore'] ||= []
+        data['Ignore'] << rule.title
+        data['Ignore'].sort!.uniq!
       end
 
       # Save setting to the config file as YAML
