@@ -75,4 +75,27 @@ RSpec.describe RubocopChallenger::Rubocop::ConfigEditor do
       end
     end
   end
+
+  describe '#save' do
+    subject(:save) { config_editor.save }
+
+    let(:file_path) { 'spec/fixtures/.to_be_deleted_later.yml' }
+
+    before do
+      rule = RubocopChallenger::Rubocop::Rule.new(<<~CONTENTS)
+        Layout/AlignParameters:
+          Enabled: false
+      CONTENTS
+      config_editor.add_ignore(rule)
+    end
+
+    after do
+      File.delete(file_path)
+    end
+
+    it 'saves config data as YAML' do
+      save
+      expect(File.read(file_path)).to eq config_editor.data.to_yaml
+    end
+  end
 end
