@@ -42,7 +42,7 @@ module RubocopChallenger
       end
 
       def invalid?(rule)
-        rule.offense_count.zero? || ignored_rules.include?(rule)
+        rule.offense_count.zero? || ignored_rules.include?(rule.title)
       end
 
       def ignored_rules
