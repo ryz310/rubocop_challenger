@@ -48,9 +48,25 @@ RSpec.describe RubocopChallenger::CLI do
       it 'outputs a error message and exit process' do
         go
         expect(cli)
-          .to have_received(:color_puts).with('Error message', 31).ordered
+          .to have_received(:color_puts)
+          .with('Error message', 31).ordered
+        expect(cli).to have_received(:exit_process!).ordered
+      end
+    end
+
+    context 'when raise Errors::NoAutoCorrectableRule' do
+      before do
+        allow(RubocopChallenger::Go)
+          .to receive(:new)
+          .and_raise(RubocopChallenger::Errors::NoAutoCorrectableRule)
+      end
+
+      it 'outputs a description and exit process' do
+        go
         expect(cli)
-          .to have_received(:exit_process!).ordered
+          .to have_received(:color_puts)
+          .with('There is no auto-correctable rule', 33).ordered
+        expect(cli).to have_received(:exit_process!).ordered
       end
     end
   end

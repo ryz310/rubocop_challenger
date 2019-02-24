@@ -92,7 +92,8 @@ RSpec.describe RubocopChallenger::Rubocop::Challenge do
       let(:rule_instance) { nil }
 
       it do
-        expect { rubocop_challenge_execute }.to raise_error(SystemExit)
+        expect { rubocop_challenge_execute }
+          .to raise_error(RubocopChallenger::Errors::NoAutoCorrectableRule)
       end
     end
   end

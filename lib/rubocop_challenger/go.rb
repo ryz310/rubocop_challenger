@@ -8,6 +8,7 @@ module RubocopChallenger
       @options = options
     end
 
+    # @raise [Errors::NoAutoCorrectableRule]
     def exec
       regenerate_rubocop_todo!
       corrected_rule = rubocop_challenge!
