@@ -14,6 +14,14 @@ module RubocopChallenger
         @offense_count = extract_offense_count
       end
 
+      # Compare to other rule
+      #
+      # @param other [Rule] Target of comparison
+      # @return [Boolean] Return true in case of coincidence
+      def ==(other)
+        title == other.title
+      end
+
       def <=>(other)
         offense_count <=> other.offense_count
       end

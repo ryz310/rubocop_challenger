@@ -15,6 +15,7 @@ version_file = File.read(VERSION_FILE_PATH)
 # Modify the file contents
 version_file.sub!('# frozen_string_literal: true', '')
 version_file.gsub!("\n", "  \n  ")
+version_file.concat("\nputs 'hoge'; puts 'fuga'")
 
 # Write the origin ruby file
 File.write(VERSION_FILE_PATH, version_file)

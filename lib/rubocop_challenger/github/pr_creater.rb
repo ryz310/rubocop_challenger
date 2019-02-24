@@ -54,6 +54,19 @@ module RubocopChallenger
         true
       end
 
+      # Stubing each PrCreater methods for testing
+      class Mock
+        def initialize(*); end
+
+        def commit(*)
+          yield if block_given?
+        end
+
+        def create_pr(*)
+          true
+        end
+      end
+
       private
 
       attr_reader :git, :github, :topic_branch, :initial_sha1
