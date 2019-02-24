@@ -10,10 +10,3 @@
 Lint/Debugger:
   Exclude:
     - 'lib/rubocop_challenger/go.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: AllowAsExpressionSeparator.
-Style/Semicolon:
-  Exclude:
-    - 'spec/rubocop_challenger/go_spec.rb'
