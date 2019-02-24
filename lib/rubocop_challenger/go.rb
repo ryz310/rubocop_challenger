@@ -3,6 +3,8 @@
 module RubocopChallenger
   # Executes Rubocop Challenge flow
   class Go
+    include CommandLine
+
     # @param options [Hash] describe_options_here
     def initialize(options)
       @options = options
@@ -70,6 +72,11 @@ module RubocopChallenger
         config_editor.add_ignore(rule)
         config_editor.save
       end
+      message = <<~MSG
+        Rubocop Challenger has executed auto-correcting but it is incomplete.
+        Therefore the rule add to ignore list.
+      MSG
+      color_puts message, CommandLine::YELLOW
     end
 
     # Create a PR with description of what modification were made.

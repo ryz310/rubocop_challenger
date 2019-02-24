@@ -57,6 +57,7 @@ RSpec.describe RubocopChallenger::Go do
 
     allow(pr_creater).to receive(:create_pr)
     allow(go).to receive(:timestamp).and_return('20181112212509')
+    allow(go).to receive(:color_puts)
   end
 
   describe '#exec' do
@@ -110,6 +111,11 @@ RSpec.describe RubocopChallenger::Go do
       it do
         exec
         expect(config_editor).to have_received(:add_ignore).with(corrected_rule)
+      end
+
+      it do
+        exec
+        expect(go).to have_received(:color_puts).with(instance_of(String), 33)
       end
     end
   end
