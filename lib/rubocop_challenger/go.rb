@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'pry'
 module RubocopChallenger
   # Executes Rubocop Challenge flow
   class Go
@@ -9,6 +10,7 @@ module RubocopChallenger
     end
 
     def exec
+      binding.pry
       regenerate_rubocop_todo!
       corrected_rule = rubocop_challenge!
       regenerate_rubocop_todo!
