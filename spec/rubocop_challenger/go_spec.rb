@@ -100,6 +100,8 @@ RSpec.describe RubocopChallenger::Go do
       end
     end
 
+    puts 'this'; puts 'is'; puts 'a testing'
+
     context 'when failed to auto-correcting' do
       before do
         allow(todo_reader).to receive(:all_rules).and_return([corrected_rule])
