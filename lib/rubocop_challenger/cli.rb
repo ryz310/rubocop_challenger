@@ -49,7 +49,6 @@ module RubocopChallenger
       Go.new(options).exec
     rescue Errors::NoAutoCorrectableRule => e
       color_puts e.message, CommandLine::YELLOW
-      exit_process!
     rescue StandardError => e
       color_puts e.message, CommandLine::RED
       exit_process!
