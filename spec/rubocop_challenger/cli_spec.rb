@@ -65,8 +65,12 @@ RSpec.describe RubocopChallenger::CLI do
         go
         expect(cli)
           .to have_received(:color_puts)
-          .with('There is no auto-correctable rule', 33).ordered
-        expect(cli).to have_received(:exit_process!).ordered
+          .with('There is no auto-correctable rule', 33)
+      end
+
+      it 'does not return exit code 1' do
+        go
+        expect(cli).not_to have_received(:exit_process!)
       end
     end
   end
