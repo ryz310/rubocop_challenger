@@ -41,19 +41,14 @@ module RubocopChallenger
            default: ['rubocop challenge'],
            aliases: :l,
            desc: 'Label to give to Pull Request'
-    option :'regenerate-rubocop-todo',
-           type: :boolean,
-           default: true,
-           desc: 'Rerun `$ rubocop --auto-gen-config` after autocorrect'
     option :'no-commit',
            type: :boolean,
            default: false,
            desc: 'No commit after autocorrect'
     def go
-      regenerate_rubocop_todo
-      target_rule = rubocop_challenge
-      regenerate_rubocop_todo
-      create_pull_request(target_rule)
+      Go.new(options).exec
+    rescue Errors::NoAutoCorrectableRule => e
+      color_puts e.message, CommandLine::YELLOW
     rescue StandardError => e
       color_puts e.message, CommandLine::RED
       exit_process!
@@ -73,54 +68,6 @@ module RubocopChallenger
     end
 
     private
-
-    def pr_creater
-      @pr_creater ||= Github::PrCreater.new(
-        branch: "rubocop-challenge/#{timestamp}",
-        user_name: options[:name],
-        user_email: options[:email]
-      )
-    end
-
-    def rubocop_challenge
-      target_rule = Rubocop::Challenge.exec(options[:file_path], options[:mode])
-      pr_creater.commit ":police_car: #{target_rule.title}"
-      target_rule
-    end
-
-    def regenerate_rubocop_todo
-      return unless options[:'regenerate-rubocop-todo']
-
-      pr_creater.commit ':police_car: regenerate rubocop todo' do
-        Rubocop::Command.new.auto_gen_config
-      end
-    end
-
-    def create_pull_request(rule)
-      pr_creater_options = generate_pr_creater_options(rule)
-      return if options[:'no-commit']
-
-      pr_creater.create_pr(pr_creater_options)
-    end
-
-    def generate_pr_creater_options(rule)
-      {
-        title: "#{rule.title}-#{timestamp}",
-        body: generate_pr_body(rule),
-        base: options[:base],
-        labels: options[:labels]
-      }
-    end
-
-    def generate_pr_body(rule)
-      Github::PrTemplate
-        .new(rule, options[:template])
-        .generate_pullrequest_markdown
-    end
-
-    def timestamp
-      @timestamp ||= Time.now.strftime('%Y%m%d%H%M%S')
-    end
 
     # Exit process (Mainly for mock when testing)
     def exit_process!

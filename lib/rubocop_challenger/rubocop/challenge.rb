@@ -19,6 +19,7 @@ module RubocopChallenger
         @todo_writer = Rubocop::TodoWriter.new(file_path)
       end
 
+      # @raise [Errors::NoAutoCorrectableRule]
       def exec
         verify_target_rule
         todo_writer.delete_rule(target_rule)
@@ -29,8 +30,7 @@ module RubocopChallenger
       def verify_target_rule
         return unless target_rule.nil?
 
-        puts 'There is no auto-correctable rule'
-        exit
+        raise Errors::NoAutoCorrectableRule
       end
 
       def target_rule

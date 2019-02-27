@@ -3,6 +3,7 @@
 require 'simplecov'
 SimpleCov.start
 
+require 'pry'
 require 'bundler/setup'
 require 'rubocop_challenger'
 

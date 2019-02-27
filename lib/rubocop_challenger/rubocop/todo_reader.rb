@@ -37,8 +37,16 @@ module RubocopChallenger
           .read(rubocop_todo_file_path)
           .split(/\n{2,}/)
           .map! { |content| Rule.new(content) }
-          .reject! { |rule| rule.offense_count.zero? }
+          .reject! { |rule| invalid?(rule) }
           .sort!
+      end
+
+      def invalid?(rule)
+        rule.offense_count.zero? || ignored_rules.include?(rule.title)
+      end
+
+      def ignored_rules
+        @ignored_rules ||= ConfigEditor.new.ignored_rules
       end
     end
   end

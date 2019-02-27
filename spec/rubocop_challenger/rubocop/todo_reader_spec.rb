@@ -66,7 +66,7 @@ RSpec.describe RubocopChallenger::Rubocop::TodoReader do
   end
 
   describe '#all_rules' do
-    let(:rules_which_ordered_by_offense_count) do
+    let(:rules_which_are_ordered_by_offense_count) do
       [
         autocorrectable_rule_which_offence_count_is_1,
         autocorrectable_rule_which_offence_count_is_2,
@@ -76,12 +76,40 @@ RSpec.describe RubocopChallenger::Rubocop::TodoReader do
     end
 
     it 'returns all rubocop rules which ordered by offense count' do
-      expect(todo_reader.all_rules).to eq rules_which_ordered_by_offense_count
+      expect(todo_reader.all_rules)
+        .to eq rules_which_are_ordered_by_offense_count
+    end
+
+    context 'when includes any ignored rules' do
+      before do
+        allow(RubocopChallenger::Rubocop::ConfigEditor)
+          .to receive(:new).and_return(config_editor)
+      end
+
+      let(:config_editor) do
+        instance_double(
+          RubocopChallenger::Rubocop::ConfigEditor,
+          ignored_rules: ignored_rules
+        )
+      end
+      let(:ignored_rules) do
+        %w[
+          Layout/EmptyLinesAroundBlockBody
+          Style/FrozenStringLiteralComment
+        ]
+      end
+
+      it 'rejects to be ignored rules' do
+        expect(todo_reader.all_rules).to eq [
+          autocorrectable_rule_which_offence_count_is_2,
+          unautocorrectable_rule_which_offence_count_is_4
+        ]
+      end
     end
   end
 
   describe '#auto_correctable_rules' do
-    let(:rules_which_ordered_by_offense_count) do
+    let(:rules_which_are_ordered_by_offense_count) do
       [
         autocorrectable_rule_which_offence_count_is_1,
         autocorrectable_rule_which_offence_count_is_2,
@@ -91,7 +119,7 @@ RSpec.describe RubocopChallenger::Rubocop::TodoReader do
 
     it 'returns just auto correctable rules which ordered by offense count' do
       expect(todo_reader.auto_correctable_rules)
-        .to eq rules_which_ordered_by_offense_count
+        .to eq rules_which_are_ordered_by_offense_count
     end
   end
 
