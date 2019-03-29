@@ -8,8 +8,15 @@ module RubocopChallenger
         @rubocop_todo_file_path = rubocop_todo_file_path
       end
 
+      # @return [Array<Rule>]
+      #   Array of rubocop rule instances which ordered by offense count
       def all_rules
-        @all_rules ||= extract_rubocop_rules
+        @all_rules ||=
+          file_contents
+          .split(/\n{2,}/)
+          .map! { |content| Rule.new(content) }
+          .reject! { |rule| invalid?(rule) }
+          .sort!
       end
 
       def auto_correctable_rules
@@ -32,13 +39,9 @@ module RubocopChallenger
 
       attr_reader :rubocop_todo_file_path
 
-      def extract_rubocop_rules
-        File
-          .read(rubocop_todo_file_path)
-          .split(/\n{2,}/)
-          .map! { |content| Rule.new(content) }
-          .reject! { |rule| invalid?(rule) }
-          .sort!
+      # @return [String] the ".rubocop_todo.yml" contents
+      def file_contents
+        @file_contents ||= File.read(rubocop_todo_file_path)
       end
 
       def invalid?(rule)
