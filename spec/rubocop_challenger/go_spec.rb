@@ -32,7 +32,9 @@ RSpec.describe RubocopChallenger::Go do
     )
   end
   let(:todo_reader) do
-    instance_double(RubocopChallenger::Rubocop::TodoReader, all_rules: [])
+    instance_double(
+      RubocopChallenger::Rubocop::TodoReader, all_rules: [], version: '0.65.0'
+    )
   end
   let(:config_editor) do
     instance_double(
