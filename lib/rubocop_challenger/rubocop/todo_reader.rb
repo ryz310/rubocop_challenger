@@ -8,6 +8,14 @@ module RubocopChallenger
         @rubocop_todo_file_path = rubocop_todo_file_path
       end
 
+      # Returns the version of RuboCop used to create the ".rubocop_todo.yml"
+      #
+      # @return [Type] the RuboCop version
+      def version
+        file_contents =~ /using RuboCop version (\d{1,}\.\d{1,}\.\d{1,})/
+        Regexp.last_match(1)
+      end
+
       # @return [Array<Rule>]
       #   Array of rubocop rule instances which ordered by offense count
       def all_rules
