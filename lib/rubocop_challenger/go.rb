@@ -35,6 +35,10 @@ module RubocopChallenger
             labels: options[:labels]
           }
 
+          puts '=' * 100
+          puts "pr_creater_options : #{pr_creater_options.inspect}"
+          puts '=' * 100
+
           pr_creater.create_pr(pr_creater_options) unless options[:'no-commit']
           raise e
         end
