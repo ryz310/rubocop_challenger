@@ -111,8 +111,7 @@ Run `$ rubocop --auto-correct` and create PR to GitHub repo
 
 ## Requirement
 
-* Ruby 2.3 or higher
-    * NOTE: Ruby 2.3 will EOL soon (See: [Ruby Maintenance Branches](https://www.ruby-lang.org/en/downloads/branches/))
+* Ruby 2.4 or higher
 
 ## Development
 
