@@ -27,18 +27,22 @@ module RubocopChallenger
           .sort!
       end
 
+      # @return [Array<Rule>]
       def auto_correctable_rules
         all_rules.select(&:auto_correctable?)
       end
 
+      # @return [Rule]
       def least_occurrence_rule
         auto_correctable_rules.first
       end
 
+      # @return [Rule]
       def most_occurrence_rule
         auto_correctable_rules.last
       end
 
+      # @return [Rule]
       def any_rule
         auto_correctable_rules.sample
       end
@@ -52,10 +56,13 @@ module RubocopChallenger
         @file_contents ||= File.read(rubocop_todo_file_path)
       end
 
+      # @params [Rule] the target rule
+      # @return [Boolean]
       def invalid?(rule)
         rule.offense_count.zero? || ignored_rules.include?(rule.title)
       end
 
+      # @return [Array<String>] Ignored rule titles
       def ignored_rules
         @ignored_rules ||= ConfigEditor.new.ignored_rules
       end
