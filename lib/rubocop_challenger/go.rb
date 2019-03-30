@@ -12,7 +12,7 @@ module RubocopChallenger
         options[:name],
         options[:email],
         options[:labels],
-        options[:'no-commit']
+        options[:'no-create-pr']
       )
     end
 

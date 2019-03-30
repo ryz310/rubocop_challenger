@@ -37,10 +37,10 @@ module RubocopChallenger
            default: ['rubocop challenge'],
            aliases: :l,
            desc: 'Label to give to Pull Request'
-    option :'no-commit',
+    option :'no-create-pr',
            type: :boolean,
            default: false,
-           desc: 'No commit after autocorrect'
+           desc: 'No create a pull request (for testing)'
     def go
       Go.new(options).exec
     rescue Errors::NoAutoCorrectableRule => e

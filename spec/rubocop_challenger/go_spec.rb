@@ -11,7 +11,7 @@ RSpec.describe RubocopChallenger::Go do
       mode: 'most_occurrence',
       labels: ['rubocop challenge'],
       template: 'template_file_path',
-      'no-commit': false
+      'no-create-pr': false
     )
   end
 
