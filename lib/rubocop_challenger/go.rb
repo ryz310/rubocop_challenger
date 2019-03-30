@@ -21,6 +21,7 @@ module RubocopChallenger
     # @raise [Errors::NoAutoCorrectableRule]
     #   Raises if there is no auto correctable rule in ".rubocop_todo.yml"
     def exec
+      update_rubocop!
       before_version, after_version = regenerate_rubocop_todo!
       corrected_rule = rubocop_challenge!(before_version, after_version)
       regenerate_rubocop_todo!
@@ -31,6 +32,13 @@ module RubocopChallenger
     private
 
     attr_reader :options, :pull_request
+
+    def update_rubocop!
+      pull_request.commit! ':police_car: $ bundle update rubocop' do
+        execute 'bundle update rubocop'
+        execute 'bundle list | grep rubocop-rspec && bundle update rubocop-rspec'
+      end
+    end
 
     # Re-generate .rubocop_todo.yml and run git commit.
     #
