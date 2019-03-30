@@ -34,9 +34,10 @@ module RubocopChallenger
     attr_reader :options, :pull_request
 
     def update_rubocop!
+      bundler = Bundler::Command.new
       pull_request.commit! ':police_car: $ bundle update rubocop' do
-        execute 'bundle update rubocop'
-        execute 'bundle list | grep rubocop-rspec && bundle update rubocop-rspec'
+        bundler.update 'rubocop'
+        bundler.update 'rubocop-rspec' if bundler.installed?('rubocop-rspec')
       end
     end
 

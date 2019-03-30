@@ -27,6 +27,11 @@ RSpec.describe RubocopChallenger::Go do
       RubocopChallenger::Rubocop::Rule, title: 'Style/StringLiterals'
     )
   end
+  let(:bundler_command) do
+    instance_double(
+      RubocopChallenger::Bundler::Command, update: nil, installed?: true
+    )
+  end
   let(:rubocop_command) do
     instance_double(RubocopChallenger::Rubocop::Command, auto_gen_config: nil)
   end
@@ -44,6 +49,8 @@ RSpec.describe RubocopChallenger::Go do
   before do
     allow(RubocopChallenger::PullRequest)
       .to receive(:new).and_return(pull_request)
+    allow(RubocopChallenger::Bundler::Command)
+      .to receive(:new).and_return(bundler_command)
     allow(RubocopChallenger::Rubocop::Challenge)
       .to receive(:exec).and_return(corrected_rule)
     allow(RubocopChallenger::Rubocop::Command)
@@ -81,6 +88,11 @@ RSpec.describe RubocopChallenger::Go do
     end
 
     shared_examples 'execute Rubocop Challenge flow' do
+      it do
+        exec
+        expect(bundler_command).to have_received(:update).with('rubocop')
+      end
+
       it do
         exec
         expect(rubocop_command)
@@ -134,6 +146,11 @@ RSpec.describe RubocopChallenger::Go do
       end
 
       shared_examples 'interrupt the Rubocop Challenge' do
+        it do
+          safe_exec.call
+          expect(bundler_command).to have_received(:update).with('rubocop')
+        end
+
         it do
           safe_exec.call
           expect(rubocop_command)
