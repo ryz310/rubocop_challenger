@@ -19,7 +19,9 @@ I call such work *Rubocop Challenge*. And the *RubocopChallenger* is a gem to su
 
 ### 1. Edit your Gemfile
 
-Put this line in your Gemfile.
+If you do not specify the version of `rubocop` gem so you do not have to add `rubocop_challenger` gem in your Gemfile (**Recommended**).
+
+If you specify the version so put this line in your Gemfile.
 
 ```rb
 gem 'rubocop_challenger', group: :development, require: false
@@ -53,8 +55,8 @@ jobs:
       - run:
           name: Rubocop Challenge
           command: |
-            bundle install
-            bundle exec rubocop_challenger go \
+            gem install rubocop_challenger
+            rubocop_challenger go \
               --email=rubocop-challenger@example.com \
               --name="Rubocop Challenger"
 
@@ -71,6 +73,20 @@ workflows:
                 - master
     jobs:
       - rubocop_challenge
+```
+
+If you added `rubocop_challenger` gem in your Gemfile so please modify script of installing and execution as following:
+
+```yml
+steps:
+  - checkout
+  - run:
+      name: Rubocop Challenge
+      command: |
+        bundle install
+        bundle exec rubocop_challenger go \
+          --email=rubocop-challenger@example.com \
+          --name="Rubocop Challenger"
 ```
 
 ## CLI command references
