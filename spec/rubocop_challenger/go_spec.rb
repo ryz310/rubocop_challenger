@@ -28,7 +28,7 @@ RSpec.describe RubocopChallenger::Go do
   let(:pr_tempate) do
     instance_double(
       RubocopChallenger::Github::PrTemplate,
-      generate_pullrequest_markdown: 'The pull request markdown'
+      generate: 'The pull request markdown'
     )
   end
   let(:todo_reader) do

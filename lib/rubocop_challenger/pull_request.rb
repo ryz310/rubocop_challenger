@@ -18,7 +18,7 @@ module RubocopChallenger
     def create_rubocop_challenge_pr!(rule, template)
       create_pull_request!(
         title: "#{rule.title}-#{timestamp}",
-        body: Github::PrTemplate.new(rule, template).generate_pullrequest_markdown,
+        body: Github::PrTemplate.new(rule, template).generate,
         labels: labels
       )
     end
