@@ -102,7 +102,7 @@ Options:
                                # Default: most_occurrence
   l, [--labels=one two three]  # Label to give to Pull Request
                                # Default: ["rubocop challenge"]
-      [--no-commit]            # No commit after autocorrect
+      [--no-create-pr]         # No create a pull request (for testing)
 
 Run `$ rubocop --auto-correct` and create a PR to GitHub repo
 ```
