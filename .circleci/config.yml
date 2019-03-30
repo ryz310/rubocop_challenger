@@ -130,8 +130,7 @@ jobs:
               --email=ryz310@gmail.com \
               --name=ryz310 \
               --mode=random \
-              --labels='rubocop challenge' 'in progress' \
-              --no-commit
+              --no-create-pr
 
   rubocop_challenge:
     docker:
@@ -146,8 +145,7 @@ jobs:
             bundle exec rubocop_challenger go \
               --email=ryz310@gmail.com \
               --name=ryz310 \
-              --template=./lib/templates/checklist.md.erb \
-              --labels='rubocop challenge' 'in progress'
+              --template=./lib/templates/checklist.md.erb
 
   release:
     docker:
