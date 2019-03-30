@@ -32,19 +32,15 @@ module RubocopChallenger
            default: 'most_occurrence',
            desc: 'Mode to select deletion target. You can choice ' \
                  '"most_occurrence", "least_occurrence", or "random"'
-    option :base,
-           type: :string,
-           default: 'master',
-           desc: 'Base branch of Pull Request'
     option :labels,
            type: :array,
            default: ['rubocop challenge'],
            aliases: :l,
            desc: 'Label to give to Pull Request'
-    option :'no-commit',
+    option :'no-create-pr',
            type: :boolean,
            default: false,
-           desc: 'No commit after autocorrect'
+           desc: 'No create a pull request (for testing)'
     def go
       Go.new(options).exec
     rescue Errors::NoAutoCorrectableRule => e
@@ -61,17 +57,15 @@ module RubocopChallenger
 
     # Workaround to return exit code 1 when an error occurs
     # @see https://github.com/erikhuda/thor/issues/244
-    module ClassMethods
-      def exit_on_failure?
-        true
-      end
+    def self.exit_on_failure?
+      true
     end
 
     private
 
     # Exit process (Mainly for mock when testing)
     def exit_process!
-      exit!
+      abort
     end
   end
 end

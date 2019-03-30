@@ -3,7 +3,7 @@ require: rubocop-rspec
 inherit_from: .rubocop_todo.yml
 
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.4
 
 Metrics/BlockLength:
   Exclude:
@@ -13,3 +13,6 @@ Metrics/BlockLength:
 RSpec/MultipleExpectations:
   Exclude:
     - 'spec/rubocop_challenger/cli_spec.rb'
+
+RSpec/NestedGroups:
+  Max: 4

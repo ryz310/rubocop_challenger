@@ -11,9 +11,8 @@ RSpec.describe RubocopChallenger::CLI do
       name: 'Rubocop Challenger',
       file_path: '.rubocop_todo.yml',
       mode: 'most_occurrence',
-      base: 'master',
       labels: ['rubocop challenge'],
-      'no-commit': false
+      'no-create-pr': false
     }
   end
 
@@ -80,5 +79,19 @@ RSpec.describe RubocopChallenger::CLI do
       expect { cli.version }
         .to output("#{RubocopChallenger::VERSION}\n").to_stdout
     end
+  end
+
+  describe '.exit_on_failure?' do
+    subject { described_class.send(:exit_on_failure?) }
+
+    it { is_expected.to be_truthy }
+  end
+
+  describe '#exit_process!' do
+    subject(:exit_process!) { cli.send(:exit_process!) }
+
+    before { allow(cli).to receive(:exit_process!).and_call_original }
+
+    it { expect { exit_process! }.to raise_error(SystemExit) }
   end
 end

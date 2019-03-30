@@ -1,6 +1,6 @@
 # Rubocop Challenger
 
-[![CircleCI](https://circleci.com/gh/ryz310/rubocop_challenger/tree/master.svg?style=svg&circle-token=cdf0ffce5b4c0c7804b50dde00ca5ef09cbadb67)](https://circleci.com/gh/ryz310/rubocop_challenger/tree/master) [![Gem Version](https://badge.fury.io/rb/rubocop_challenger.svg)](https://badge.fury.io/rb/rubocop_challenger) [![Maintainability](https://api.codeclimate.com/v1/badges/a18c1c17fc534bb32473/maintainability)](https://codeclimate.com/github/ryz310/rubocop_challenger/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/a18c1c17fc534bb32473/test_coverage)](https://codeclimate.com/github/ryz310/rubocop_challenger/test_coverage) [![Waffle.io - Columns and their card count](https://badge.waffle.io/ryz310/rubocop_challenger.svg?columns=all)](https://waffle.io/ryz310/rubocop_challenger)
+[![CircleCI](https://circleci.com/gh/ryz310/rubocop_challenger/tree/master.svg?style=svg&circle-token=cdf0ffce5b4c0c7804b50dde00ca5ef09cbadb67)](https://circleci.com/gh/ryz310/rubocop_challenger/tree/master) [![Gem Version](https://badge.fury.io/rb/rubocop_challenger.svg)](https://badge.fury.io/rb/rubocop_challenger) [![Maintainability](https://api.codeclimate.com/v1/badges/a18c1c17fc534bb32473/maintainability)](https://codeclimate.com/github/ryz310/rubocop_challenger/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/a18c1c17fc534bb32473/test_coverage)](https://codeclimate.com/github/ryz310/rubocop_challenger/test_coverage)
 
 If you introduce [`rubocop`](https://github.com/rubocop-hq/rubocop) to an existing Rails project later, you will use [`$ rubocop --auto-gen-config`](https://github.com/rubocop-hq/rubocop/blob/master/manual/configuration.md#automatically-generated-configuration). But it will make a huge `.rubocop_todo.yml` and make you despair.
 On the other hand, `rubocop` has [`--auto-correct`](https://github.com/rubocop-hq/rubocop/blob/master/manual/basic_usage.md#other-useful-command-line-flags) option, it is possible to automatically repair the writing which does not conform to the rule. But since it occasionally destroys your code, it is quite dangerous to apply all at once.
@@ -19,7 +19,9 @@ I call such work *Rubocop Challenge*. And the *RubocopChallenger* is a gem to su
 
 ### 1. Edit your Gemfile
 
-Put this line in your Gemfile.
+If you do not specify the version of `rubocop` gem so you do not have to add `rubocop_challenger` gem in your Gemfile (**Recommended**).
+
+If you specify the version so put this line in your Gemfile.
 
 ```rb
 gem 'rubocop_challenger', group: :development, require: false
@@ -53,8 +55,8 @@ jobs:
       - run:
           name: Rubocop Challenge
           command: |
-            bundle install
-            bundle exec rubocop_challenger go \
+            gem install rubocop_challenger
+            rubocop_challenger go \
               --email=rubocop-challenger@example.com \
               --name="Rubocop Challenger"
 
@@ -73,13 +75,27 @@ workflows:
       - rubocop_challenge
 ```
 
+If you added `rubocop_challenger` gem in your Gemfile so please modify script of installing and execution as following:
+
+```yml
+steps:
+  - checkout
+  - run:
+      name: Rubocop Challenge
+      command: |
+        bundle install
+        bundle exec rubocop_challenger go \
+          --email=rubocop-challenger@example.com \
+          --name="Rubocop Challenger"
+```
+
 ## CLI command references
 
 ```sh
 $ rubocop_challenger help
 
 Commands:
-  rubocop_challenger go --email=EMAIL --name=NAME  # Run `$ rubocop --auto-correct` and create PR to GitHub repo
+  rubocop_challenger go --email=EMAIL --name=NAME  # Run `$ rubocop --auto-correct` and create a PR to GitHub repo
   rubocop_challenger help [COMMAND]                # Describe available commands or one specific command
   rubocop_challenger version                       # Show current version
 ```
@@ -93,26 +109,23 @@ Usage:
   rubocop_challenger go --email=EMAIL --name=NAME
 
 Options:
-      --email=EMAIL                                                # Pull Request committer email
-      --name=NAME                                                  # Pull Request committer name
-  f, [--file-path=FILE_PATH]                                       # Set your ".rubocop_todo.yml" path
-                                                                   # Default: .rubocop_todo.yml
-  t, [--template=TEMPLATE]                                         # Pull Request template `erb` file path.You can use variable that `title`, `rubydoc_url`, `description` and `examples` into the erb file.
-      [--mode=MODE]                                                # Mode to select deletion target. You can choice "most_occurrence", "least_occurrence", or "random"
-                                                                   # Default: most_occurrence
-      [--base=BASE]                                                # Base branch of Pull Request
-                                                                   # Default: master
-  l, [--labels=one two three]                                      # Label to give to Pull Request
-                                                                   # Default: ["rubocop challenge"]
-      [--no-commit]                                                # No commit after autocorrect
+      --email=EMAIL            # The Pull Request committer email
+      --name=NAME              # The Pull Request committer name
+  f, [--file-path=FILE_PATH]   # Set your ".rubocop_todo.yml" path
+                               # Default: .rubocop_todo.yml
+  t, [--template=TEMPLATE]     # A Pull Request template `erb` file path.You can use variable that `title`, `rubydoc_url`, `description` and `examples` into the erb file.
+      [--mode=MODE]            # Mode to select deletion target. You can choice "most_occurrence", "least_occurrence", or "random"
+                               # Default: most_occurrence
+  l, [--labels=one two three]  # Label to give to Pull Request
+                               # Default: ["rubocop challenge"]
+      [--no-create-pr]         # No create a pull request (for testing)
 
-Run `$ rubocop --auto-correct` and create PR to GitHub repo
+Run `$ rubocop --auto-correct` and create a PR to GitHub repo
 ```
 
 ## Requirement
 
-* Ruby 2.3 or higher
-    * NOTE: Ruby 2.3 will EOL soon (See: [Ruby Maintenance Branches](https://www.ruby-lang.org/en/downloads/branches/))
+* Ruby 2.4 or higher
 
 ## Development
 
