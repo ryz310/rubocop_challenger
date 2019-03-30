@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe RubocopChallenger::Github::PrTemplate do
-  describe '#generate_pullrequest_markdown' do
+  describe '#generate' do
     let(:pr_template) { described_class.new(rule) }
 
     let(:rule) { RubocopChallenger::Rubocop::Rule.new(<<~CONTENTS) }
@@ -54,7 +54,7 @@ RSpec.describe RubocopChallenger::Github::PrTemplate do
     EXPECTED
 
     it 'returns PR template which includes rubydoc link and description' do
-      expect(pr_template.generate_pullrequest_markdown).to eq expected_template
+      expect(pr_template.generate).to eq expected_template
     end
   end
 end

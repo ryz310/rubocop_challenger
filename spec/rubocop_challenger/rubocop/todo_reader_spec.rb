@@ -65,6 +65,12 @@ RSpec.describe RubocopChallenger::Rubocop::TodoReader do
     CONTENTS
   end
 
+  describe '#version' do
+    it 'returns the version of RuboCop used to create the .rubocop_todo.yml' do
+      expect(todo_reader.version).to eq '0.59.2'
+    end
+  end
+
   describe '#all_rules' do
     let(:rules_which_are_ordered_by_offense_count) do
       [

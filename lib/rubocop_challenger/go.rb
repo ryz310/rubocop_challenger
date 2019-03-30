@@ -8,104 +8,127 @@ module RubocopChallenger
     # @param options [Hash] describe_options_here
     def initialize(options)
       @options = options
+      @pull_request = PullRequest.new(
+        options[:base],
+        options[:name],
+        options[:email],
+        options[:labels],
+        options[:'no-commit']
+      )
     end
 
+    # Executes Rubocop Challenge flow
+    #
     # @raise [Errors::NoAutoCorrectableRule]
+    #   Raises if there is no auto correctable rule in ".rubocop_todo.yml"
     def exec
+      before_version, after_version = regenerate_rubocop_todo!
+      corrected_rule = rubocop_challenge!(before_version, after_version)
       regenerate_rubocop_todo!
-      corrected_rule = rubocop_challenge!
-      regenerate_rubocop_todo!
-      if auto_correct_incomplete?(corrected_rule)
-        add_ignore_list!(corrected_rule)
-      end
+      add_to_ignore_list_if_challenge_is_incomplete(corrected_rule)
       create_pull_request!(corrected_rule)
     end
 
     private
 
-    attr_reader :options
+    attr_reader :options, :pull_request
 
     # Re-generate .rubocop_todo.yml and run git commit.
+    #
+    # @return [Array<String>]
+    #  Returns the versions of RuboCop which created ".rubocop_todo.yml" before
+    #  and after re-generate.
     def regenerate_rubocop_todo!
-      pr_creater.commit ':police_car: regenerate rubocop todo' do
+      before_version = scan_rubocop_version_in_rubocop_todo_file
+      pull_request.commit! ':police_car: regenerate rubocop todo' do
         Rubocop::Command.new.auto_gen_config
       end
+      after_version = scan_rubocop_version_in_rubocop_todo_file
+
+      [before_version, after_version]
+    end
+
+    # @return [String] The version of RuboCop which created ".rubocop_todo.yml"
+    def scan_rubocop_version_in_rubocop_todo_file
+      Rubocop::TodoReader.new(options[:file_path]).version
     end
 
     # Run rubocop challenge.
     #
-    # @return [Rubocop::Rule] The corrected rule
-    def rubocop_challenge!
-      corrected_rule =
-        Rubocop::Challenge.exec(options[:file_path], options[:mode])
-      pr_creater.commit ":police_car: #{corrected_rule.title}"
-      corrected_rule
+    # @param before_version [String]
+    #   The version of RuboCop which created ".rubocop_todo.yml" before
+    #   re-generate.
+    # @param after_version [String]
+    #   The version of RuboCop which created ".rubocop_todo.yml" after
+    #   re-generate
+    # @return [Rubocop::Rule]
+    #   The corrected rule
+    # @raise [Errors::NoAutoCorrectableRule]
+    #   Raises if there is no auto correctable rule in ".rubocop_todo.yml"
+    def rubocop_challenge!(before_version, after_version)
+      Rubocop::Challenge.exec(options[:file_path], options[:mode]).tap do |rule|
+        pull_request.commit! ":police_car: #{rule.title}"
+      end
+    rescue Errors::NoAutoCorrectableRule => e
+      create_another_pull_request!(before_version, after_version)
+      raise e
     end
 
-    # GitHub PR creater instance.
-    def pr_creater
-      @pr_creater ||= Github::PrCreater.new(
-        branch: "rubocop-challenge/#{timestamp}",
-        user_name: options[:name],
-        user_email: options[:email]
+    # Creates a pull request for the Rubocop Challenge
+    #
+    # @param corrected_rule [Rubocop::Rule] The corrected rule
+    def create_pull_request!(corrected_rule)
+      pull_request.create_rubocop_challenge_pr!(
+        corrected_rule, options[:template]
       )
     end
 
-    # Check the challenge result. When the challenge successed, the rule dose
-    # not exist in the .rubocop_todo.yml after regenerate it too.
+    # Creates a pull request which re-generate ".rubocop_todo.yml" with new
+    # version RuboCop. Use this method if it does not need to make a challenge
+    # but ".rubocop_todo.yml" is out of date. If same both `before_version` and
+    # `after_version`, it does not work.
     #
-    # @param rule [Rubocop::Rule] The target rule
-    # @return [Boolean] Return true if the challenge successed
-    def auto_correct_incomplete?(rule)
-      todo_reader = Rubocop::TodoReader.new(options[:file_path])
-      todo_reader.all_rules.include?(rule)
+    # @param before_version [String]
+    #   The version of RuboCop which created ".rubocop_todo.yml" before
+    #   re-generate.
+    # @param after_version [String]
+    #   The version of RuboCop which created ".rubocop_todo.yml" after
+    #   re-generate
+    def create_another_pull_request!(before_version, after_version)
+      return if before_version == after_version
+
+      pull_request.create_regenerate_todo_pr!(before_version, after_version)
     end
 
-    # If still exist the rule, the rule regard as cannot correct automatically
-    # then add to ignore list and it is not chosen as target rule from next
-    # time.
+    DESCRIPTION_THAT_CHALLENGE_IS_INCOMPLETE = <<~MSG
+      Rubocop Challenger has executed auto-correcting but it is incomplete.
+      Therefore the rule add to ignore list.
+    MSG
+
+    # If still exist the rule after a challenge, the rule regard as cannot
+    # correct automatically then add to ignore list and it is not chosen as
+    # target rule from next time.
     #
-    # @param rule [Rubocop::Rule] The target rule
-    def add_ignore_list!(rule)
-      pr_creater.commit ':police_car: add the rule to the ignore list' do
+    # @param rule [Rubocop::Rule] The corrected rule
+    def add_to_ignore_list_if_challenge_is_incomplete(rule)
+      return unless auto_correct_incomplete?(rule)
+
+      pull_request.commit! ':police_car: add the rule to the ignore list' do
         config_editor = Rubocop::ConfigEditor.new
         config_editor.add_ignore(rule)
         config_editor.save
       end
-      message = <<~MSG
-        Rubocop Challenger has executed auto-correcting but it is incomplete.
-        Therefore the rule add to ignore list.
-      MSG
-      color_puts message, CommandLine::YELLOW
+      color_puts DESCRIPTION_THAT_CHALLENGE_IS_INCOMPLETE, CommandLine::YELLOW
     end
 
-    # Create a PR with description of what modification were made.
+    # Checks the challenge result. If the challenge is successed, the rule
+    # should not exist in the ".rubocop_todo.yml" after regenerate.
     #
-    # @param rule [Rubocop::Rule] The target rule
-    def create_pull_request!(rule)
-      pr_creater_options = generate_pr_creater_options(rule)
-      return if options[:'no-commit']
-
-      pr_creater.create_pr(pr_creater_options)
-    end
-
-    def generate_pr_creater_options(rule)
-      {
-        title: "#{rule.title}-#{timestamp}",
-        body: generate_pr_body(rule),
-        base: options[:base],
-        labels: options[:labels]
-      }
-    end
-
-    def generate_pr_body(rule)
-      Github::PrTemplate
-        .new(rule, options[:template])
-        .generate_pullrequest_markdown
-    end
-
-    def timestamp
-      @timestamp ||= Time.now.strftime('%Y%m%d%H%M%S')
+    # @param rule [Rubocop::Rule] The corrected rule
+    # @return [Boolean] Return true if the challenge successed
+    def auto_correct_incomplete?(rule)
+      todo_reader = Rubocop::TodoReader.new(options[:file_path])
+      todo_reader.all_rules.include?(rule)
     end
   end
 end
