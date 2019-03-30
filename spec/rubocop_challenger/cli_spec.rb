@@ -86,4 +86,12 @@ RSpec.describe RubocopChallenger::CLI do
 
     it { is_expected.to be_truthy }
   end
+
+  describe '#exit_process!' do
+    subject(:exit_process!) { cli.send(:exit_process!) }
+
+    before { allow(cli).to receive(:exit_process!).and_call_original }
+
+    it { expect { exit_process! }.to raise_error(SystemExit) }
+  end
 end
