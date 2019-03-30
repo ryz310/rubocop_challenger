@@ -65,7 +65,7 @@ module RubocopChallenger
 
     # Exit process (Mainly for mock when testing)
     def exit_process!
-      exit!
+      abort
     end
   end
 end
