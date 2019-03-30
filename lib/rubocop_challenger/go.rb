@@ -20,6 +20,7 @@ module RubocopChallenger
     # Executes Rubocop Challenge flow
     #
     # @raise [Errors::NoAutoCorrectableRule]
+    #   Raises if there is no auto correctable rule in ".rubocop_todo.yml"
     def exec
       before_version, after_version = regenerate_rubocop_todo!
       corrected_rule = rubocop_challenge!(before_version, after_version)
@@ -47,7 +48,7 @@ module RubocopChallenger
       [before_version, after_version]
     end
 
-    # @return [String]
+    # @return [String] The version of RuboCop which created ".rubocop_todo.yml"
     def scan_rubocop_version_in_rubocop_todo_file
       Rubocop::TodoReader.new(options[:file_path]).version
     end
