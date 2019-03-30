@@ -54,8 +54,16 @@ module RubocopChallenger
 
     # Run rubocop challenge.
     #
-    # @return [Rubocop::Rule] The corrected rule
+    # @param before_version [String]
+    #   The version of RuboCop which created ".rubocop_todo.yml" before
+    #   re-generate.
+    # @param after_version [String]
+    #   The version of RuboCop which created ".rubocop_todo.yml" after
+    #   re-generate
+    # @return [Rubocop::Rule]
+    #   The corrected rule
     # @raise [Errors::NoAutoCorrectableRule]
+    #   Raises if there is no auto correctable rule in ".rubocop_todo.yml"
     def rubocop_challenge!(before_version, after_version)
       Rubocop::Challenge.exec(options[:file_path], options[:mode]).tap do |rule|
         pull_request.commit! ":police_car: #{rule.title}"
@@ -80,11 +88,11 @@ module RubocopChallenger
     # `after_version`, it does not work.
     #
     # @param before_version [String]
-    #   The version of RuboCop which created ".rubocop_todo.yml"
-    #   before re-generate.
+    #   The version of RuboCop which created ".rubocop_todo.yml" before
+    #   re-generate.
     # @param after_version [String]
-    #   The version of RuboCop which created ".rubocop_todo.yml"
-    #   after re-generate
+    #   The version of RuboCop which created ".rubocop_todo.yml" after
+    #   re-generate
     def create_another_pull_request!(before_version, after_version)
       return if before_version == after_version
 
