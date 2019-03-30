@@ -3,8 +3,6 @@
 module RubocopChallenger
   # Creates a pull request
   class PullRequest
-    # @param base [String]
-    #   The base branch name which create a pull request
     # @param user_name [String]
     #   The author name which use at the git commit
     # @param user_email [String]
@@ -13,9 +11,9 @@ module RubocopChallenger
     #   Will create a pull request with the labels
     # @param dry_run [Boolean]
     #   Does not create a pull request when given `true`
-    def initialize(base, user_name, user_email, labels, dry_run = false)
+    def initialize(user_name, user_email, labels, dry_run = false)
       @pr_creater = Github::PrCreater.new(
-        base: base,
+        base: 'master',
         branch: "rubocop-challenge/#{timestamp}",
         user_name: user_name,
         user_email: user_email

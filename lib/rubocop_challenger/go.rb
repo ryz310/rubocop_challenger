@@ -9,7 +9,6 @@ module RubocopChallenger
     def initialize(options)
       @options = options
       @pull_request = PullRequest.new(
-        options[:base],
         options[:name],
         options[:email],
         options[:labels],

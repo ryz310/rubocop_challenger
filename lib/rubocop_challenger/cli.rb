@@ -32,10 +32,6 @@ module RubocopChallenger
            default: 'most_occurrence',
            desc: 'Mode to select deletion target. You can choice ' \
                  '"most_occurrence", "least_occurrence", or "random"'
-    option :base,
-           type: :string,
-           default: 'master',
-           desc: 'Base branch of Pull Request'
     option :labels,
            type: :array,
            default: ['rubocop challenge'],

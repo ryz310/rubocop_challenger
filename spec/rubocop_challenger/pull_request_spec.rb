@@ -4,7 +4,7 @@ require 'spec_helper'
 
 RSpec.describe RubocopChallenger::PullRequest do
   let(:pull_request) do
-    described_class.new('base', 'user_name', 'user_email', labels, dry_run)
+    described_class.new('user_name', 'user_email', labels, dry_run)
   end
 
   let(:labels) { ['label-1', 'label-2'] }

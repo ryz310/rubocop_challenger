@@ -9,7 +9,6 @@ RSpec.describe RubocopChallenger::Go do
       name: 'Rubocop Challenger',
       file_path: '.rubocop_todo.yml',
       mode: 'most_occurrence',
-      base: 'master',
       labels: ['rubocop challenge'],
       template: 'template_file_path',
       'no-commit': false
@@ -75,7 +74,7 @@ RSpec.describe RubocopChallenger::Go do
       it do
         safe_exec.call
         expect(RubocopChallenger::PullRequest).to have_received(:new).with(
-          'master', 'Rubocop Challenger', 'rubocop-challenger@example.com',
+          'Rubocop Challenger', 'rubocop-challenger@example.com',
           ['rubocop challenge'], false
         )
       end
