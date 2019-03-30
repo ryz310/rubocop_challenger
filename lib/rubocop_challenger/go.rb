@@ -18,7 +18,8 @@ module RubocopChallenger
       if auto_correct_incomplete?(corrected_rule)
         add_ignore_list!(corrected_rule)
       end
-      create_pull_request!(corrected_rule)
+      pr_creater_options = generate_pr_creater_options(corrected_rule)
+      create_pull_request!(pr_creater_options)
     end
 
     private
@@ -66,7 +67,7 @@ module RubocopChallenger
 
       pr_creater_options =
         generate_pr_creater_options2(before_version, after_version)
-      pr_creater.create_pr(pr_creater_options) unless options[:'no-commit']
+      create_pull_request!(pr_creater_options)
     end
 
     # GitHub PR creater instance.
@@ -109,8 +110,7 @@ module RubocopChallenger
     # Create a PR with description of what modification were made.
     #
     # @param rule [Rubocop::Rule] The target rule
-    def create_pull_request!(rule)
-      pr_creater_options = generate_pr_creater_options(rule)
+    def create_pull_request!(pr_creater_options)
       pr_creater.create_pr(pr_creater_options) unless options[:'no-commit']
     end
 
