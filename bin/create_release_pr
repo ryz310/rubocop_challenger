@@ -10,7 +10,9 @@ VERSION_FORMAT = /\A\d+\.\d+\.\d+(\.(pre|beta|rc)\d?)?\z/.freeze
 version = ARGV[0]
 rubocop = RubocopChallenger::Rubocop::Command.new
 pr_creater =
-  RubocopChallenger::Github::PrCreater.new(branch: "update/v#{version}")
+  RubocopChallenger::Github::PrCreater.new(
+    base: 'master', branch: "update/v#{version}"
+  )
 
 # Verifying
 abort 'usage: bin/create_release_pr VERSION' if version.nil?
@@ -38,4 +40,4 @@ pr_creater.commit 'Regenerate .rubocop_todo.yml' do
 end
 
 # Create PR
-pr_creater.create_pr(title: "Update v#{version}", body: '', base: 'master')
+pr_creater.create_pr(title: "Update v#{version}", body: '')

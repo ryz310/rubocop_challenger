@@ -3,7 +3,9 @@
 require 'spec_helper'
 
 RSpec.describe RubocopChallenger::Github::PrCreater do
-  let(:pr_creater) { described_class.new(branch: 'topic_branch') }
+  let(:pr_creater) do
+    described_class.new(base: 'master', branch: 'topic_branch')
+  end
 
   let(:git_command) do
     instance_double(
@@ -71,7 +73,6 @@ RSpec.describe RubocopChallenger::Github::PrCreater do
       pr_creater.create_pr(
         title: 'The pull request title',
         body: 'The pull request body',
-        base: 'master',
         labels: labels
       )
     end

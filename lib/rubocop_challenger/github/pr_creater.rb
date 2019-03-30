@@ -7,13 +7,15 @@ module RubocopChallenger
       # Returns a new instance of Github::PrCreater
       #
       # @note You have to set ENV['GITHUB_ACCESS_TOKEN']
+      # @param base [String] The branch you want your changes pulled into
       # @param branch [String] The branch where your changes are going to
       #                        implement.
       # @param user_name [String] The username to use for committer and author
       # @param user_email [String] The email to use for committer and author
-      def initialize(branch:, user_name: nil, user_email: nil)
+      def initialize(base:, branch:, user_name: nil, user_email: nil)
         raise "You have to set ENV['GITHUB_ACCESS_TOKEN']" if access_token.nil?
 
+        @base_branch = base
         @topic_branch = branch
         @git = Git::Command.new(user_name: user_name, user_email: user_email)
         @github = Github::Client.new(access_token, git.remote_url('origin'))
@@ -40,15 +42,14 @@ module RubocopChallenger
       #
       # @param title [String] Title for the pull request
       # @param body [String] The body for the pull request
-      # @param base [String] The branch you want your changes pulled into
       # @param labels [Array<String>] An array of labels to apply to this PR
       # @return [Boolean] Return true if its successed
-      def create_pr(title:, body:, base:, labels: nil)
+      def create_pr(title:, body:, labels: nil)
         return false unless git_condition_valid?
 
         git.push(github_token_url, topic_branch)
         pr_number = github.create_pull_request(
-          base: base, head: topic_branch, title: title, body: body
+          base: base_branch, head: topic_branch, title: title, body: body
         )
         github.add_labels(pr_number, *labels) unless labels.nil?
         true
@@ -69,7 +70,7 @@ module RubocopChallenger
 
       private
 
-      attr_reader :git, :github, :topic_branch, :initial_sha1
+      attr_reader :git, :github, :base_branch, :topic_branch, :initial_sha1
 
       def git_condition_valid?
         !git.current_sha1?(initial_sha1) && git.current_branch?(topic_branch)

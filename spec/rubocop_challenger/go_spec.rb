@@ -69,7 +69,6 @@ RSpec.describe RubocopChallenger::Go do
       {
         title: 'Style/StringLiterals-20181112212509',
         body: 'The pull request markdown',
-        base: 'master',
         labels: ['rubocop challenge']
       }
     end

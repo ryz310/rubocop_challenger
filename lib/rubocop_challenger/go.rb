@@ -73,6 +73,7 @@ module RubocopChallenger
     # GitHub PR creater instance.
     def pr_creater
       @pr_creater ||= Github::PrCreater.new(
+        base: options[:base],
         branch: "rubocop-challenge/#{timestamp}",
         user_name: options[:name],
         user_email: options[:email]
@@ -118,7 +119,6 @@ module RubocopChallenger
       {
         title: "#{rule.title}-#{timestamp}",
         body: generate_pr_body(rule),
-        base: options[:base],
         labels: options[:labels]
       }
     end
@@ -127,7 +127,6 @@ module RubocopChallenger
       {
         title: "Re-generate .rubocop_todo.yml with RuboCop v#{after_version}",
         body: generate_pr_body2(before_version, after_version),
-        base: options[:base],
         labels: options[:labels]
       }
     end
