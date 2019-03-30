@@ -80,4 +80,10 @@ RSpec.describe RubocopChallenger::CLI do
         .to output("#{RubocopChallenger::VERSION}\n").to_stdout
     end
   end
+
+  describe '.exit_on_failure?' do
+    subject { described_class.send(:exit_on_failure?) }
+
+    it { is_expected.to be_truthy }
+  end
 end
