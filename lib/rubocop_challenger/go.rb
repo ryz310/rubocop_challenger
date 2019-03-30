@@ -38,17 +38,17 @@ module RubocopChallenger
     #  Returns the versions of RuboCop which created ".rubocop_todo.yml" before
     #  and after re-generate.
     def regenerate_rubocop_todo!
-      before_version = load_version
+      before_version = scan_rubocop_version_in_rubocop_todo_file
       pull_request.commit! ':police_car: regenerate rubocop todo' do
         Rubocop::Command.new.auto_gen_config
       end
-      after_version = load_version
+      after_version = scan_rubocop_version_in_rubocop_todo_file
 
       [before_version, after_version]
     end
 
     # @return [String]
-    def load_version
+    def scan_rubocop_version_in_rubocop_todo_file
       Rubocop::TodoReader.new(options[:file_path]).version
     end
 
