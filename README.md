@@ -79,7 +79,7 @@ workflows:
 $ rubocop_challenger help
 
 Commands:
-  rubocop_challenger go --email=EMAIL --name=NAME  # Run `$ rubocop --auto-correct` and create PR to GitHub repo
+  rubocop_challenger go --email=EMAIL --name=NAME  # Run `$ rubocop --auto-correct` and create a PR to GitHub repo
   rubocop_challenger help [COMMAND]                # Describe available commands or one specific command
   rubocop_challenger version                       # Show current version
 ```
@@ -93,20 +93,18 @@ Usage:
   rubocop_challenger go --email=EMAIL --name=NAME
 
 Options:
-      --email=EMAIL                                                # Pull Request committer email
-      --name=NAME                                                  # Pull Request committer name
-  f, [--file-path=FILE_PATH]                                       # Set your ".rubocop_todo.yml" path
-                                                                   # Default: .rubocop_todo.yml
-  t, [--template=TEMPLATE]                                         # Pull Request template `erb` file path.You can use variable that `title`, `rubydoc_url`, `description` and `examples` into the erb file.
-      [--mode=MODE]                                                # Mode to select deletion target. You can choice "most_occurrence", "least_occurrence", or "random"
-                                                                   # Default: most_occurrence
-      [--base=BASE]                                                # Base branch of Pull Request
-                                                                   # Default: master
-  l, [--labels=one two three]                                      # Label to give to Pull Request
-                                                                   # Default: ["rubocop challenge"]
-      [--no-commit]                                                # No commit after autocorrect
+      --email=EMAIL            # The Pull Request committer email
+      --name=NAME              # The Pull Request committer name
+  f, [--file-path=FILE_PATH]   # Set your ".rubocop_todo.yml" path
+                               # Default: .rubocop_todo.yml
+  t, [--template=TEMPLATE]     # A Pull Request template `erb` file path.You can use variable that `title`, `rubydoc_url`, `description` and `examples` into the erb file.
+      [--mode=MODE]            # Mode to select deletion target. You can choice "most_occurrence", "least_occurrence", or "random"
+                               # Default: most_occurrence
+  l, [--labels=one two three]  # Label to give to Pull Request
+                               # Default: ["rubocop challenge"]
+      [--no-commit]            # No commit after autocorrect
 
-Run `$ rubocop --auto-correct` and create PR to GitHub repo
+Run `$ rubocop --auto-correct` and create a PR to GitHub repo
 ```
 
 ## Requirement
