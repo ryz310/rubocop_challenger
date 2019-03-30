@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RubocopChallenger
   class PullRequest
     def initialize(base, user_name, user_email, labels, dry_run)
@@ -36,8 +38,6 @@ module RubocopChallenger
     attr_reader :pr_creater, :labels, :dry_run
 
     # Create a PR with description of what modification were made.
-    #
-    # @param rule [Rubocop::Rule] The target rule
     def create_pull_request!(pr_creater_options)
       pr_creater.create_pr(pr_creater_options) unless dry_run
     end
