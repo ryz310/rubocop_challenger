@@ -57,10 +57,8 @@ module RubocopChallenger
 
     # Workaround to return exit code 1 when an error occurs
     # @see https://github.com/erikhuda/thor/issues/244
-    module ClassMethods
-      def exit_on_failure?
-        true
-      end
+    def self.exit_on_failure?
+      true
     end
 
     private
