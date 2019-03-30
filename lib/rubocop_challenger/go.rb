@@ -75,7 +75,7 @@ module RubocopChallenger
 
     # Creates a pull request for the Rubocop Challenge
     #
-    # @param rule [Rubocop::Rule] The corrected rule
+    # @param corrected_rule [Rubocop::Rule] The corrected rule
     def create_pull_request!(corrected_rule)
       pull_request.create_rubocop_challenge_pr!(
         corrected_rule, options[:template]

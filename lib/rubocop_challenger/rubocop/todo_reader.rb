@@ -56,7 +56,7 @@ module RubocopChallenger
         @file_contents ||= File.read(rubocop_todo_file_path)
       end
 
-      # @params [Rule] the target rule
+      # @param rule [Rule] the target rule
       # @return [Boolean]
       def invalid?(rule)
         rule.offense_count.zero? || ignored_rules.include?(rule.title)
