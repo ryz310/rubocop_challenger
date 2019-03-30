@@ -13,7 +13,7 @@ module RubocopChallenger
     #   Will create a pull request with the labels
     # @param dry_run [Boolean]
     #   Does not create a pull request when given `true`
-    def initialize(base, user_name, user_email, labels, dry_run)
+    def initialize(base, user_name, user_email, labels, dry_run = false)
       @pr_creater = Github::PrCreater.new(
         base: base,
         branch: "rubocop-challenge/#{timestamp}",
