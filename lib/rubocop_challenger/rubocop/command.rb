@@ -4,7 +4,7 @@ module RubocopChallenger
   module Rubocop
     # To execute rubocop gem command (Mainly for mock when testing)
     class Command
-      include CommandLine
+      include PrComet::CommandLine
 
       def auto_correct
         run('--auto-correct')
