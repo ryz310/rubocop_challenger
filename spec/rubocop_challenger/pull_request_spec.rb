@@ -9,16 +9,10 @@ RSpec.describe RubocopChallenger::PullRequest do
 
   let(:labels) { ['label-1', 'label-2'] }
   let(:dry_run) { false }
-
-  let(:pr_creater) do
-    instance_double(
-      RubocopChallenger::Github::PrCreater, commit: nil, create_pr: nil
-    )
-  end
+  let(:pr_comet) { instance_double(PrComet, commit: nil, create!: nil) }
 
   before do
-    allow(RubocopChallenger::Github::PrCreater)
-      .to receive(:new).and_return(pr_creater)
+    allow(PrComet).to receive(:new).and_return(pr_comet)
     allow(pull_request).to receive(:timestamp).and_return('20181112212509')
   end
 
@@ -27,7 +21,7 @@ RSpec.describe RubocopChallenger::PullRequest do
 
     it do
       commit!
-      expect(pr_creater).to have_received(:commit).with('description')
+      expect(pr_comet).to have_received(:commit).with('description')
     end
   end
 
@@ -59,7 +53,7 @@ RSpec.describe RubocopChallenger::PullRequest do
 
       it do
         create_pull_request!
-        expect(pr_creater).not_to have_received(:create_pr)
+        expect(pr_comet).not_to have_received(:create!)
       end
     end
 
@@ -72,7 +66,7 @@ RSpec.describe RubocopChallenger::PullRequest do
 
       it do
         create_pull_request!
-        expect(pr_creater).to have_received(:create_pr).with(
+        expect(pr_comet).to have_received(:create!).with(
           title: 'title-20181112212509', body: 'body', labels: labels
         )
       end
@@ -89,7 +83,7 @@ RSpec.describe RubocopChallenger::PullRequest do
 
       it do
         create_pull_request!
-        expect(pr_creater).not_to have_received(:create_pr)
+        expect(pr_comet).not_to have_received(:create!)
       end
     end
 
@@ -112,7 +106,7 @@ RSpec.describe RubocopChallenger::PullRequest do
 
       it do
         create_pull_request!
-        expect(pr_creater).to have_received(:create_pr).with(expected_options)
+        expect(pr_comet).to have_received(:create!).with(expected_options)
       end
     end
   end

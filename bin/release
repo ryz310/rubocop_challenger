@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# usage: bin/create_release_pr VERSION
+# usage: bin/release VERSION
 
 require 'bundler/setup'
 require 'rubocop_challenger'
@@ -9,17 +9,14 @@ require 'rubocop_challenger'
 VERSION_FORMAT = /\A\d+\.\d+\.\d+(\.(pre|beta|rc)\d?)?\z/.freeze
 version = ARGV[0]
 rubocop = RubocopChallenger::Rubocop::Command.new
-pr_creater =
-  RubocopChallenger::Github::PrCreater.new(
-    base: 'master', branch: "update/v#{version}"
-  )
+pr_comet = PrComet.new(base: 'master', branch: "update/v#{version}")
 
 # Verifying
-abort 'usage: bin/create_release_pr VERSION' if version.nil?
+abort 'usage: bin/release VERSION' if version.nil?
 abort 'A version must be like a `1.2.3`' unless version =~ VERSION_FORMAT
 
 # Modify a version file
-pr_creater.commit 'Update version' do
+pr_comet.commit 'Update version' do
   File.write('lib/rubocop_challenger/version.rb', <<~VERSION)
     # frozen_string_literal: true
 
@@ -30,14 +27,14 @@ pr_creater.commit 'Update version' do
 end
 
 # Bundle Update
-pr_creater.commit 'Run $ bundle update' do
+pr_comet.commit 'Run $ bundle update' do
   `bundle update`
 end
 
 # Regenerate .rubocop_todo.yml
-pr_creater.commit 'Regenerate .rubocop_todo.yml' do
+pr_comet.commit 'Regenerate .rubocop_todo.yml' do
   rubocop.auto_gen_config
 end
 
-# Create PR
-pr_creater.create_pr(title: "Update v#{version}", body: '')
+# Create a pull request
+pr_comet.create!(title: "Update v#{version}", body: '')

@@ -12,7 +12,7 @@ module RubocopChallenger
     # @param dry_run [Boolean]
     #   Does not create a pull request when given `true`
     def initialize(user_name, user_email, labels, dry_run = false)
-      @pr_creater = Github::PrCreater.new(
+      @pr_comet = PrComet.new(
         base: 'master',
         branch: "rubocop-challenge/#{timestamp}",
         user_name: user_name,
@@ -28,7 +28,7 @@ module RubocopChallenger
     # @yield Some commands where modify local files
     # @return [Object] Return result of yield if you use &block
     def commit!(message, &block)
-      pr_creater.commit message, &block
+      pr_comet.commit message, &block
     end
 
     # Creates a pull request for the Rubocop Challenge
@@ -68,11 +68,11 @@ module RubocopChallenger
 
     private
 
-    attr_reader :pr_creater, :labels, :dry_run
+    attr_reader :pr_comet, :labels, :dry_run
 
     # Create a PR with description of what modification were made.
-    def create_pull_request!(pr_creater_options)
-      pr_creater.create_pr(pr_creater_options) unless dry_run
+    def create_pull_request!(pr_comet_options)
+      pr_comet.create!(pr_comet_options) unless dry_run
     end
 
     def generate_pull_request_body(before_version, after_version)

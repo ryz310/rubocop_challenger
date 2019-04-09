@@ -4,7 +4,7 @@ module RubocopChallenger
   module Bundler
     # To execute bundler command
     class Command
-      include CommandLine
+      include PrComet::CommandLine
 
       def update(*gem_names)
         run('update', *gem_names)

@@ -3,7 +3,7 @@
 module RubocopChallenger
   # Executes Rubocop Challenge flow
   class Go
-    include CommandLine
+    include PrComet::CommandLine
 
     # @param options [Hash] describe_options_here
     def initialize(options)
@@ -126,7 +126,8 @@ module RubocopChallenger
         config_editor.add_ignore(rule)
         config_editor.save
       end
-      color_puts DESCRIPTION_THAT_CHALLENGE_IS_INCOMPLETE, CommandLine::YELLOW
+      color_puts DESCRIPTION_THAT_CHALLENGE_IS_INCOMPLETE,
+                 PrComet::CommandLine::YELLOW
     end
 
     # Checks the challenge result. If the challenge is successed, the rule
