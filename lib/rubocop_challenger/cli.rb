@@ -5,7 +5,7 @@ require 'thor'
 module RubocopChallenger
   # To define CLI commands
   class CLI < Thor
-    include CommandLine
+    include PrComet::CommandLine
 
     desc 'go', 'Run `$ rubocop --auto-correct` and create a PR to GitHub repo'
     option :email,
@@ -44,9 +44,9 @@ module RubocopChallenger
     def go
       Go.new(options).exec
     rescue Errors::NoAutoCorrectableRule => e
-      color_puts e.message, CommandLine::YELLOW
+      color_puts e.message, PrComet::CommandLine::YELLOW
     rescue StandardError => e
-      color_puts e.message, CommandLine::RED
+      color_puts e.message, PrComet::CommandLine::RED
       exit_process!
     end
 
