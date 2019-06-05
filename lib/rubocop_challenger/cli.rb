@@ -11,11 +11,11 @@ module RubocopChallenger
     option :email,
            required: true,
            type: :string,
-           desc: 'The Pull Request committer email'
+           desc: 'Used as author email when creating a PR'
     option :name,
            required: true,
            type: :string,
-           desc: 'The Pull Request committer name'
+           desc: 'Used as author name when creating a PR'
     option :file_path,
            type: :string,
            default: '.rubocop_todo.yml',
