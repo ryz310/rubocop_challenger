@@ -1,0 +1,43 @@
+version: 2.1
+
+description: 'Executes rubocop challenge'
+
+commands:
+  go:
+    parameters:
+      email:
+        description: Used as author email when creating a PR
+        type: string
+      name:
+        description: Used as author name when creating a PR
+        type: string
+      file_path:
+        description: Set your ".rubocop_todo.yml" path
+        type: string
+        default: .rubocop_todo.yml
+      template:
+        description: A Pull Request template `erb` file path
+        type: string
+      mode:
+        type: enum
+        enum: ['most_occurrence', 'least_occurrence', 'random']
+        default: most_occurrence
+      labels:
+        type: string
+        default: 'rubocop challenge'
+      use_pre_version:
+        type: boolean
+        default: false
+    steps:
+      - checkout
+      - run:
+          name: RuboCop Challenge
+          command: |
+            gem install rubocop_challenger <<# parameters.use_pre_version >> --pre <</ parameters.use_pre_version >>
+            rubocop_challenger go \
+              --email=<< parameters.email >> \
+              --name=<< parameters.name >> \
+              --file_path=<< parameters.file_path >> \
+              --template=<< parameters.template >> \
+              --mode=<< parameters.mode >> \
+              --labels=<< parameters.labels >>
