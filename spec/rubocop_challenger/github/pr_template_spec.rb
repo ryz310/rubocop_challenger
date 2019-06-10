@@ -3,6 +3,22 @@
 require 'spec_helper'
 
 RSpec.describe RubocopChallenger::Github::PrTemplate do
+  describe '#initialize' do
+    let(:rule) { RubocopChallenger::Rubocop::Rule.new(<<~CONTENTS) }
+      # Offense count: 2
+      # Cop supports --auto-correct.
+      Style/Alias:
+        Enabled: false
+    CONTENTS
+
+    context "when given nil with template_path" do
+      it do
+        instance = described_class.new(rule, nil)
+        expect(instance.template_path).to eq instance.send(:default_template_path)
+      end
+    end
+  end
+
   describe '#generate' do
     let(:pr_template) { described_class.new(rule) }
 

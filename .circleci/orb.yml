@@ -18,6 +18,7 @@ commands:
       template:
         description: A Pull Request template `erb` file path
         type: string
+        default: ''
       mode:
         type: enum
         enum: ['most_occurrence', 'least_occurrence', 'random']

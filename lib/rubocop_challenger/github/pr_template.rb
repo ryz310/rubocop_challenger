@@ -4,8 +4,11 @@ module RubocopChallenger
   module Github
     # To generate Pull Request template as markdown
     class PrTemplate
+      attr_reader :template_path
+
       def initialize(rule, template_path = nil)
-        template_path ||= default_template_path
+        template_path = nil if template_path.empty?
+        @template_path = template_path || default_template_path
         @template = File.read(template_path)
         @rule = rule
         @yardoc = Rubocop::Yardoc.new(title)
