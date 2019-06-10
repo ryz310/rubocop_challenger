@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    rubocop_challenger (2.0.0.pre3)
-      pr_comet
+    rubocop_challenger (2.0.0.pre4)
+      pr_comet (~> 0.1.0)
       rubocop
       rubocop-rspec
       thor
