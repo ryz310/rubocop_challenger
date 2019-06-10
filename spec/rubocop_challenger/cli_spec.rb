@@ -18,7 +18,6 @@ RSpec.describe RubocopChallenger::CLI do
 
   before do
     allow(cli).to receive(:options).and_return(options)
-    allow(cli).to receive(:color_puts)
     allow(cli).to receive(:exit_process!)
   end
 
@@ -45,11 +44,8 @@ RSpec.describe RubocopChallenger::CLI do
       end
 
       it 'outputs a error message and exit process' do
-        go
-        expect(cli)
-          .to have_received(:color_puts)
-          .with('Error message', 31).ordered
-        expect(cli).to have_received(:exit_process!).ordered
+        expect { go }.to output("\e[31mError message\e[0m\n").to_stdout
+        expect(cli).to have_received(:exit_process!)
       end
     end
 
@@ -61,10 +57,8 @@ RSpec.describe RubocopChallenger::CLI do
       end
 
       it 'outputs a description and exit process' do
-        go
-        expect(cli)
-          .to have_received(:color_puts)
-          .with('There is no auto-correctable rule', 33)
+        expect { go }
+          .to output("\e[33mThere is no auto-correctable rule\e[0m\n").to_stdout
       end
 
       it 'does not return exit code 1' do

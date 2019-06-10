@@ -2,6 +2,7 @@
 
 require 'erb'
 require 'yard'
+require 'rainbow'
 require 'pr_comet'
 require 'rubocop'
 require 'rubocop-rspec'

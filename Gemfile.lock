@@ -3,6 +3,7 @@ PATH
   specs:
     rubocop_challenger (2.0.0.pre4)
       pr_comet (~> 0.1.0)
+      rainbow
       rubocop
       rubocop-rspec
       thor
