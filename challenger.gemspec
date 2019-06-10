@@ -23,6 +23,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'pr_comet', '~> 0.1.0'
+  spec.add_runtime_dependency 'rainbow'
   spec.add_runtime_dependency 'rubocop'
   spec.add_runtime_dependency 'rubocop-rspec'
   spec.add_runtime_dependency 'thor'
