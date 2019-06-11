@@ -10,8 +10,11 @@ module RubocopChallenger
         run('--auto-correct')
       end
 
-      def auto_gen_config
-        run('--auto-gen-config')
+      def auto_gen_config(exclude_limit: nil, auto_gen_timestamp: true)
+        commands = ['--auto-gen-config']
+        commands << "--exclude-limit #{exclude_limit}" if exclude_limit
+        commands << '--no-auto-gen-timestamp' unless auto_gen_timestamp
+        run(*commands)
       end
 
       private

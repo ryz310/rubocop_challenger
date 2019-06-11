@@ -11,7 +11,9 @@ RSpec.describe RubocopChallenger::Go do
       mode: 'most_occurrence',
       labels: ['rubocop challenge'],
       template: 'template_file_path',
-      'no-create-pr': false
+      'no-create-pr': false,
+      'auto-gen-timestamp': false,
+      'exclude-limit': 99
     )
   end
 
@@ -96,7 +98,8 @@ RSpec.describe RubocopChallenger::Go do
       it do
         exec
         expect(rubocop_command)
-          .to have_received(:auto_gen_config).with(no_args).twice
+          .to have_received(:auto_gen_config)
+          .with(exclude_limit: 99, auto_gen_timestamp: false).twice
       end
 
       it do
@@ -154,7 +157,8 @@ RSpec.describe RubocopChallenger::Go do
         it do
           safe_exec.call
           expect(rubocop_command)
-            .to have_received(:auto_gen_config).with(no_args).once
+            .to have_received(:auto_gen_config)
+            .with(exclude_limit: 99, auto_gen_timestamp: false).once
         end
 
         it do

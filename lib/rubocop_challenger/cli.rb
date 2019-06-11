@@ -39,6 +39,14 @@ module RubocopChallenger
            type: :boolean,
            default: false,
            desc: 'No create a pull request (for testing)'
+    option :'exclude-limit',
+           type: :numeric,
+           desc: 'For how many exclude properties when creating the ' \
+                 '.rubocop_todo.yml'
+    option :'auto-gen-timestamp',
+           type: :boolean,
+           default: true,
+           desc: 'Include the date and time when creating the .rubocop_todo.yml'
     def go
       Go.new(options).exec
     rescue Errors::NoAutoCorrectableRule => e

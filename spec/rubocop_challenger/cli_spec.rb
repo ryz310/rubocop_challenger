@@ -12,7 +12,9 @@ RSpec.describe RubocopChallenger::CLI do
       file_path: '.rubocop_todo.yml',
       mode: 'most_occurrence',
       labels: ['rubocop challenge'],
-      'no-create-pr': false
+      'no-create-pr': false,
+      'exclude-limit': 99,
+      'no-auto-gen-timestamp': true
     }
   end
 

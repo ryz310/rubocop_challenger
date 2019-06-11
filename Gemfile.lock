@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     rubocop_challenger (2.0.0.pre4)
-      pr_comet (~> 0.1.0)
+      pr_comet (~> 0.2.0)
       rainbow
       rubocop
       rubocop-rspec
@@ -30,8 +30,9 @@ GEM
     parallel (1.17.0)
     parser (2.6.3.0)
       ast (~> 2.4.0)
-    pr_comet (0.1.1)
+    pr_comet (0.2.0)
       octokit
+      rainbow
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)

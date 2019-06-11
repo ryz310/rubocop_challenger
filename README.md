@@ -109,16 +109,19 @@ Usage:
   rubocop_challenger go --email=EMAIL --name=NAME
 
 Options:
-      --email=EMAIL            # The Pull Request committer email
-      --name=NAME              # The Pull Request committer name
-  f, [--file-path=FILE_PATH]   # Set your ".rubocop_todo.yml" path
-                               # Default: .rubocop_todo.yml
-  t, [--template=TEMPLATE]     # A Pull Request template `erb` file path.You can use variable that `title`, `rubydoc_url`, `description` and `examples` into the erb file.
-      [--mode=MODE]            # Mode to select deletion target. You can choice "most_occurrence", "least_occurrence", or "random"
-                               # Default: most_occurrence
-  l, [--labels=one two three]  # Label to give to Pull Request
-                               # Default: ["rubocop challenge"]
-      [--no-create-pr]         # No create a pull request (for testing)
+      --email=EMAIL                                      # The Pull Request committer email
+      --name=NAME                                        # The Pull Request committer name
+  f, [--file-path=FILE_PATH]                             # Set your ".rubocop_todo.yml" path
+                                                         # Default: .rubocop_todo.yml
+  t, [--template=TEMPLATE]                               # A Pull Request template `erb` file path.You can use variable that `title`, `rubydoc_url`, `description` and `examples` into the erb file.
+      [--mode=MODE]                                      # Mode to select deletion target. You can choice "most_occurrence", "least_occurrence", or "random"
+                                                         # Default: most_occurrence
+  l, [--labels=one two three]                            # Label to give to Pull Request
+                                                         # Default: ["rubocop challenge"]
+      [--no-create-pr]                                   # No create a pull request (for testing)
+      [--exclude-limit=N]                                # For how many exclude properties when creating the .rubocop_todo.yml
+      [--auto-gen-timestamp], [--no-auto-gen-timestamp]  # Include the date and time when creating the .rubocop_todo.yml
+                                                         # Default: true
 
 Run `$ rubocop --auto-correct` and create a PR to GitHub repo
 ```
