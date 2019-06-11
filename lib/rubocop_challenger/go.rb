@@ -6,6 +6,8 @@ module RubocopChallenger
     # @param options [Hash] describe_options_here
     def initialize(options)
       @options = options
+      @exclude_limit = options[:'exclude-limit']
+      @auto_gen_timestamp = options[:'auto-gen-timestamp']
       @pull_request = PullRequest.new(
         options[:name],
         options[:email],
@@ -29,7 +31,7 @@ module RubocopChallenger
 
     private
 
-    attr_reader :options, :pull_request
+    attr_reader :options, :pull_request, :exclude_limit, :auto_gen_timestamp
 
     def update_rubocop!
       bundler = Bundler::Command.new
@@ -47,7 +49,10 @@ module RubocopChallenger
     def regenerate_rubocop_todo!
       before_version = scan_rubocop_version_in_rubocop_todo_file
       pull_request.commit! ':police_car: regenerate rubocop todo' do
-        Rubocop::Command.new.auto_gen_config
+        Rubocop::Command.new.auto_gen_config(
+          exclude_limit: exclude_limit,
+          auto_gen_timestamp: auto_gen_timestamp
+        )
       end
       after_version = scan_rubocop_version_in_rubocop_todo_file
 
