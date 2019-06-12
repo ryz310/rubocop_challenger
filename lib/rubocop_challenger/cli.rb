@@ -35,6 +35,15 @@ module RubocopChallenger
            default: ['rubocop challenge'],
            aliases: :l,
            desc: 'Label to give to Pull Request'
+    option :project_column_name,
+           type: :string,
+           desc: 'A project column name. You can add the created PR to the ' \
+                 'GitHub project'
+    option :project_id,
+           type: :numeric,
+           desc: 'A target project ID. If does not supplied, this method ' \
+                 'will find a project which associated the repository. When ' \
+                 'the repository has multiple projects, you should supply this.'
     option :'no-create-pr',
            type: :boolean,
            default: false,
