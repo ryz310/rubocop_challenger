@@ -68,6 +68,16 @@ RSpec.describe RubocopChallenger::PullRequest do
     end
 
     context 'when dry_run is false' do
+      let(:expected_options) do
+        {
+          title: 'title-20181112212509',
+          body: 'body',
+          labels: labels,
+          project_column_name: project_column_name,
+          project_id: project_id
+        }
+      end
+
       it do
         create_pull_request!
         expect(RubocopChallenger::Github::PrTemplate)
@@ -76,13 +86,7 @@ RSpec.describe RubocopChallenger::PullRequest do
 
       it do
         create_pull_request!
-        expect(pr_comet).to have_received(:create!).with(
-          title: 'title-20181112212509',
-          body: 'body',
-          labels: labels,
-          project_column_name: project_column_name,
-          project_id: project_id
-        )
+        expect(pr_comet).to have_received(:create!).with(expected_options)
       end
     end
   end
