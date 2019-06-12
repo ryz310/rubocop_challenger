@@ -92,7 +92,9 @@ RSpec.describe RubocopChallenger::Go do
     shared_examples 'execute Rubocop Challenge flow' do
       it do
         exec
-        expect(bundler_command).to have_received(:update).with('rubocop')
+        expect(bundler_command).to have_received(:update).with(
+          'rubocop', 'rubocop-performance', 'rubocop-rails', 'rubocop-rspec'
+        )
       end
 
       it do
@@ -151,7 +153,9 @@ RSpec.describe RubocopChallenger::Go do
       shared_examples 'interrupt the Rubocop Challenge' do
         it do
           safe_exec.call
-          expect(bundler_command).to have_received(:update).with('rubocop')
+          expect(bundler_command).to have_received(:update).with(
+            'rubocop', 'rubocop-performance', 'rubocop-rails', 'rubocop-rspec'
+          )
         end
 
         it do
