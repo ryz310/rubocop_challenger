@@ -118,6 +118,8 @@ Options:
                                                          # Default: most_occurrence
   l, [--labels=one two three]                            # Label to give to Pull Request
                                                          # Default: ["rubocop challenge"]
+      [--project-column-name=PROJECT_COLUMN_NAME]        # A project column name. You can add the created PR to the GitHub project
+      [--project-id=N]                                   # A target project ID. If does not supplied, this method will find a project which associated the repository. When the repository has multiple projects, you should supply this.
       [--no-create-pr]                                   # No create a pull request (for testing)
       [--exclude-limit=N]                                # For how many exclude properties when creating the .rubocop_todo.yml
       [--auto-gen-timestamp], [--no-auto-gen-timestamp]  # Include the date and time when creating the .rubocop_todo.yml
