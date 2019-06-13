@@ -3,12 +3,11 @@
 require 'spec_helper'
 
 RSpec.describe RubocopChallenger::PullRequest do
-  let(:pull_request) do
-    described_class.new('user_name', 'user_email', options)
-  end
-
+  let(:pull_request) { described_class.new(options) }
   let(:options) do
     {
+      user_name: 'user_name',
+      user_email: 'user_email',
       labels: labels,
       dry_run: dry_run,
       project_column_name: project_column_name,
