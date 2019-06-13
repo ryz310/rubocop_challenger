@@ -61,6 +61,7 @@ module RubocopChallenger
         project_id: options[:project_id]
       }
     end
+
     def update_rubocop!
       bundler = Bundler::Command.new
       pull_request.commit! ':police_car: $ bundle update rubocop' do
