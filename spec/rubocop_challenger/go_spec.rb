@@ -11,6 +11,8 @@ RSpec.describe RubocopChallenger::Go do
       mode: 'most_occurrence',
       labels: ['rubocop challenge'],
       template: 'template_file_path',
+      project_column_name: 'Column 1',
+      project_id: 123_456_789,
       'no-create-pr': false,
       'auto-gen-timestamp': false,
       'exclude-limit': 99
@@ -80,12 +82,21 @@ RSpec.describe RubocopChallenger::Go do
     end
 
     shared_examples 'build PullRequest instance with the options' do
+      let(:expected_options) do
+        {
+          user_name: 'Rubocop Challenger',
+          user_email: 'rubocop-challenger@example.com',
+          labels: ['rubocop challenge'],
+          dry_run: false,
+          project_column_name: 'Column 1',
+          project_id: 123_456_789
+        }
+      end
+
       it do
         safe_exec.call
-        expect(RubocopChallenger::PullRequest).to have_received(:new).with(
-          'Rubocop Challenger', 'rubocop-challenger@example.com',
-          ['rubocop challenge'], false
-        )
+        expect(RubocopChallenger::PullRequest)
+          .to have_received(:new).with(expected_options)
       end
     end
 

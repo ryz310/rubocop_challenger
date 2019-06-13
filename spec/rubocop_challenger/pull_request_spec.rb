@@ -3,12 +3,21 @@
 require 'spec_helper'
 
 RSpec.describe RubocopChallenger::PullRequest do
-  let(:pull_request) do
-    described_class.new('user_name', 'user_email', labels, dry_run)
+  let(:pull_request) { described_class.new(options) }
+  let(:options) do
+    {
+      user_name: 'user_name',
+      user_email: 'user_email',
+      labels: labels,
+      dry_run: dry_run,
+      project_column_name: project_column_name,
+      project_id: project_id
+    }
   end
-
   let(:labels) { ['label-1', 'label-2'] }
   let(:dry_run) { false }
+  let(:project_column_name) { 'Column 1' }
+  let(:project_id) { 123_456_789 }
   let(:pr_comet) { instance_double(PrComet, commit: nil, create!: nil) }
 
   before do
@@ -58,6 +67,16 @@ RSpec.describe RubocopChallenger::PullRequest do
     end
 
     context 'when dry_run is false' do
+      let(:expected_options) do
+        {
+          title: 'title-20181112212509',
+          body: 'body',
+          labels: labels,
+          project_column_name: project_column_name,
+          project_id: project_id
+        }
+      end
+
       it do
         create_pull_request!
         expect(RubocopChallenger::Github::PrTemplate)
@@ -66,9 +85,7 @@ RSpec.describe RubocopChallenger::PullRequest do
 
       it do
         create_pull_request!
-        expect(pr_comet).to have_received(:create!).with(
-          title: 'title-20181112212509', body: 'body', labels: labels
-        )
+        expect(pr_comet).to have_received(:create!).with(expected_options)
       end
     end
   end
@@ -92,7 +109,9 @@ RSpec.describe RubocopChallenger::PullRequest do
         {
           title: 'Re-generate .rubocop_todo.yml with RuboCop v0.65.0',
           body: expected_pr_body,
-          labels: labels
+          labels: labels,
+          project_column_name: project_column_name,
+          project_id: project_id
         }
       end
 

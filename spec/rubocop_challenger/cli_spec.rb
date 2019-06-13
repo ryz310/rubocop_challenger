@@ -12,6 +12,8 @@ RSpec.describe RubocopChallenger::CLI do
       file_path: '.rubocop_todo.yml',
       mode: 'most_occurrence',
       labels: ['rubocop challenge'],
+      project_column_name: 'Column 1',
+      project_id: 123_456_789,
       'no-create-pr': false,
       'exclude-limit': 99,
       'no-auto-gen-timestamp': true
