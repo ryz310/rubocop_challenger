@@ -6,10 +6,16 @@ module RubocopChallenger
     class Command
       include PrComet::CommandLine
 
+      # Executes `$ bundle update` which excludes not installed gems
+      #
+      # @param gem_names [Array<String>] The target gem names
       def update(*gem_names)
-        run('update', *gem_names)
+        run('update', *gem_names.select(&method(:installed?)))
       end
 
+      # Checks the gem is installed
+      #
+      # @return [Boolean] Returns true if installed
       def installed?(gem_name)
         !run('list', '|', 'grep', gem_name).empty?
       end

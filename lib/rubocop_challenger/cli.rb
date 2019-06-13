@@ -5,8 +5,6 @@ require 'thor'
 module RubocopChallenger
   # To define CLI commands
   class CLI < Thor
-    include PrComet::CommandLine
-
     desc 'go', 'Run `$ rubocop --auto-correct` and create a PR to GitHub repo'
     option :email,
            required: true,
@@ -37,16 +35,33 @@ module RubocopChallenger
            default: ['rubocop challenge'],
            aliases: :l,
            desc: 'Label to give to Pull Request'
+    option :project_column_name,
+           type: :string,
+           desc: 'A project column name. You can add the created PR to the ' \
+                 'GitHub project'
+    option :project_id,
+           type: :numeric,
+           desc: 'A target project ID. If does not supplied, this method ' \
+                 'will find a project which associated the repository. When ' \
+                 'the repository has multiple projects, you should supply this.'
     option :'no-create-pr',
            type: :boolean,
            default: false,
            desc: 'No create a pull request (for testing)'
+    option :'exclude-limit',
+           type: :numeric,
+           desc: 'For how many exclude properties when creating the ' \
+                 '.rubocop_todo.yml'
+    option :'auto-gen-timestamp',
+           type: :boolean,
+           default: true,
+           desc: 'Include the date and time when creating the .rubocop_todo.yml'
     def go
       Go.new(options).exec
     rescue Errors::NoAutoCorrectableRule => e
-      color_puts e.message, PrComet::CommandLine::YELLOW
+      puts Rainbow(e.message).yellow
     rescue StandardError => e
-      color_puts e.message, PrComet::CommandLine::RED
+      puts Rainbow(e.message).red
       exit_process!
     end
 

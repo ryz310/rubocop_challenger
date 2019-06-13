@@ -8,6 +8,12 @@ RSpec.describe RubocopChallenger::Bundler::Command do
   before { allow(command).to receive(:execute) }
 
   describe '#update' do
+    before do
+      allow(command).to receive(:installed?) do |gem_name|
+        gem_name != 'not-installed-gem'
+      end
+    end
+
     context 'when no argument is given' do
       it do
         command.update
@@ -23,10 +29,8 @@ RSpec.describe RubocopChallenger::Bundler::Command do
     end
 
     context 'when multiple gem names are given' do
-      let(:gem_names) { 'rubocop' }
-
-      it do
-        command.update('rubocop', 'rubocop-rspec')
+      it 'updates multiple gems which excludes not installed' do
+        command.update('rubocop', 'rubocop-rspec', 'not-installed-gem')
         expect(command)
           .to have_received(:execute)
           .with('bundle update rubocop rubocop-rspec')

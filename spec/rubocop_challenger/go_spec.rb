@@ -11,7 +11,11 @@ RSpec.describe RubocopChallenger::Go do
       mode: 'most_occurrence',
       labels: ['rubocop challenge'],
       template: 'template_file_path',
-      'no-create-pr': false
+      project_column_name: 'Column 1',
+      project_id: 123_456_789,
+      'no-create-pr': false,
+      'auto-gen-timestamp': false,
+      'exclude-limit': 99
     )
   end
 
@@ -78,25 +82,37 @@ RSpec.describe RubocopChallenger::Go do
     end
 
     shared_examples 'build PullRequest instance with the options' do
+      let(:expected_options) do
+        {
+          user_name: 'Rubocop Challenger',
+          user_email: 'rubocop-challenger@example.com',
+          labels: ['rubocop challenge'],
+          dry_run: false,
+          project_column_name: 'Column 1',
+          project_id: 123_456_789
+        }
+      end
+
       it do
         safe_exec.call
-        expect(RubocopChallenger::PullRequest).to have_received(:new).with(
-          'Rubocop Challenger', 'rubocop-challenger@example.com',
-          ['rubocop challenge'], false
-        )
+        expect(RubocopChallenger::PullRequest)
+          .to have_received(:new).with(expected_options)
       end
     end
 
     shared_examples 'execute Rubocop Challenge flow' do
       it do
         exec
-        expect(bundler_command).to have_received(:update).with('rubocop')
+        expect(bundler_command).to have_received(:update).with(
+          'rubocop', 'rubocop-performance', 'rubocop-rails', 'rubocop-rspec'
+        )
       end
 
       it do
         exec
         expect(rubocop_command)
-          .to have_received(:auto_gen_config).with(no_args).twice
+          .to have_received(:auto_gen_config)
+          .with(exclude_limit: 99, auto_gen_timestamp: false).twice
       end
 
       it do
@@ -148,13 +164,16 @@ RSpec.describe RubocopChallenger::Go do
       shared_examples 'interrupt the Rubocop Challenge' do
         it do
           safe_exec.call
-          expect(bundler_command).to have_received(:update).with('rubocop')
+          expect(bundler_command).to have_received(:update).with(
+            'rubocop', 'rubocop-performance', 'rubocop-rails', 'rubocop-rspec'
+          )
         end
 
         it do
           safe_exec.call
           expect(rubocop_command)
-            .to have_received(:auto_gen_config).with(no_args).once
+            .to have_received(:auto_gen_config)
+            .with(exclude_limit: 99, auto_gen_timestamp: false).once
         end
 
         it do
