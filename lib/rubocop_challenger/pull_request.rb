@@ -19,7 +19,7 @@ module RubocopChallenger
     #   A target project ID. If does not supplied, this method will find a
     #   project which associated the repository. When the repository has
     #   multiple projects, you should supply this.
-    def initialize(user_name, user_email, options = {})
+    def initialize(user_name, user_email, **options)
       @pr_comet = PrComet.new(
         base: 'master',
         branch: "rubocop-challenge/#{timestamp}",
