@@ -7,19 +7,29 @@ module RubocopChallenger
     #   The author name which use at the git commit
     # @param user_email [String]
     #   The email address which use at the git commit
-    # @param labels [Array<String>]
+    # @param options [Hash]
+    #   Optional parameters
+    # @option labels [Array<String>]
     #   Will create a pull request with the labels
-    # @param dry_run [Boolean]
+    # @option dry_run [Boolean]
     #   Does not create a pull request when given `true`
-    def initialize(user_name, user_email, labels, dry_run = false)
+    # @option project_column_name [String]
+    #   A project column name. You can add the created PR to the GitHub project
+    # @option project_id [Integer]
+    #   A target project ID. If does not supplied, this method will find a
+    #   project which associated the repository. When the repository has
+    #   multiple projects, you should supply this.
+    def initialize(user_name:, user_email:, **options)
       @pr_comet = PrComet.new(
         base: 'master',
         branch: "rubocop-challenge/#{timestamp}",
         user_name: user_name,
         user_email: user_email
       )
-      @labels = labels
-      @dry_run = dry_run
+      @labels = options[:labels]
+      @dry_run = options[:dry_run]
+      @project_column_name = options[:project_column_name]
+      @project_id = options[:project_id]
     end
 
     # Add and commit local files to the pull request
@@ -42,8 +52,7 @@ module RubocopChallenger
     def create_rubocop_challenge_pr!(rule, template_file_path = nil)
       create_pull_request!(
         title: "#{rule.title}-#{timestamp}",
-        body: Github::PrTemplate.new(rule, template_file_path).generate,
-        labels: labels
+        body: Github::PrTemplate.new(rule, template_file_path).generate
       )
     end
 
@@ -61,18 +70,25 @@ module RubocopChallenger
     def create_regenerate_todo_pr!(before_version, after_version)
       create_pull_request!(
         title: "Re-generate .rubocop_todo.yml with RuboCop v#{after_version}",
-        body: generate_pull_request_body(before_version, after_version),
-        labels: labels
+        body: generate_pull_request_body(before_version, after_version)
       )
     end
 
     private
 
-    attr_reader :pr_comet, :labels, :dry_run
+    attr_reader :pr_comet, :labels, :dry_run, :project_column_name, :project_id
 
     # Create a PR with description of what modification were made.
+    #
+    # @params pr_comet_options [Hash]
     def create_pull_request!(pr_comet_options)
-      pr_comet.create!(pr_comet_options) unless dry_run
+      options = {
+        labels: labels,
+        project_column_name: project_column_name,
+        project_id: project_id
+      }.merge(pr_comet_options)
+
+      pr_comet.create!(options) unless dry_run
     end
 
     # @param before_version [String]

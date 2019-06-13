@@ -3,17 +3,31 @@
 module RubocopChallenger
   # Executes Rubocop Challenge flow
   class Go
-    # @param options [Hash] describe_options_here
+    # @param options [Hash]
+    #   Options for the rubocop challenge
+    # @option exclude-limit [Integer]
+    #   For how many exclude properties when creating the ".rubocop_todo.yml"
+    # @option auto-gen-timestamp [Boolean]
+    #   Include the date and time when creating the ".rubocop_todo.yml"
+    # @option name [String]
+    #   The author name which use at the git commit
+    # @option email [String]
+    #   The email address which use at the git commit
+    # @option labels [Array<String>]
+    #   Will create a pull request with the labels
+    # @option no-create-pr [Boolean]
+    #   Does not create a pull request when given `true`
+    # @option project_column_name [String]
+    #   A project column name. You can add the created PR to the GitHub project
+    # @option project_id [Integer]
+    #   A target project ID. If does not supplied, this method will find a
+    #   project which associated the repository. When the repository has
+    #   multiple projects, you should supply this.
     def initialize(options)
       @options = options
       @exclude_limit = options[:'exclude-limit']
       @auto_gen_timestamp = options[:'auto-gen-timestamp']
-      @pull_request = PullRequest.new(
-        options[:name],
-        options[:email],
-        options[:labels],
-        options[:'no-create-pr']
-      )
+      @pull_request = PullRequest.new(extract_pull_request_options(options))
     end
 
     # Executes Rubocop Challenge flow
@@ -32,6 +46,21 @@ module RubocopChallenger
     private
 
     attr_reader :options, :pull_request, :exclude_limit, :auto_gen_timestamp
+
+    # Extracts options for the PullRequest class
+    #
+    # @param options [Hash] The target options
+    # @return [Hash] Options for the PullRequest class
+    def extract_pull_request_options(options)
+      {
+        user_name: options[:name],
+        user_email: options[:email],
+        labels: options[:labels],
+        dry_run: options[:'no-create-pr'],
+        project_column_name: options[:project_column_name],
+        project_id: options[:project_id]
+      }
+    end
 
     # Executes `$ bundle update` for the rubocop and the associated gems
     def update_rubocop!
