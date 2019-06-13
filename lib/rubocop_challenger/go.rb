@@ -62,11 +62,14 @@ module RubocopChallenger
       }
     end
 
+    # Executes `$ bundle update` for the rubocop and the associated gems
     def update_rubocop!
       bundler = Bundler::Command.new
       pull_request.commit! ':police_car: $ bundle update rubocop' do
-        bundler.update 'rubocop'
-        bundler.update 'rubocop-rspec' if bundler.installed?('rubocop-rspec')
+        bundler.update 'rubocop',
+                       'rubocop-performance',
+                       'rubocop-rails',
+                       'rubocop-rspec'
       end
     end
 
