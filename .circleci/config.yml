@@ -145,7 +145,9 @@ jobs:
             bundle exec rubocop_challenger go \
               --email=ryz310@gmail.com \
               --name=ryz310 \
-              --template=./lib/templates/checklist.md.erb
+              --template=./lib/templates/checklist.md.erb \
+              --no-auto-gen-timestamp \
+              --exclude-limit=30
 
   release:
     docker:
