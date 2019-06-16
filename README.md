@@ -7,13 +7,21 @@ On the other hand, `rubocop` has [`--auto-correct`](https://github.com/rubocop-h
 It is ideal that to remove a disabled rule from `.rubocop_todo.yml` every day, to check whether it passes test, and can be obtained consent from the team. But it requires strong persistence and time.
 I call such work *Rubocop Challenge*. And the *RubocopChallenger* is a gem to support this challenge!
 
-[![Rubocop Challenge](images/rubocop_challenge.png)](https://github.com/ryz310/rubocop_challenger/pull/97)
+## The history of RubocopChallenger with decrease of offence codes
+
+The following chart shows the history of RubocopChallenger and decrease of offence codes at a `.rubocop_todo.yml`. The project was released at 5 years ago, and then it was introduced the RuboCop gem for huge source code including a lots of offence codes. Before using the RubocopChallenger, it was not maintain to reduce offence codes. One day, I felt a crisis and started maintain with manual. I made a lots of Pull Requests to reduce them but it's a load for me and reviewers. So I created a script for automation the flow, which is the predecessor of Rubocop Challenger gem. It brought reducing the offence codes continuously. After 8 months, finally it has done. There is no auto-correctable offence codes.
+But there are many offences which is un-auto-correctable yet. I will try to reduce it with the RubocopChallenger. The RubocopChallenger will
+be continued to evolve.
+
+![Decrease of offence codes](images/decrease_of_offence_codes.png)
 
 ## Rubocop Challenge Flow
 
 1. Run *RubocopChallenger* periodically from CI tool etc.
 1. When *RubocopChallenger* starts, delete a disabled rule from `.rubocop_todo.yml` existing in your project, execute `$ rubocop --auto-correct` and create a PR which include modified results
 1. You confirm the PR passes testing and then merge it if there is no problem
+
+[![Rubocop Challenge](images/rubocop_challenge.png)](https://github.com/ryz310/rubocop_challenger/pull/97)
 
 ## Usage
 
