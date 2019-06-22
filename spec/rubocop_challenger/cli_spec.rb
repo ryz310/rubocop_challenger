@@ -11,6 +11,7 @@ RSpec.describe RubocopChallenger::CLI do
       name: 'Rubocop Challenger',
       file_path: '.rubocop_todo.yml',
       mode: 'most_occurrence',
+      base_branch: 'master',
       labels: ['rubocop challenge'],
       project_column_name: 'Column 1',
       project_id: 123_456_789,

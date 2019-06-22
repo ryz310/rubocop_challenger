@@ -9,6 +9,8 @@ module RubocopChallenger
     #   The email address which use at the git commit
     # @param options [Hash]
     #   Optional parameters
+    # @option base_branch [String]
+    #   The Branch to merge into
     # @option labels [Array<String>]
     #   Will create a pull request with the labels
     # @option dry_run [Boolean]
@@ -21,7 +23,7 @@ module RubocopChallenger
     #   multiple projects, you should supply this.
     def initialize(user_name:, user_email:, **options)
       @pr_comet = PrComet.new(
-        base: 'master',
+        base: options[:base_branch],
         branch: "rubocop-challenge/#{timestamp}",
         user_name: user_name,
         user_email: user_email
