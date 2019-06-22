@@ -34,12 +34,6 @@ Layout/TrailingBlankLines:
   Exclude:
     - 'lib/rubocop_challenger/version.rb'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: AllowInHeredoc.
-Layout/TrailingWhitespace:
-  Exclude:
-    - 'lib/rubocop_challenger/version.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
