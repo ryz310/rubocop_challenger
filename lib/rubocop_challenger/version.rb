@@ -1,5 +1,7 @@
-# frozen_string_literal: true
-
-module RubocopChallenger
-  VERSION = '2.0.0.pre5'
-end
+  
+    
+  module RubocopChallenger  
+    VERSION = '2.0.0.pre5'  
+  end  
+  
+puts 'hoge'; puts 'fuga'
