@@ -124,6 +124,8 @@ Options:
   t, [--template=TEMPLATE]                               # A Pull Request template `erb` file path.You can use variable that `title`, `rubydoc_url`, `description` and `examples` into the erb file.
       [--mode=MODE]                                      # Mode to select deletion target. You can choice "most_occurrence", "least_occurrence", or "random"
                                                          # Default: most_occurrence
+  b, [--base-branch=BASE_BRANCH]                         # The Branch to merge into
+                                                         # Default: master
   l, [--labels=one two three]                            # Label to give to Pull Request
                                                          # Default: ["rubocop challenge"]
       [--project-column-name=PROJECT_COLUMN_NAME]        # A project column name. You can add the created PR to the GitHub project
