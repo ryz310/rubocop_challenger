@@ -30,6 +30,11 @@ module RubocopChallenger
            default: 'most_occurrence',
            desc: 'Mode to select deletion target. You can choice ' \
                  '"most_occurrence", "least_occurrence", or "random"'
+    option :base_branch,
+           type: :string,
+           default: 'master',
+           aliases: :b,
+           desc: 'The Branch to merge into'
     option :labels,
            type: :array,
            default: ['rubocop challenge'],
