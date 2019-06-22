@@ -55,6 +55,7 @@ module RubocopChallenger
       {
         user_name: options[:name],
         user_email: options[:email],
+        base_branch: options[:base_branch],
         labels: options[:labels],
         dry_run: options[:'no-create-pr'],
         project_column_name: options[:project_column_name],
