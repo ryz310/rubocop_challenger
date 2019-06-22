@@ -8,6 +8,7 @@ RSpec.describe RubocopChallenger::PullRequest do
     {
       user_name: 'user_name',
       user_email: 'user_email',
+      base_branch: 'master',
       labels: labels,
       dry_run: dry_run,
       project_column_name: project_column_name,
@@ -21,8 +22,26 @@ RSpec.describe RubocopChallenger::PullRequest do
   let(:pr_comet) { instance_double(PrComet, commit: nil, create!: nil) }
 
   before do
+    allow(Time).to receive(:now).and_return Time.new(2018, 11, 12, 21, 25, 9)
     allow(PrComet).to receive(:new).and_return(pr_comet)
-    allow(pull_request).to receive(:timestamp).and_return('20181112212509')
+  end
+
+  describe '#initialize' do
+    subject(:init) { pull_request }
+
+    let(:expected_options) do
+      {
+        base: 'master',
+        branch: 'rubocop-challenge/20181112212509',
+        user_name: 'user_name',
+        user_email: 'user_email'
+      }
+    end
+
+    it do
+      init
+      expect(PrComet).to have_received(:new).with(expected_options)
+    end
   end
 
   describe '#commit!' do

@@ -9,6 +9,7 @@ RSpec.describe RubocopChallenger::Go do
       name: 'Rubocop Challenger',
       file_path: '.rubocop_todo.yml',
       mode: 'most_occurrence',
+      base_branch: 'master',
       labels: ['rubocop challenge'],
       template: 'template_file_path',
       project_column_name: 'Column 1',
@@ -86,6 +87,7 @@ RSpec.describe RubocopChallenger::Go do
         {
           user_name: 'Rubocop Challenger',
           user_email: 'rubocop-challenger@example.com',
+          base_branch: 'master',
           labels: ['rubocop challenge'],
           dry_run: false,
           project_column_name: 'Column 1',
