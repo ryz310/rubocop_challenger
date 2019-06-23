@@ -74,7 +74,7 @@ commands:
   yardoc:
     description: 'Generate YARDoc'
     steps:
-      - run:  bundle exec yardoc -o ./yardoc
+      - run: bundle exec yardoc -o ./yardoc
       - store_artifacts:
           path: ./yardoc
           destination: yardoc
@@ -221,3 +221,10 @@ workflows:
                 - master
     jobs:
       - rubocop_challenge
+
+experimental:
+  notify:
+    branches:
+      only:
+        - master
+        - production
