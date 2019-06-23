@@ -6,6 +6,7 @@ version: 2.1
 
 orbs:
   ruby-orbs: sue445/ruby-orbs@1.4.3
+  code-climate: rvla/code-climate@0.0.2
 
 references:
   - &ruby_version
@@ -23,14 +24,6 @@ executors:
     working_directory: ~/repo
 
 commands:
-  download_cc_test_reporter:
-    steps:
-      - run:
-          name: Download cc-test-reporter
-          command: |
-            mkdir -p tmp/
-            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
-            chmod +x ./tmp/cc-test-reporter
   run_rspec:
     description: 'Run RSpec'
     steps:
@@ -39,13 +32,21 @@ commands:
           command: |
             mkdir /tmp/test-results
             TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
-            ./tmp/cc-test-reporter before-build
+            cc-test-reporter before-build
             bundle exec rspec --format documentation \
                               --color \
                               --format RspecJunitFormatter \
                               --out /tmp/test-results/rspec.xml \
                               $TEST_FILES
-            ./tmp/cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?
+      - code-climate/format-coverage:
+          input-type: simplecov
+          prefix: $(readlink -f .)
+          coverage-file: coverage/.resultset.json
+          output: coverage/codeclimate.$CIRCLE_BUILD_NUM.json
+      - persist_to_workspace:
+          root: coverage
+          paths:
+            - codeclimate.*.json
       - store_test_results:
           path: /tmp/test-results
       - store_artifacts:
@@ -124,7 +125,7 @@ commands:
   test_and_build:
     description: Build the RubyGem
     steps:
-      - download_cc_test_reporter
+      - code-climate/install
       - run_rspec
       - rake_build
 
@@ -139,6 +140,16 @@ jobs:
       - setup:
           ruby_version: << parameters.ruby_version >>
       - test_and_build
+  upload-coverage:
+    executor: default
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - code-climate/install
+      - code-climate/sum-coverage:
+          input: codeclimate.*.json
+          parts: 4
+      - code-climate/upload-coverage
   rubocop:
     executor: default
     steps:
@@ -185,6 +196,12 @@ workflows:
       - rubocop
       - yardoc
       - verify_rubocop_challenge
+      - upload-coverage:
+          requires:
+            - build_on_ruby_2.4
+            - build_on_ruby_2.5
+            - build_on_ruby_2.6
+            - build_on_ruby_latest
       - release:
           context: RubyGems API Key
           requires:
