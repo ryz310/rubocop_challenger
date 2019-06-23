@@ -11,79 +11,6 @@ references:
       enum: ['2.4', '2.5', '2.6', 'latest']
       default: '2.4'
 
-  - &download_cc_test_reporter
-    run:
-        name: Download cc-test-reporter
-        command: |
-          mkdir -p tmp/
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
-          chmod +x ./tmp/cc-test-reporter
-  - &restore_bundle_install_cache
-    restore_cache:
-        keys:
-        - v1-dependencies-{{ checksum "Gemfile.lock" }}
-        - v1-dependencies-
-  - &bundle_install
-    run:
-        name: Bundle Install
-        command: |
-          bundle install --jobs=4 --retry=3 --path vendor/bundle
-  - &save_bundle_install_cache
-    save_cache:
-      paths:
-        - ./vendor/bundle
-      key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-  - &run_rspec
-    run:
-        name: Run Rspec
-        command: |
-          mkdir /tmp/test-results
-          TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
-          ./tmp/cc-test-reporter before-build
-          bundle exec rspec --format documentation \
-                            --color \
-                            --format RspecJunitFormatter \
-                            --out /tmp/test-results/rspec.xml \
-                            $TEST_FILES
-          ./tmp/cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?
-
-  - &build
-    steps:
-      - checkout
-      - *download_cc_test_reporter
-      - *restore_bundle_install_cache
-      - *bundle_install
-      - *save_bundle_install_cache
-      - *run_rspec
-      - store_test_results:
-          path: /tmp/test-results
-      - store_artifacts:
-          path: /tmp/test-results
-          destination: test-results
-      - run:
-          name: Rake Build
-          command: |
-            bundle exec rake build
-
-  - &rubocop
-    steps:
-      - checkout
-      - *restore_bundle_install_cache
-      - *bundle_install
-      - *save_bundle_install_cache
-      - run: bundle exec rubocop
-
-  - &yardoc
-    steps:
-      - checkout
-      - *restore_bundle_install_cache
-      - *bundle_install
-      - *save_bundle_install_cache
-      - run:  bundle exec yardoc -o ./yardoc
-      - store_artifacts:
-          path: ./yardoc
-          destination: yardoc
-
 executors:
   default:
     parameters:
@@ -91,6 +18,86 @@ executors:
     docker:
        - image: circleci/ruby:<< parameters.ruby_version >>-node-browsers
     working_directory: ~/repo
+
+commands:
+  download_cc_test_reporter:
+    steps:
+      - run:
+          name: Download cc-test-reporter
+          command: |
+            mkdir -p tmp/
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
+            chmod +x ./tmp/cc-test-reporter
+  restore_bundle_install_cache:
+    steps:
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "Gemfile.lock" }}
+          - v1-dependencies-
+  bundle_install:
+    steps:
+      - run:
+          name: Bundle Install
+          command: |
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
+  save_bundle_install_cache:
+    steps:
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+  run_rspec:
+    description: 'Run RSpec'
+    steps:
+      - run:
+          name: 'Execute RSpec'
+          command: |
+            mkdir /tmp/test-results
+            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+            ./tmp/cc-test-reporter before-build
+            bundle exec rspec --format documentation \
+                              --color \
+                              --format RspecJunitFormatter \
+                              --out /tmp/test-results/rspec.xml \
+                              $TEST_FILES
+            ./tmp/cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
+
+  test_and_build:
+    steps:
+      - checkout
+      - download_cc_test_reporter
+      - restore_bundle_install_cache
+      - bundle_install
+      - save_bundle_install_cache
+      - run_rspec
+      - run:
+          name: Rake Build
+          command: |
+            bundle exec rake build
+
+  rubocop:
+    steps:
+      - checkout
+      - restore_bundle_install_cache
+      - bundle_install
+      - save_bundle_install_cache
+      - run: bundle exec rubocop
+
+  yardoc:
+    steps:
+      - checkout
+      - restore_bundle_install_cache
+      - bundle_install
+      - save_bundle_install_cache
+      - run:  bundle exec yardoc -o ./yardoc
+      - store_artifacts:
+          path: ./yardoc
+          destination: yardoc
 
 jobs:
   build:
@@ -100,20 +107,22 @@ jobs:
       name: default
       ruby_version: << parameters.ruby_version >>
     steps:
-      - build
+      - test_and_build
   rubocop:
     executor: default
-    <<: *rubocop
+    steps:
+      - rubocop
   yardoc:
     executor: default
-    <<: *yardoc
+    steps:
+      - yardoc
   verify_rubocop_challenge:
     executor: default
     steps:
       - checkout
-      - *restore_bundle_install_cache
-      - *bundle_install
-      - *save_bundle_install_cache
+      - restore_bundle_install_cache
+      - bundle_install
+      - save_bundle_install_cache
       - run: bundle exec rake install
       - run:
           name: Jailbreak
@@ -150,9 +159,9 @@ jobs:
     executor: default
     steps:
       - checkout
-      - *restore_bundle_install_cache
-      - *bundle_install
-      - *save_bundle_install_cache
+      - restore_bundle_install_cache
+      - bundle_install
+      - save_bundle_install_cache
       - run:
           name: Create Rubygems Credentials
           command: |
