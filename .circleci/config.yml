@@ -80,6 +80,18 @@ commands:
       - run:
           name: Rake Build
           command: bundle exec rake build
+  rubocop_challenge:
+    steps:
+      - run:
+          name: Rubocop Challenge
+          command: |
+            bundle install
+            bundle exec rubocop_challenger go \
+              --email=ryz310@gmail.com \
+              --name=ryz310 \
+              --template=./lib/templates/checklist.md.erb \
+              --no-auto-gen-timestamp \
+              --exclude-limit=30
   setup:
     description: Setup for Job Working
     steps:
@@ -134,22 +146,11 @@ jobs:
               --name=ryz310 \
               --mode=random \
               --no-create-pr
-
   rubocop_challenge:
     executor: default
     steps:
       - checkout
-      - run:
-          name: Rubocop Challenge
-          command: |
-            bundle install
-            bundle exec rubocop_challenger go \
-              --email=ryz310@gmail.com \
-              --name=ryz310 \
-              --template=./lib/templates/checklist.md.erb \
-              --no-auto-gen-timestamp \
-              --exclude-limit=30
-
+      - rubocop_challenge
   release:
     executor: default
     steps:
