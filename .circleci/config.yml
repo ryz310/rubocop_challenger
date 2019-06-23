@@ -68,28 +68,24 @@ commands:
           destination: test-results
   rubocop:
     steps:
-      - checkout
-      - restore_bundle_install_cache
-      - bundle_install
-      - save_bundle_install_cache
       - run: bundle exec rubocop
   yardoc:
     steps:
-      - checkout
-      - restore_bundle_install_cache
-      - bundle_install
-      - save_bundle_install_cache
       - run:  bundle exec yardoc -o ./yardoc
       - store_artifacts:
           path: ./yardoc
           destination: yardoc
-  test_and_build:
+  setup:
+    description: Setup for Job Working
     steps:
       - checkout
-      - download_cc_test_reporter
       - restore_bundle_install_cache
       - bundle_install
       - save_bundle_install_cache
+  test_and_build:
+    description: Build the RubyGem
+    steps:
+      - download_cc_test_reporter
       - run_rspec
       - run:
           name: Rake Build
@@ -104,22 +100,22 @@ jobs:
       name: default
       ruby_version: << parameters.ruby_version >>
     steps:
+      - setup
       - test_and_build
   rubocop:
     executor: default
     steps:
+      - setup
       - rubocop
   yardoc:
     executor: default
     steps:
+      - setup
       - yardoc
   verify_rubocop_challenge:
     executor: default
     steps:
-      - checkout
-      - restore_bundle_install_cache
-      - bundle_install
-      - save_bundle_install_cache
+      - setup
       - run: bundle exec rake install
       - run:
           name: Jailbreak
@@ -155,10 +151,7 @@ jobs:
   release:
     executor: default
     steps:
-      - checkout
-      - restore_bundle_install_cache
-      - bundle_install
-      - save_bundle_install_cache
+      - setup
       - run:
           name: Create Rubygems Credentials
           command: |
