@@ -68,8 +68,11 @@ commands:
           destination: test-results
   rubocop:
     steps:
-      - run: bundle exec rubocop
+      - run:
+          name: Run RuboCop
+          command: bundle exec rubocop
   yardoc:
+    description: 'Generate YARDoc'
     steps:
       - run:  bundle exec yardoc -o ./yardoc
       - store_artifacts:
