@@ -80,6 +80,25 @@ commands:
       - run:
           name: Rake Build
           command: bundle exec rake build
+  verify_rubocop_challenge:
+    description: Integration testing for RuboCop Challenge
+    steps:
+      - run: bundle exec rake install
+      - run:
+          name: Jailbreak
+          command: |
+            git config --global user.email "testing@example.com"
+            git config --global user.name "Testing"
+            bundle exec bin/jailbreak
+            git commit -am "jailbreak"
+      - run:
+          name: Verify Rubocop Challenge
+          command: |
+            bundle exec exe/rubocop_challenger go \
+              --email=ryz310@gmail.com \
+              --name=ryz310 \
+              --mode=random \
+              --no-create-pr
   rubocop_challenge:
     steps:
       - run:
@@ -144,22 +163,7 @@ jobs:
     executor: default
     steps:
       - setup
-      - run: bundle exec rake install
-      - run:
-          name: Jailbreak
-          command: |
-            git config --global user.email "testing@example.com"
-            git config --global user.name "Testing"
-            bundle exec bin/jailbreak
-            git commit -am "jailbreak"
-      - run:
-          name: Verify Rubocop Challenge
-          command: |
-            bundle exec exe/rubocop_challenger go \
-              --email=ryz310@gmail.com \
-              --name=ryz310 \
-              --mode=random \
-              --no-create-pr
+      - verify_rubocop_challenge
   rubocop_challenge:
     executor: default
     steps:
