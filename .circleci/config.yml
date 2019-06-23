@@ -66,7 +66,23 @@ commands:
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
-
+  rubocop:
+    steps:
+      - checkout
+      - restore_bundle_install_cache
+      - bundle_install
+      - save_bundle_install_cache
+      - run: bundle exec rubocop
+  yardoc:
+    steps:
+      - checkout
+      - restore_bundle_install_cache
+      - bundle_install
+      - save_bundle_install_cache
+      - run:  bundle exec yardoc -o ./yardoc
+      - store_artifacts:
+          path: ./yardoc
+          destination: yardoc
   test_and_build:
     steps:
       - checkout
@@ -79,25 +95,6 @@ commands:
           name: Rake Build
           command: |
             bundle exec rake build
-
-  rubocop:
-    steps:
-      - checkout
-      - restore_bundle_install_cache
-      - bundle_install
-      - save_bundle_install_cache
-      - run: bundle exec rubocop
-
-  yardoc:
-    steps:
-      - checkout
-      - restore_bundle_install_cache
-      - bundle_install
-      - save_bundle_install_cache
-      - run:  bundle exec yardoc -o ./yardoc
-      - store_artifacts:
-          path: ./yardoc
-          destination: yardoc
 
 jobs:
   build:
