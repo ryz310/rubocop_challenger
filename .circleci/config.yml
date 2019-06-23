@@ -92,6 +92,20 @@ commands:
               --template=./lib/templates/checklist.md.erb \
               --no-auto-gen-timestamp \
               --exclude-limit=30
+  release:
+    description: Release to RubyGems.org
+    steps:
+      - run:
+          name: Create Rubygems Credentials
+          command: |
+            mkdir ~/.gem
+            echo -e "---\n:rubygems_api_key: ${RUBYGEMS_API_KEY}" > ~/.gem/credentials
+            chmod 0600 ~/.gem/credentials
+      - run:
+          name: Release Gem
+          command: |
+            git push --set-upstream origin ${CIRCLE_BRANCH}
+            bundle exec rake release --trace
   setup:
     description: Setup for Job Working
     steps:
@@ -155,17 +169,7 @@ jobs:
     executor: default
     steps:
       - setup
-      - run:
-          name: Create Rubygems Credentials
-          command: |
-            mkdir ~/.gem
-            echo -e "---\n:rubygems_api_key: ${RUBYGEMS_API_KEY}" > ~/.gem/credentials
-            chmod 0600 ~/.gem/credentials
-      - run:
-          name: Release Gem
-          command: |
-            git push --set-upstream origin ${CIRCLE_BRANCH}
-            bundle exec rake release --trace
+      - release
 
 workflows:
   version: 2
