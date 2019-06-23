@@ -4,6 +4,9 @@
 #
 version: 2.1
 
+orbs:
+  ruby-orbs: sue445/ruby-orbs@1.4.3
+
 references:
   - &ruby_version
     ruby_version:
@@ -28,24 +31,6 @@ commands:
             mkdir -p tmp/
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
             chmod +x ./tmp/cc-test-reporter
-  restore_bundle_install_cache:
-    steps:
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "Gemfile.lock" }}
-          - v1-dependencies-
-  bundle_install:
-    steps:
-      - run:
-          name: Bundle Install
-          command: |
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
-  save_bundle_install_cache:
-    steps:
-      - save_cache:
-          paths:
-            - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
   run_rspec:
     description: 'Run RSpec'
     steps:
@@ -130,11 +115,12 @@ commands:
             bundle exec rake release --trace
   setup:
     description: Setup for Job Working
+    parameters:
+      <<: *ruby_version
     steps:
       - checkout
-      - restore_bundle_install_cache
-      - bundle_install
-      - save_bundle_install_cache
+      - ruby-orbs/bundle-install:
+          cache_key_prefix: v1-dependencies-<< parameters.ruby_version >>
   test_and_build:
     description: Build the RubyGem
     steps:
@@ -150,7 +136,8 @@ jobs:
       name: default
       ruby_version: << parameters.ruby_version >>
     steps:
-      - setup
+      - setup:
+          ruby_version: << parameters.ruby_version >>
       - test_and_build
   rubocop:
     executor: default
