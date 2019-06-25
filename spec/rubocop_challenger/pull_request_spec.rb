@@ -15,7 +15,7 @@ RSpec.describe RubocopChallenger::PullRequest do
       project_id: project_id
     }
   end
-  let(:labels) { ['label-1', 'label-2'] }
+  let(:labels) { %w[label-1 label-2] }
   let(:dry_run) { false }
   let(:project_column_name) { 'Column 1' }
   let(:project_id) { 123_456_789 }
