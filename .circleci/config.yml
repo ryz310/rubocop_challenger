@@ -70,6 +70,16 @@ commands:
           name: Rake Build
           command: bundle exec rake build
   verify_rubocop_challenge:
+    steps:
+      - run:
+          name: Verify Rubocop Challenge
+          command: |
+            bundle exec exe/rubocop_challenger go \
+              --email=ryz310@gmail.com \
+              --name=ryz310 \
+              --mode=random \
+              --no-create-pr
+  integration_testing:
     description: Integration testing for RuboCop Challenge
     steps:
       - run: bundle exec rake install
@@ -80,14 +90,12 @@ commands:
             git config --global user.name "Testing"
             bundle exec bin/jailbreak
             git commit -am "jailbreak"
-      - run:
-          name: Verify Rubocop Challenge
-          command: |
-            bundle exec exe/rubocop_challenger go \
-              --email=ryz310@gmail.com \
-              --name=ryz310 \
-              --mode=random \
-              --no-create-pr
+      - verify_rubocop_challenge
+      - verify_rubocop_challenge
+      - verify_rubocop_challenge
+      - verify_rubocop_challenge
+      - verify_rubocop_challenge
+      - verify_rubocop_challenge
   rubocop_challenge:
     steps:
       - run:
@@ -160,11 +168,11 @@ jobs:
     steps:
       - setup
       - yardoc
-  verify_rubocop_challenge:
+  integration_testing:
     executor: default
     steps:
       - setup
-      - verify_rubocop_challenge
+      - integration_testing
   rubocop_challenge:
     executor: default
     steps:
@@ -195,7 +203,7 @@ workflows:
           ruby_version: 'latest'
       - rubocop
       - yardoc
-      - verify_rubocop_challenge
+      - integration_testing
       - upload-coverage:
           requires:
             - build_on_ruby_2.4
