@@ -14,6 +14,10 @@ references:
       type: enum
       enum: ['2.4', '2.5', '2.6', 'latest']
       default: '2.4'
+  - &bundler_options
+    bundler_options:
+      type: string
+      default: ''
 
 executors:
   default:
@@ -126,10 +130,12 @@ commands:
     description: Setup for Job Working
     parameters:
       <<: *ruby_version
+      <<: *bundler_options
     steps:
       - checkout
       - ruby-orbs/bundle-install:
           cache_key_prefix: v1-dependencies-<< parameters.ruby_version >>
+          bundle_extra_args: << parameters.bundler_options >>
   test_and_build:
     description: Build the RubyGem
     steps:
@@ -171,7 +177,8 @@ jobs:
   integration_testing:
     executor: default
     steps:
-      - setup
+      - setup:
+          bundler_options: '--with integrations'
       - integration_testing
   rubocop_challenge:
     executor: default
