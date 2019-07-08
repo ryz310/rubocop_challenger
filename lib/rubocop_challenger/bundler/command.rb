@@ -17,7 +17,7 @@ module RubocopChallenger
       #
       # @return [Boolean] Returns true if installed
       def installed?(gem_name)
-        !run('list', '|', 'grep', gem_name).empty?
+        !run('list', '|', 'grep', "' #{gem_name} '").empty?
       end
 
       private

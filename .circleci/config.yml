@@ -2,127 +2,75 @@
 #
 # Check https://circleci.com/docs/2.0/language-ruby/ for more details
 #
-version: 2
+version: 2.1
+
+orbs:
+  ruby-orbs: sue445/ruby-orbs@1.4.3
+  code-climate: rvla/code-climate@0.0.2
 
 references:
-  - &download_cc_test_reporter
-    run:
-        name: Download cc-test-reporter
-        command: |
-          mkdir -p tmp/
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
-          chmod +x ./tmp/cc-test-reporter
-  - &restore_bundle_install_cache
-    restore_cache:
-        keys:
-        - v1-dependencies-{{ checksum "Gemfile.lock" }}
-        - v1-dependencies-
-  - &bundle_install
-    run:
-        name: Bundle Install
-        command: |
-          bundle install --jobs=4 --retry=3 --path vendor/bundle
-  - &save_bundle_install_cache
-    save_cache:
-      paths:
-        - ./vendor/bundle
-      key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-  - &run_rspec
-    run:
-        name: Run Rspec
-        command: |
-          mkdir /tmp/test-results
-          TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
-          ./tmp/cc-test-reporter before-build
-          bundle exec rspec --format documentation \
-                            --color \
-                            --format RspecJunitFormatter \
-                            --out /tmp/test-results/rspec.xml \
-                            $TEST_FILES
-          ./tmp/cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?
+  - &ruby_version
+    ruby_version:
+      type: enum
+      enum: ['2.4', '2.5', '2.6', 'latest']
+      default: '2.4'
 
-  - &build
+executors:
+  default:
+    parameters:
+      <<: *ruby_version
+    docker:
+       - image: circleci/ruby:<< parameters.ruby_version >>-node-browsers
     working_directory: ~/repo
+
+commands:
+  run_rspec:
+    description: 'Run RSpec'
     steps:
-      - checkout
-      - *download_cc_test_reporter
-      - *restore_bundle_install_cache
-      - *bundle_install
-      - *save_bundle_install_cache
-      - *run_rspec
+      - run:
+          name: 'Execute RSpec'
+          command: |
+            mkdir /tmp/test-results
+            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+            cc-test-reporter before-build
+            bundle exec rspec --format documentation \
+                              --color \
+                              --format RspecJunitFormatter \
+                              --out /tmp/test-results/rspec.xml \
+                              $TEST_FILES
+      - code-climate/format-coverage:
+          input-type: simplecov
+          prefix: $(readlink -f .)
+          coverage-file: coverage/.resultset.json
+          output: coverage/codeclimate.$CIRCLE_BUILD_NUM.json
+      - persist_to_workspace:
+          root: coverage
+          paths:
+            - codeclimate.*.json
       - store_test_results:
           path: /tmp/test-results
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
+  rubocop:
+    steps:
       - run:
-          name: Rake Build
-          command: |
-            bundle exec rake build
-
-  - &rubocop
-    working_directory: ~/repo
+          name: Run RuboCop
+          command: bundle exec rubocop
+  yardoc:
+    description: 'Generate YARDoc'
     steps:
-      - checkout
-      - *restore_bundle_install_cache
-      - *bundle_install
-      - *save_bundle_install_cache
-      - run: bundle exec rubocop
-
-  - &yardoc
-    working_directory: ~/repo
-    steps:
-      - checkout
-      - *restore_bundle_install_cache
-      - *bundle_install
-      - *save_bundle_install_cache
-      - run:  bundle exec yardoc -o ./yardoc
+      - run: bundle exec yardoc -o ./yardoc
       - store_artifacts:
           path: ./yardoc
           destination: yardoc
-
-jobs:
-  build_on_ruby_2.4:
-    docker:
-       - image: circleci/ruby:2.4-node-browsers
-    <<: *build
-  build_on_ruby_2.5:
-    docker:
-       - image: circleci/ruby:2.5-node-browsers
-    <<: *build
-  build_on_ruby_2.6:
-    docker:
-       - image: circleci/ruby:2.6-node-browsers
-    <<: *build
-  build_on_ruby_latest:
-    docker:
-       - image: circleci/ruby:latest-node-browsers-legacy
-    <<: *build
-  rubocop:
-    docker:
-       - image: circleci/ruby:2.4-node-browsers
-    <<: *rubocop
-  yardoc:
-    docker:
-       - image: circleci/ruby:2.4-node-browsers
-    <<: *yardoc
-  verify_rubocop_challenge:
-    docker:
-      - image: circleci/ruby:2.4-node-browsers
-    working_directory: ~/repo
+  rake_build:
     steps:
-      - checkout
-      - *restore_bundle_install_cache
-      - *bundle_install
-      - *save_bundle_install_cache
-      - run: bundle exec rake install
       - run:
-          name: Jailbreak
-          command: |
-            git config --global user.email "testing@example.com"
-            git config --global user.name "Testing"
-            bundle exec bin/jailbreak
-            git commit -am "jailbreak"
+          name: Rake Build
+          command: bundle exec rake build
+  verify_rubocop_challenge:
+    steps:
       - run:
           name: Verify Rubocop Challenge
           command: |
@@ -131,13 +79,25 @@ jobs:
               --name=ryz310 \
               --mode=random \
               --no-create-pr
-
-  rubocop_challenge:
-    docker:
-      - image: circleci/ruby:2.4-node-browsers
-    working_directory: ~/repo
+  integration_testing:
+    description: Integration testing for RuboCop Challenge
     steps:
-      - checkout
+      - run: bundle exec rake install
+      - run:
+          name: Jailbreak
+          command: |
+            git config --global user.email "testing@example.com"
+            git config --global user.name "Testing"
+            bundle exec bin/jailbreak
+            git commit -am "jailbreak"
+      - verify_rubocop_challenge
+      - verify_rubocop_challenge
+      - verify_rubocop_challenge
+      - verify_rubocop_challenge
+      - verify_rubocop_challenge
+      - verify_rubocop_challenge
+  rubocop_challenge:
+    steps:
       - run:
           name: Rubocop Challenge
           command: |
@@ -148,20 +108,13 @@ jobs:
               --template=./lib/templates/checklist.md.erb \
               --no-auto-gen-timestamp \
               --exclude-limit=30
-
   release:
-    docker:
-       - image: circleci/ruby:2.4-node-browsers
-    working_directory: ~/repo
+    description: Release to RubyGems.org
     steps:
-      - checkout
-      - *restore_bundle_install_cache
-      - *bundle_install
-      - *save_bundle_install_cache
       - run:
           name: Create Rubygems Credentials
           command: |
-            mkdir ~/.gem
+            mkdir ~/.gem || true
             echo -e "---\n:rubygems_api_key: ${RUBYGEMS_API_KEY}" > ~/.gem/credentials
             chmod 0600 ~/.gem/credentials
       - run:
@@ -169,19 +122,94 @@ jobs:
           command: |
             git push --set-upstream origin ${CIRCLE_BRANCH}
             bundle exec rake release --trace
+  setup:
+    description: Setup for Job Working
+    parameters:
+      <<: *ruby_version
+    steps:
+      - checkout
+      - ruby-orbs/bundle-install:
+          cache_key_prefix: v1-dependencies-<< parameters.ruby_version >>
+  test_and_build:
+    description: Build the RubyGem
+    steps:
+      - code-climate/install
+      - run_rspec
+      - rake_build
+
+jobs:
+  build:
+    parameters:
+      <<: *ruby_version
+    executor:
+      name: default
+      ruby_version: << parameters.ruby_version >>
+    steps:
+      - setup:
+          ruby_version: << parameters.ruby_version >>
+      - test_and_build
+  upload-coverage:
+    executor: default
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - code-climate/install
+      - code-climate/sum-coverage:
+          input: codeclimate.*.json
+          parts: 4
+      - code-climate/upload-coverage
+  rubocop:
+    executor: default
+    steps:
+      - setup
+      - rubocop
+  yardoc:
+    executor: default
+    steps:
+      - setup
+      - yardoc
+  integration_testing:
+    executor: default
+    steps:
+      - setup
+      - integration_testing
+  rubocop_challenge:
+    executor: default
+    steps:
+      - checkout
+      - rubocop_challenge
+  release:
+    executor: default
+    steps:
+      - setup
+      - release
 
 workflows:
   version: 2
 
   commit:
     jobs:
-      - build_on_ruby_2.4
-      - build_on_ruby_2.5
-      - build_on_ruby_2.6
-      - build_on_ruby_latest
+      - build:
+          name: build_on_ruby_2.4
+          ruby_version: '2.4'
+      - build:
+          name: build_on_ruby_2.5
+          ruby_version: '2.5'
+      - build:
+          name: build_on_ruby_2.6
+          ruby_version: '2.6'
+      - build:
+          name: build_on_ruby_latest
+          ruby_version: 'latest'
       - rubocop
       - yardoc
-      - verify_rubocop_challenge
+      - integration_testing
+      - upload-coverage:
+          requires:
+            - build_on_ruby_2.4
+            - build_on_ruby_2.5
+            - build_on_ruby_2.6
+            - build_on_ruby_latest
       - release:
           context: RubyGems API Key
           requires:
@@ -205,3 +233,10 @@ workflows:
                 - master
     jobs:
       - rubocop_challenge
+
+experimental:
+  notify:
+    branches:
+      only:
+        - master
+        - production
