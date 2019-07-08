@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rubocop_challenger (2.0.0.pre6)
+    rubocop_challenger (2.0.0.pre7)
       pr_comet (~> 0.2.0)
       rainbow
       rubocop
@@ -47,7 +47,7 @@ GEM
       rspec-core (~> 3.8.0)
       rspec-expectations (~> 3.8.0)
       rspec-mocks (~> 3.8.0)
-    rspec-core (3.8.1)
+    rspec-core (3.8.2)
       rspec-support (~> 3.8.0)
     rspec-expectations (3.8.4)
       diff-lcs (>= 1.2.0, < 2.0)
@@ -73,7 +73,7 @@ GEM
     sawyer (0.8.2)
       addressable (>= 2.3.5)
       faraday (> 0.8, < 2.0)
-    simplecov (0.16.1)
+    simplecov (0.17.0)
       docile (~> 1.1)
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
