@@ -6,7 +6,6 @@ PATH
       rainbow
       rubocop
       rubocop-performance
-      rubocop-rails
       rubocop-rspec
       thor
       yard
@@ -42,7 +41,6 @@ GEM
       byebug (~> 11.0)
       pry (~> 0.10)
     public_suffix (3.1.1)
-    rack (2.0.7)
     rainbow (3.0.0)
     rake (10.5.0)
     rspec (3.8.0)
@@ -69,9 +67,6 @@ GEM
       unicode-display_width (>= 1.4.0, < 1.7)
     rubocop-performance (1.4.0)
       rubocop (>= 0.71.0)
-    rubocop-rails (2.2.0)
-      rack (>= 1.1)
-      rubocop (>= 0.72.0)
     rubocop-rspec (1.33.0)
       rubocop (>= 0.60.0)
     ruby-progressbar (1.10.1)
