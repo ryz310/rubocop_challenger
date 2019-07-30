@@ -13,7 +13,7 @@ pr_comet = PrComet.new(base: 'master', branch: "update/v#{version}")
 
 # Verifying
 abort 'usage: bin/release VERSION' if version.nil?
-abort 'A version must be like a `1.2.3`' unless version =~ VERSION_FORMAT
+abort 'A version must be like a `1.2.3`' unless VERSION_FORMAT.match?(version)
 
 # Modify a version file
 pr_comet.commit 'Update version' do
