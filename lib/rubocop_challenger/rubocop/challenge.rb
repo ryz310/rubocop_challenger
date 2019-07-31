@@ -14,7 +14,7 @@ module RubocopChallenger
 
       def initialize(file_path, mode)
         @mode = mode
-        @command     = Rubocop::Command.new
+        @command = Rubocop::Command.new
         @todo_reader = Rubocop::TodoReader.new(file_path)
         @todo_writer = Rubocop::TodoWriter.new(file_path)
       end
