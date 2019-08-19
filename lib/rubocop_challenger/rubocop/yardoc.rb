@@ -5,6 +5,7 @@ module RubocopChallenger
     # To read YARD style documentation from rubocop gem source code
     class Yardoc
       def initialize(title)
+        load_rspec_gems!
         @cop_class = find_cop_class(title)
         YARD.parse(source_file_path)
         @yardoc = YARD::Registry.all(:class).first
@@ -22,6 +23,17 @@ module RubocopChallenger
       private
 
       attr_reader :cop_class, :yardoc
+
+      # Loads gems for YARDoc creation
+      def load_rspec_gems!
+        RSPEC_GEMS.each do |dependency|
+          begin
+            require dependency
+          rescue LoadError
+            nil
+          end
+        end
+      end
 
       # Find a RuboCop class by cop name. It find from rubocop/rspec if cannot
       # find any class from rubocop gem.

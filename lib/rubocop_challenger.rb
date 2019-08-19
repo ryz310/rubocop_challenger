@@ -4,7 +4,6 @@ require 'erb'
 require 'yard'
 require 'rainbow'
 require 'pr_comet'
-require 'rubocop'
 require 'rubocop_challenger/errors'
 require 'rubocop_challenger/version'
 require 'rubocop_challenger/rubocop/rule'
@@ -20,11 +19,11 @@ require 'rubocop_challenger/cli'
 require 'rubocop_challenger/bundler/command'
 require 'rubocop_challenger/github/pr_template'
 
-# Loads gems for feature of integrations
-%w[rubocop-performance rubocop-rails rubocop-rspec].each do |dependency|
-  begin
-    require dependency
-  rescue LoadError
-    nil
-  end
+module RubocopChallenger
+  RSPEC_GEMS = %w[
+    rubocop
+    rubocop-performance
+    rubocop-rails
+    rubocop-rspec
+  ].freeze
 end
