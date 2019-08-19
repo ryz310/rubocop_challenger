@@ -1,0 +1,6 @@
+version: 1
+
+release:
+  base_branch: master
+  release_branch: production
+  version_file_path: lib/rubocop_challenger/version.rb
