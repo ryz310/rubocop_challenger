@@ -24,6 +24,7 @@ module RubocopChallenger
 
       attr_reader :cop_class, :yardoc
 
+      # Loads gems for YARDoc creation
       def load_rspec_gems!
         RSPEC_GEMS.each do |dependency|
           begin
