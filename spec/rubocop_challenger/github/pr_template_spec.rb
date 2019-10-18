@@ -84,6 +84,10 @@ RSpec.describe RubocopChallenger::Github::PrTemplate do
       let(:expected_template) { <<~EXPECTED }
         # Rubocop challenge!
 
+        [Style/Alias](https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/Alias)
+
+        ## Description
+
         Sorry! Something went wrong! :bow:
         Please report bugs [here](https://github.com/ryz310/rubocop_challenger/issues/new?assignees=ryz310&labels=bug&template=bug_report.md) with following error information.
 
