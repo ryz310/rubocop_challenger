@@ -5,7 +5,7 @@
 version: 2.1
 
 orbs:
-  ruby-orbs: sue445/ruby-orbs@1.4.3
+  ruby-orbs: sue445/ruby-orbs@1.4.4
   code-climate: rvla/code-climate@0.0.2
 
 references:
