@@ -128,6 +128,9 @@ commands:
       <<: *ruby_version
     steps:
       - checkout
+      - run:
+          name: Install bundler v1.x for ruby 2.7
+          command: gem install bundler:1.17.3
       - ruby-orbs/bundle-install:
           cache_key_prefix: v1-dependencies-<< parameters.ruby_version >>
   test_and_build:
