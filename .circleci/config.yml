@@ -12,8 +12,8 @@ references:
   - &ruby_version
     ruby_version:
       type: enum
-      enum: ['2.4', '2.5', '2.6', 'latest']
-      default: '2.4'
+      enum: ['2.4', '2.5', '2.6', '2.7', 'latest']
+      default: '2.7'
 
 executors:
   default:
@@ -199,6 +199,9 @@ workflows:
           name: build_on_ruby_2.6
           ruby_version: '2.6'
       - build:
+          name: build_on_ruby_2.7
+          ruby_version: '2.7'
+      - build:
           name: build_on_ruby_latest
           ruby_version: 'latest'
       - rubocop
@@ -209,6 +212,7 @@ workflows:
             - build_on_ruby_2.4
             - build_on_ruby_2.5
             - build_on_ruby_2.6
+            - build_on_ruby_2.7
             - build_on_ruby_latest
       - release:
           context: RubyGems API Key
@@ -216,6 +220,7 @@ workflows:
             - build_on_ruby_2.4
             - build_on_ruby_2.5
             - build_on_ruby_2.6
+            - build_on_ruby_2.7
             - build_on_ruby_latest
             - rubocop
           filters:
