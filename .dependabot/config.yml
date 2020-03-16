@@ -1,0 +1,21 @@
+version: 1
+update_configs:
+  - package_manager: "ruby:bundler"
+    directory: "/"
+    update_schedule: "weekly"
+    default_reviewers:
+      - "ryz310"
+    default_assignees:
+      - "ryz310"
+    default_labels:
+      - "dependabot"
+    ignored_updates:
+      - match:
+          dependency_name: "rubocop*"
+    automerged_updates:
+      - match:
+          dependency_type: "development"
+          update_type: "all"
+      - match:
+          dependency_type: "production"
+          update_type: "semver:patch"
