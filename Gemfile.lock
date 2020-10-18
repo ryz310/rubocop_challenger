@@ -4,7 +4,7 @@ PATH
     rubocop_challenger (2.0.0.pre10)
       pr_comet (>= 0.2, < 0.4)
       rainbow
-      rubocop
+      rubocop (>= 0.87)
       rubocop-performance
       rubocop-rspec
       thor
