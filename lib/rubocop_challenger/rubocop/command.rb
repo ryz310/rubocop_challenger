@@ -7,8 +7,8 @@ module RubocopChallenger
       include PrComet::CommandLine
 
       # Executes auto correction
-      def auto_correct
-        run('--auto-correct')
+      def auto_correct_all
+        run('--auto-correct-all')
       end
 
       # Generates `.rubocop_todo.yml`

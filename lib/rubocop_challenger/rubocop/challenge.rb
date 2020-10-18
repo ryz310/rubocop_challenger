@@ -23,7 +23,7 @@ module RubocopChallenger
       def exec
         verify_target_rule
         todo_writer.delete_rule(target_rule)
-        command.auto_correct
+        command.auto_correct_all
         target_rule
       end
 
