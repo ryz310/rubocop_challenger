@@ -7,10 +7,36 @@ RSpec.describe RubocopChallenger::Rubocop::Yardoc do
   let(:title) { 'Style/Alias' }
 
   describe '#initialize' do
-    let(:title) { 'Capybara/CurrentPathExpectation' }
+    context 'with rubocop gem' do
+      let(:title) { 'Layout/EmptyLineAfterGuardClause' }
 
-    it 'find from rubocop/rspec if cannot find a class from rubocop gem' do
-      expect { yardoc }.not_to raise_error
+      it 'finds a cop class from rubocop' do
+        expect { yardoc }.not_to raise_error
+      end
+    end
+
+    context 'with rubocop-performance gem' do
+      let(:title) { 'Performance/Size' }
+
+      it 'finds a cop class from rubocop/performance' do
+        expect { yardoc }.not_to raise_error
+      end
+    end
+
+    context 'with rubocop-rails gem' do
+      let(:title) { 'Rails/SquishedSQLHeredocs' }
+
+      it 'finds a cop class from rubocop/rails' do
+        expect { yardoc }.not_to raise_error
+      end
+    end
+
+    context 'with rubocop-rspec gem' do
+      let(:title) { 'Capybara/CurrentPathExpectation' }
+
+      it 'finds a cop class from rubocop/rspec' do
+        expect { yardoc }.not_to raise_error
+      end
     end
   end
 
