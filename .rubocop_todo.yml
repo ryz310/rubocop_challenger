@@ -5,23 +5,3 @@
 # one by one as the offenses are removed from the code base.
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
-
-# Offense count: 1
-# Configuration parameters: Include.
-# Include: **/*.gemspec
-Gemspec/RequiredRubyVersion:
-  Exclude:
-    - 'challenger.gemspec'
-
-# Offense count: 6
-# Configuration parameters: EnforcedStyle, CheckMethodNames, CheckSymbols.
-# SupportedStyles: snake_case, normalcase, non_integer
-Naming/VariableNumber:
-  Exclude:
-    - 'spec/rubocop_challenger/rubocop/todo_reader_spec.rb'
-    - 'spec/rubocop_challenger/rubocop/yardoc_spec.rb'
-
-# Offense count: 27
-# Configuration parameters: AllowSubject.
-RSpec/MultipleMemoizedHelpers:
-  Max: 10

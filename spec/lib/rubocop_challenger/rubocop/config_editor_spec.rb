@@ -26,17 +26,17 @@ RSpec.describe RubocopChallenger::Rubocop::ConfigEditor do
     subject(:ignored_rules) { config_editor.ignored_rules }
 
     before do
-      rule1 = RubocopChallenger::Rubocop::Rule.new(<<~CONTENTS)
+      rule_1 = RubocopChallenger::Rubocop::Rule.new(<<~CONTENTS)
         Layout/AlignParameters:
           Enabled: false
       CONTENTS
 
-      rule2 = RubocopChallenger::Rubocop::Rule.new(<<~CONTENTS)
+      rule_2 = RubocopChallenger::Rubocop::Rule.new(<<~CONTENTS)
         Metrics/AbcSize:
           Max: 100
       CONTENTS
 
-      config_editor.add_ignore(rule1, rule2)
+      config_editor.add_ignore(rule_1, rule_2)
     end
 
     it 'returns ignored rules in ascending order by name' do
