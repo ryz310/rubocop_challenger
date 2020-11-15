@@ -9,6 +9,9 @@ module RubocopChallenger
     #   For how many exclude properties when creating the ".rubocop_todo.yml"
     # @option auto-gen-timestamp [Boolean]
     #   Include the date and time when creating the ".rubocop_todo.yml"
+    # @option only-safe-auto-correct [Boolean]
+    #   If given `true`, it executes `rubocop --auto-correct`,
+    #   it means to correct safe cops only.
     # @option name [String]
     #   The author name which use at the git commit
     # @option email [String]
@@ -89,7 +92,7 @@ module RubocopChallenger
     # @raise [Errors::NoAutoCorrectableRule]
     #   Raises if there is no auto correctable rule in ".rubocop_todo.yml"
     def rubocop_challenge!(before_version, after_version)
-      Rubocop::Challenge.exec(options[:file_path], options[:mode]).tap do |rule|
+      Rubocop::Challenge.exec(**rubocop_challenge_options).tap do |rule|
         pull_request.commit! ":police_car: #{rule.title}"
       end
     rescue Errors::NoAutoCorrectableRule => e
@@ -152,6 +155,14 @@ module RubocopChallenger
     def auto_correct_incomplete?(rule)
       todo_reader = Rubocop::TodoReader.new(options[:file_path])
       todo_reader.all_rules.include?(rule)
+    end
+
+    def rubocop_challenge_options
+      {
+        file_path: options[:file_path],
+        mode: options[:mode],
+        only_safe_auto_correct: options[:'only-safe-auto-correct']
+      }
     end
 
     def pull_request_options
