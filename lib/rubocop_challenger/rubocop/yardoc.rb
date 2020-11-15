@@ -27,11 +27,9 @@ module RubocopChallenger
       # Loads gems for YARDoc creation
       def load_rspec_gems!
         RSPEC_GEMS.each do |dependency|
-          begin
-            require dependency
-          rescue LoadError
-            nil
-          end
+          require dependency
+        rescue LoadError
+          nil
         end
       end
 
