@@ -1,5 +1,38 @@
 # Change log
 
+## v2.0.0.pre11 (Nov 16, 2020)
+
+### Feature
+
+* [#288](https://github.com/ryz310/rubocop_challenger/pull/288) Support ruby 2.7 ([@ryz310](https://github.com/ryz310))
+* [#362](https://github.com/ryz310/rubocop_challenger/pull/362) Use rubocop auto correct all ([@ryz310](https://github.com/ryz310))
+* [#398](https://github.com/ryz310/rubocop_challenger/pull/398) Add auto correct safe option ([@ryz310](https://github.com/ryz310))
+
+### Bugfix
+
+* [#363](https://github.com/ryz310/rubocop_challenger/pull/363) Require rubocop-rails gem ([@ryz310](https://github.com/ryz310))
+
+### Breaking Change
+
+* [#396](https://github.com/ryz310/rubocop_challenger/pull/396) End of support for Ruby 2.4 ([@ryz310](https://github.com/ryz310))
+
+### Misc
+
+* [#261](https://github.com/ryz310/rubocop_challenger/pull/261) Bump pr_comet from 0.3.0 to 0.3.1 ([@ryz310](https://github.com/ryz310))
+* [#262](https://github.com/ryz310/rubocop_challenger/pull/262) Bump rake from 13.0.0 to 13.0.1 ([@ryz310](https://github.com/ryz310))
+* [#271](https://github.com/ryz310/rubocop_challenger/pull/271) Bump thor from 1.0.0 to 1.0.1 ([@ryz310](https://github.com/ryz310))
+* [#290](https://github.com/ryz310/rubocop_challenger/pull/290) Bump pry-byebug from 3.7.0 to 3.8.0 ([@ryz310](https://github.com/ryz310))
+* [#294](https://github.com/ryz310/rubocop_challenger/pull/294) Update ruby-orbs orb to v1.6.0 ([@ryz310](https://github.com/ryz310))
+* [#303](https://github.com/ryz310/rubocop_challenger/pull/303) ryz310/dependabot/bundler/pry-byebug-3.9.0 ([@ryz310](https://github.com/ryz310))
+* [#304](https://github.com/ryz310/rubocop_challenger/pull/304) Edit dependabot configuration ([@ryz310](https://github.com/ryz310))
+* [#310](https://github.com/ryz310/rubocop_challenger/pull/310) Bump yard from 0.9.24 to 0.9.25 ([@ryz310](https://github.com/ryz310))
+* [#317](https://github.com/ryz310/rubocop_challenger/pull/317) Performance/StartWith-20200523233027 ([@ryz310](https://github.com/ryz310))
+* [#351](https://github.com/ryz310/rubocop_challenger/pull/351) ryz310/dependabot/bundler/rubocop-performance-1.8.1 ([@ryz310](https://github.com/ryz310))
+* [#365](https://github.com/ryz310/rubocop_challenger/pull/365) ryz310/dependabot/bundler/rubocop-rspec-1.44.1 ([@ryz310](https://github.com/ryz310))
+* [#376](https://github.com/ryz310/rubocop_challenger/pull/376) ryz310/dependabot/bundler/rspec-3.10.0 ([@ryz310](https://github.com/ryz310))
+* [#386](https://github.com/ryz310/rubocop_challenger/pull/386) Re-generate .rubocop_todo.yml with RuboCop v1.2.0 ([@ryz310](https://github.com/ryz310))
+* [#392](https://github.com/ryz310/rubocop_challenger/pull/392) ryz310/dependabot/bundler/rubocop-1.3.0 ([@ryz310](https://github.com/ryz310))
+
 ## 2.0.0.pre10 (Oct 18, 2019)
 
 ### Feature
