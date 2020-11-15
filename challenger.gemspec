@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'pr_comet', '>= 0.2', '< 0.4'
   spec.add_runtime_dependency 'rainbow'
-  spec.add_runtime_dependency 'rubocop'
+  spec.add_runtime_dependency 'rubocop', '>= 0.87'
   spec.add_runtime_dependency 'rubocop-performance'
   spec.add_runtime_dependency 'rubocop-rspec'
   spec.add_runtime_dependency 'thor'

@@ -17,7 +17,7 @@ RSpec.describe RubocopChallenger::Rubocop::Challenge do
     let(:command_instance) do
       instance_double(
         RubocopChallenger::Rubocop::Command,
-        auto_correct: nil
+        auto_correct_all: nil
       )
     end
 

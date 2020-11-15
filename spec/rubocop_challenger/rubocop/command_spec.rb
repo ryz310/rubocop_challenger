@@ -7,12 +7,12 @@ RSpec.describe RubocopChallenger::Rubocop::Command do
 
   before { allow(command).to receive(:execute) }
 
-  describe '#auto_correct' do
+  describe '#auto_correct_all' do
     it do
-      command.auto_correct
+      command.auto_correct_all
       expect(command)
         .to have_received(:execute)
-        .with('bundle exec rubocop --auto-correct || true')
+        .with('bundle exec rubocop --auto-correct-all || true')
     end
   end
 
