@@ -74,11 +74,9 @@ RSpec.describe RubocopChallenger::Go do
 
     let(:safe_exec) do
       lambda do
-        begin
-          exec
-        rescue StandardError
-          nil
-        end
+        exec
+      rescue StandardError
+        nil
       end
     end
 
