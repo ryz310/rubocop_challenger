@@ -22,15 +22,18 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+  spec.required_ruby_version = '>= 2.5'
+
   spec.add_runtime_dependency 'pr_comet', '>= 0.2', '< 0.4'
   spec.add_runtime_dependency 'rainbow'
-  spec.add_runtime_dependency 'rubocop'
+  spec.add_runtime_dependency 'rubocop', '>= 0.87'
   spec.add_runtime_dependency 'rubocop-performance'
+  spec.add_runtime_dependency 'rubocop-rails'
   spec.add_runtime_dependency 'rubocop-rspec'
   spec.add_runtime_dependency 'thor'
   spec.add_runtime_dependency 'yard'
 
-  spec.add_development_dependency 'bundler', '~> 1.16'
+  spec.add_development_dependency 'bundler', '>= 2.0'
   spec.add_development_dependency 'pry-byebug'
   spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'rspec'

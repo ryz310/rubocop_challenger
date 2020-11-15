@@ -140,7 +140,7 @@ Run `$ rubocop --auto-correct` and create a PR to GitHub repo
 
 ## Requirement
 
-* Ruby 2.4 or higher
+* Ruby 2.5 or higher
 
 ## Development
 

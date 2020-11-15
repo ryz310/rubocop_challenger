@@ -5,17 +5,23 @@ require:
 inherit_from: .rubocop_todo.yml
 
 AllCops:
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 2.5
 
 Metrics/BlockLength:
   Exclude:
     - 'challenger.gemspec'
     - 'spec/**/*'
 
+Naming/VariableNumber:
+  EnforcedStyle: snake_case
+
 # For integration testing
 RSpec/MultipleExpectations:
   Exclude:
-    - 'spec/rubocop_challenger/cli_spec.rb'
+    - 'spec/lib/rubocop_challenger/cli_spec.rb'
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 10
 
 RSpec/NestedGroups:
   Max: 4
