@@ -61,6 +61,11 @@ module RubocopChallenger
            type: :boolean,
            default: true,
            desc: 'Include the date and time when creating the .rubocop_todo.yml'
+    option :'only-safe-auto-correct',
+           type: :boolean,
+           default: false,
+           desc: 'If given `true`, it executes `rubocop --auto-correct`,' \
+                 'it means to correct safe cops only.'
     def go
       Go.new(options).exec
     rescue Errors::NoAutoCorrectableRule => e

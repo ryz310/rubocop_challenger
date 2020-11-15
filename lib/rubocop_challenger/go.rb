@@ -9,6 +9,9 @@ module RubocopChallenger
     #   For how many exclude properties when creating the ".rubocop_todo.yml"
     # @option auto-gen-timestamp [Boolean]
     #   Include the date and time when creating the ".rubocop_todo.yml"
+    # @option only-safe-auto-correct [Boolean]
+    #   If given `true`, it executes `rubocop --auto-correct`,
+    #   it means to correct safe cops only.
     # @option name [String]
     #   The author name which use at the git commit
     # @option email [String]
@@ -25,9 +28,6 @@ module RubocopChallenger
     #   multiple projects, you should supply this.
     def initialize(options)
       @options = options
-      @exclude_limit = options[:'exclude-limit']
-      @auto_gen_timestamp = options[:'auto-gen-timestamp']
-      @pull_request = PullRequest.new(extract_pull_request_options(options))
     end
 
     # Executes Rubocop Challenge flow
@@ -45,22 +45,10 @@ module RubocopChallenger
 
     private
 
-    attr_reader :options, :pull_request, :exclude_limit, :auto_gen_timestamp
+    attr_reader :options
 
-    # Extracts options for the PullRequest class
-    #
-    # @param options [Hash] The target options
-    # @return [Hash] Options for the PullRequest class
-    def extract_pull_request_options(options)
-      {
-        user_name: options[:name],
-        user_email: options[:email],
-        base_branch: options[:base_branch],
-        labels: options[:labels],
-        dry_run: options[:'no-create-pr'],
-        project_column_name: options[:project_column_name],
-        project_id: options[:project_id]
-      }
+    def pull_request
+      @pull_request ||= PullRequest.new(**pull_request_options)
     end
 
     # Executes `$ bundle update` for the rubocop and the associated gems
@@ -79,10 +67,7 @@ module RubocopChallenger
     def regenerate_rubocop_todo!
       before_version = scan_rubocop_version_in_rubocop_todo_file
       pull_request.commit! ':police_car: regenerate rubocop todo' do
-        Rubocop::Command.new.auto_gen_config(
-          exclude_limit: exclude_limit,
-          auto_gen_timestamp: auto_gen_timestamp
-        )
+        Rubocop::Command.new.auto_gen_config(**auto_gen_config_options)
       end
       after_version = scan_rubocop_version_in_rubocop_todo_file
 
@@ -107,7 +92,7 @@ module RubocopChallenger
     # @raise [Errors::NoAutoCorrectableRule]
     #   Raises if there is no auto correctable rule in ".rubocop_todo.yml"
     def rubocop_challenge!(before_version, after_version)
-      Rubocop::Challenge.exec(options[:file_path], options[:mode]).tap do |rule|
+      Rubocop::Challenge.exec(**rubocop_challenge_options).tap do |rule|
         pull_request.commit! ":police_car: #{rule.title}"
       end
     rescue Errors::NoAutoCorrectableRule => e
@@ -170,6 +155,33 @@ module RubocopChallenger
     def auto_correct_incomplete?(rule)
       todo_reader = Rubocop::TodoReader.new(options[:file_path])
       todo_reader.all_rules.include?(rule)
+    end
+
+    def rubocop_challenge_options
+      {
+        file_path: options[:file_path],
+        mode: options[:mode],
+        only_safe_auto_correct: options[:'only-safe-auto-correct']
+      }
+    end
+
+    def pull_request_options
+      {
+        user_name: options[:name],
+        user_email: options[:email],
+        base_branch: options[:base_branch],
+        labels: options[:labels],
+        dry_run: options[:'no-create-pr'],
+        project_column_name: options[:project_column_name],
+        project_id: options[:project_id]
+      }
+    end
+
+    def auto_gen_config_options
+      {
+        exclude_limit: options[:'exclude-limit'],
+        auto_gen_timestamp: options[:'auto-gen-timestamp']
+      }
     end
   end
 end

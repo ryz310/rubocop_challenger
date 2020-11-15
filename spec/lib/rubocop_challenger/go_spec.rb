@@ -16,6 +16,7 @@ RSpec.describe RubocopChallenger::Go do
       project_id: 123_456_789,
       'no-create-pr': false,
       'auto-gen-timestamp': false,
+      'only-safe-auto-correct': false,
       'exclude-limit': 99
     )
   end
@@ -101,6 +102,14 @@ RSpec.describe RubocopChallenger::Go do
     end
 
     shared_examples 'execute Rubocop Challenge flow' do
+      let(:expected_options) do
+        {
+          file_path: '.rubocop_todo.yml',
+          mode: 'most_occurrence',
+          only_safe_auto_correct: false
+        }
+      end
+
       it do
         exec
         expect(bundler_command).to have_received(:update).with(
@@ -119,7 +128,7 @@ RSpec.describe RubocopChallenger::Go do
         exec
         expect(RubocopChallenger::Rubocop::Challenge)
           .to have_received(:exec)
-          .with('.rubocop_todo.yml', 'most_occurrence')
+          .with(expected_options)
       end
 
       it do
@@ -162,6 +171,14 @@ RSpec.describe RubocopChallenger::Go do
       end
 
       shared_examples 'interrupt the Rubocop Challenge' do
+        let(:expected_options) do
+          {
+            file_path: '.rubocop_todo.yml',
+            mode: 'most_occurrence',
+            only_safe_auto_correct: false
+          }
+        end
+
         it do
           safe_exec.call
           expect(bundler_command).to have_received(:update).with(
@@ -180,7 +197,7 @@ RSpec.describe RubocopChallenger::Go do
           safe_exec.call
           expect(RubocopChallenger::Rubocop::Challenge)
             .to have_received(:exec)
-            .with('.rubocop_todo.yml', 'most_occurrence')
+            .with(expected_options)
         end
 
         it do

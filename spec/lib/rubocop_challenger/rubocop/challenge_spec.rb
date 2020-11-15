@@ -5,10 +5,16 @@ require 'spec_helper'
 RSpec.describe RubocopChallenger::Rubocop::Challenge do
   describe '.exec' do
     subject(:rubocop_challenge_execute) do
-      described_class.exec(file_path, mode)
+      described_class.exec(
+        file_path: file_path,
+        mode: mode,
+        only_safe_auto_correct: only_safe_auto_correct
+      )
     end
 
     let(:file_path) { './spec/fixtures/.rubocop_todo.yml' }
+    let(:mode) { 'least_occurrence' }
+    let(:only_safe_auto_correct) { false }
 
     let(:rule_instance) do
       instance_double(RubocopChallenger::Rubocop::Rule)
@@ -17,7 +23,7 @@ RSpec.describe RubocopChallenger::Rubocop::Challenge do
     let(:command_instance) do
       instance_double(
         RubocopChallenger::Rubocop::Command,
-        auto_correct_all: nil
+        auto_correct: nil
       )
     end
 
@@ -94,6 +100,28 @@ RSpec.describe RubocopChallenger::Rubocop::Challenge do
       it do
         expect { rubocop_challenge_execute }
           .to raise_error(RubocopChallenger::Errors::NoAutoCorrectableRule)
+      end
+    end
+
+    context 'with only_safe_auto_correct: true' do
+      let(:only_safe_auto_correct) { true }
+
+      it do
+        rubocop_challenge_execute
+        expect(command_instance)
+          .to have_received(:auto_correct)
+          .with(only_safe_auto_correct: true)
+      end
+    end
+
+    context 'with only_safe_auto_correct: false' do
+      let(:only_safe_auto_correct) { false }
+
+      it do
+        rubocop_challenge_execute
+        expect(command_instance)
+          .to have_received(:auto_correct)
+          .with(only_safe_auto_correct: false)
       end
     end
   end
