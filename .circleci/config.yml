@@ -20,7 +20,7 @@ executors:
     parameters:
       <<: *ruby_version
     docker:
-       - image: circleci/ruby:<< parameters.ruby_version >>-node-browsers
+       - image: circleci/ruby:<< parameters.ruby_version >>
     working_directory: ~/repo
 
 commands:
