@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe RubocopChallenger::PullRequest do
-  let(:pull_request) { described_class.new(options) }
+  let(:pull_request) { described_class.new(**options) }
   let(:options) do
     {
       user_name: 'user_name',

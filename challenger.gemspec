@@ -24,11 +24,12 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 2.5'
 
-  spec.add_runtime_dependency 'pr_comet', '>= 0.2', '< 0.4'
+  spec.add_runtime_dependency 'pr_comet', '~> 0.4.0'
   spec.add_runtime_dependency 'rainbow'
   spec.add_runtime_dependency 'rubocop', '>= 0.87'
   spec.add_runtime_dependency 'rubocop-performance'
   spec.add_runtime_dependency 'rubocop-rails'
+  spec.add_runtime_dependency 'rubocop-rake'
   spec.add_runtime_dependency 'rubocop-rspec'
   spec.add_runtime_dependency 'thor'
   spec.add_runtime_dependency 'yard'
@@ -38,5 +39,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'rspec_junit_formatter'
-  spec.add_development_dependency 'simplecov'
+  spec.add_development_dependency 'simplecov', '0.17.1'
 end
