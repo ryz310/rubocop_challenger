@@ -1,5 +1,35 @@
 # Change log
 
+## v2.0.0 (Jan 04, 2021)
+
+### Feature
+### Bugfix
+### Breaking Change
+### Misc
+
+* [#402](https://github.com/ryz310/rubocop_challenger/pull/402) ryz310/dependabot/bundler/rubocop-1.3.1 ([@ryz310](https://github.com/ryz310))
+* [#403](https://github.com/ryz310/rubocop_challenger/pull/403) Re-generate .rubocop_todo.yml with RuboCop v1.3.1 ([@ryz310](https://github.com/ryz310))
+* [#406](https://github.com/ryz310/rubocop_challenger/pull/406) Re-generate .rubocop_todo.yml with RuboCop v1.4.1 ([@ryz310](https://github.com/ryz310))
+* [#407](https://github.com/ryz310/rubocop_challenger/pull/407) ryz310/dependabot/bundler/rubocop-1.4.2 ([@ryz310](https://github.com/ryz310))
+* [#408](https://github.com/ryz310/rubocop_challenger/pull/408) Re-generate .rubocop_todo.yml with RuboCop v1.4.2 ([@ryz310](https://github.com/ryz310))
+* [#410](https://github.com/ryz310/rubocop_challenger/pull/410) ryz310/dependabot/bundler/rubocop-performance-1.9.1 ([@ryz310](https://github.com/ryz310))
+* [#412](https://github.com/ryz310/rubocop_challenger/pull/412) Re-generate .rubocop_todo.yml with RuboCop v1.5.0 ([@ryz310](https://github.com/ryz310))
+* [#413](https://github.com/ryz310/rubocop_challenger/pull/413) ryz310/dependabot/bundler/rubocop-1.5.1 ([@ryz310](https://github.com/ryz310))
+* [#414](https://github.com/ryz310/rubocop_challenger/pull/414) ryz310/dependabot/bundler/rubocop-rspec-2.0.1 ([@ryz310](https://github.com/ryz310))
+* [#415](https://github.com/ryz310/rubocop_challenger/pull/415) Re-generate .rubocop_todo.yml with RuboCop v1.5.1 ([@ryz310](https://github.com/ryz310))
+* [#416](https://github.com/ryz310/rubocop_challenger/pull/416) Re-generate .rubocop_todo.yml with RuboCop v1.5.2 ([@ryz310](https://github.com/ryz310))
+* [#419](https://github.com/ryz310/rubocop_challenger/pull/419) Re-generate .rubocop_todo.yml with RuboCop v1.6.0 ([@ryz310](https://github.com/ryz310))
+* [#421](https://github.com/ryz310/rubocop_challenger/pull/421) ryz310/dependabot/bundler/rubocop-1.6.1 ([@ryz310](https://github.com/ryz310))
+* [#422](https://github.com/ryz310/rubocop_challenger/pull/422) Re-generate .rubocop_todo.yml with RuboCop v1.6.1 ([@ryz310](https://github.com/ryz310))
+* [#423](https://github.com/ryz310/rubocop_challenger/pull/423) ryz310/dependabot/bundler/rubocop-rails-2.9.1 ([@ryz310](https://github.com/ryz310))
+* [#425](https://github.com/ryz310/rubocop_challenger/pull/425) ryz310/dependabot/bundler/rake-13.0.2 ([@ryz310](https://github.com/ryz310))
+* [#427](https://github.com/ryz310/rubocop_challenger/pull/427) Re-generate .rubocop_todo.yml with RuboCop v1.7.0 ([@ryz310](https://github.com/ryz310))
+* [#426](https://github.com/ryz310/rubocop_challenger/pull/426) ryz310/dependabot/bundler/rake-13.0.3 ([@ryz310](https://github.com/ryz310))
+* [#428](https://github.com/ryz310/rubocop_challenger/pull/428) ryz310/dependabot/bundler/yard-0.9.26 ([@ryz310](https://github.com/ryz310))
+* [#432](https://github.com/ryz310/rubocop_challenger/pull/432) Support ruby 3.0 ([@ryz310](https://github.com/ryz310))
+* [#431](https://github.com/ryz310/rubocop_challenger/pull/431) ryz310/dependabot/bundler/rubocop-performance-1.9.2 ([@ryz310](https://github.com/ryz310))
+* [#433](https://github.com/ryz310/rubocop_challenger/pull/433) Update `pr_comet` ([@ryz310](https://github.com/ryz310))
+
 ## v2.0.0.pre11 (Nov 16, 2020)
 
 ### Feature
