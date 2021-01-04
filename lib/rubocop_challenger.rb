@@ -24,6 +24,7 @@ module RubocopChallenger
     rubocop
     rubocop-performance
     rubocop-rails
+    rubocop-rake
     rubocop-rspec
   ].freeze
 end
