@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    rubocop_challenger (2.0.0.pre11)
-      pr_comet (>= 0.2, < 0.4)
+    rubocop_challenger (2.0.0)
+      pr_comet (~> 0.4.0)
       rainbow
       rubocop (>= 0.87)
       rubocop-performance
@@ -27,23 +27,24 @@ GEM
     coderay (1.1.3)
     concurrent-ruby (1.1.7)
     diff-lcs (1.4.4)
-    docile (1.3.2)
-    faraday (1.1.0)
+    docile (1.3.4)
+    faraday (1.3.0)
+      faraday-net_http (~> 1.0)
       multipart-post (>= 1.2, < 3)
       ruby2_keywords
-    i18n (1.8.5)
+    faraday-net_http (1.0.0)
+    i18n (1.8.6)
       concurrent-ruby (~> 1.0)
-    json (2.3.1)
     method_source (1.0.0)
     minitest (5.14.2)
     multipart-post (2.1.1)
-    octokit (4.19.0)
+    octokit (4.20.0)
       faraday (>= 0.9)
       sawyer (~> 0.8.0, >= 0.5.3)
     parallel (1.20.1)
     parser (3.0.0.0)
       ast (~> 2.4.1)
-    pr_comet (0.3.1)
+    pr_comet (0.4.0)
       octokit
       rainbow
     pry (0.13.1)
@@ -62,15 +63,15 @@ GEM
       rspec-core (~> 3.10.0)
       rspec-expectations (~> 3.10.0)
       rspec-mocks (~> 3.10.0)
-    rspec-core (3.10.0)
+    rspec-core (3.10.1)
       rspec-support (~> 3.10.0)
-    rspec-expectations (3.10.0)
+    rspec-expectations (3.10.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
-    rspec-mocks (3.10.0)
+    rspec-mocks (3.10.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
-    rspec-support (3.10.0)
+    rspec-support (3.10.1)
     rspec_junit_formatter (0.4.1)
       rspec-core (>= 2, < 4, != 2.12.0)
     rubocop (1.7.0)
@@ -99,11 +100,12 @@ GEM
     sawyer (0.8.2)
       addressable (>= 2.3.5)
       faraday (> 0.8, < 2.0)
-    simplecov (0.17.1)
+    simplecov (0.21.0)
       docile (~> 1.1)
-      json (>= 1.8, < 3)
-      simplecov-html (~> 0.10.0)
-    simplecov-html (0.10.2)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.12.3)
+    simplecov_json_formatter (0.1.2)
     thor (1.0.1)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
@@ -124,4 +126,4 @@ DEPENDENCIES
   simplecov
 
 BUNDLED WITH
-   2.1.4
+   2.2.3
