@@ -159,7 +159,7 @@ jobs:
       - code-climate/install
       - code-climate/sum-coverage:
           input: codeclimate.*.json
-          parts: 4
+          parts: 5
       - code-climate/upload-coverage
   rubocop:
     executor: default
