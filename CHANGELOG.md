@@ -1,5 +1,14 @@
 # Change log
 
+## v2.0.1 (Jan 06, 2021)
+
+### Feature
+### Bugfix
+### Breaking Change
+### Misc
+
+* [#437](https://github.com/ryz310/rubocop_challenger/pull/437) Fix keyword argument expanding for Ruby 3.0 ([@ryz310](https://github.com/ryz310))
+
 ## v2.0.0 (Jan 04, 2021)
 
 ### Feature
