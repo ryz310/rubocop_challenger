@@ -90,7 +90,7 @@ module RubocopChallenger
         project_id: project_id
       }.merge(pr_comet_options)
 
-      pr_comet.create!(options) unless dry_run
+      pr_comet.create!(**options) unless dry_run
     end
 
     # @param before_version [String]

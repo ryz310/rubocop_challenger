@@ -104,7 +104,7 @@ RSpec.describe RubocopChallenger::PullRequest do
 
       it do
         create_pull_request!
-        expect(pr_comet).to have_received(:create!).with(expected_options)
+        expect(pr_comet).to have_received(:create!).with(**expected_options)
       end
     end
   end
@@ -145,7 +145,7 @@ RSpec.describe RubocopChallenger::PullRequest do
 
       it do
         create_pull_request!
-        expect(pr_comet).to have_received(:create!).with(expected_options)
+        expect(pr_comet).to have_received(:create!).with(**expected_options)
       end
     end
   end
