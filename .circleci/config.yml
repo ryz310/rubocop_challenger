@@ -41,7 +41,7 @@ commands:
       - code-climate/format-coverage:
           input-type: simplecov
           prefix: $(readlink -f .)
-          coverage-file: coverage/.resultset.json
+          coverage-file: coverage/coverage.json
           output: coverage/codeclimate.$CIRCLE_BUILD_NUM.json
       - persist_to_workspace:
           root: coverage
