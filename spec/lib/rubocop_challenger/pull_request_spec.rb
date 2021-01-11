@@ -12,7 +12,8 @@ RSpec.describe RubocopChallenger::PullRequest do
       labels: labels,
       dry_run: dry_run,
       project_column_name: project_column_name,
-      project_id: project_id
+      project_id: project_id,
+      verbose: false
     }
   end
   let(:labels) { %w[label-1 label-2] }
@@ -34,7 +35,8 @@ RSpec.describe RubocopChallenger::PullRequest do
         base: 'master',
         branch: 'rubocop-challenge/20181112212509',
         user_name: 'user_name',
-        user_email: 'user_email'
+        user_email: 'user_email',
+        verbose: false
       }
     end
 

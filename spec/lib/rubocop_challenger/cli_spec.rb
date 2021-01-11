@@ -17,7 +17,8 @@ RSpec.describe RubocopChallenger::CLI do
       project_id: 123_456_789,
       'no-create-pr': false,
       'exclude-limit': 99,
-      'no-auto-gen-timestamp': true
+      'no-auto-gen-timestamp': true,
+      verbose: false
     }
   end
 

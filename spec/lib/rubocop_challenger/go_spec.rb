@@ -17,7 +17,8 @@ RSpec.describe RubocopChallenger::Go do
       'no-create-pr': false,
       'auto-gen-timestamp': false,
       'only-safe-auto-correct': false,
-      'exclude-limit': 99
+      'exclude-limit': 99,
+      verbose: false
     )
   end
 
@@ -90,7 +91,8 @@ RSpec.describe RubocopChallenger::Go do
           labels: ['rubocop challenge'],
           dry_run: false,
           project_column_name: 'Column 1',
-          project_id: 123_456_789
+          project_id: 123_456_789,
+          verbose: false
         }
       end
 
@@ -108,6 +110,12 @@ RSpec.describe RubocopChallenger::Go do
           mode: 'most_occurrence',
           only_safe_auto_correct: false
         }
+      end
+
+      it do
+        exec
+        expect(RubocopChallenger::Bundler::Command)
+          .to have_received(:new).with(verbose: false)
       end
 
       it do
