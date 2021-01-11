@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rubocop_challenger (2.0.1)
+    rubocop_challenger (2.1.0)
       pr_comet (~> 0.4.0)
       rainbow
       rubocop (>= 0.87)
@@ -15,7 +15,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (6.1.0)
+    activesupport (6.1.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
@@ -36,9 +36,8 @@ GEM
     faraday-net_http (1.0.0)
     i18n (1.8.7)
       concurrent-ruby (~> 1.0)
-    json (2.5.1)
     method_source (1.0.0)
-    minitest (5.14.2)
+    minitest (5.14.3)
     multipart-post (2.1.1)
     octokit (4.20.0)
       faraday (>= 0.9)
@@ -76,15 +75,15 @@ GEM
     rspec-support (3.10.1)
     rspec_junit_formatter (0.4.1)
       rspec-core (>= 2, < 4, != 2.12.0)
-    rubocop (1.7.0)
+    rubocop (1.8.0)
       parallel (~> 1.10)
-      parser (>= 2.7.1.5)
+      parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml
       rubocop-ast (>= 1.2.0, < 2.0)
       ruby-progressbar (~> 1.7)
-      unicode-display_width (>= 1.4.0, < 2.0)
+      unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.4.0)
       parser (>= 2.7.1.5)
     rubocop-performance (1.9.2)
@@ -104,15 +103,16 @@ GEM
     sawyer (0.8.2)
       addressable (>= 2.3.5)
       faraday (> 0.8, < 2.0)
-    simplecov (0.17.1)
+    simplecov (0.21.2)
       docile (~> 1.1)
-      json (>= 1.8, < 3)
-      simplecov-html (~> 0.10.0)
-    simplecov-html (0.10.2)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.12.3)
+    simplecov_json_formatter (0.1.2)
     thor (1.0.1)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
-    unicode-display_width (1.7.0)
+    unicode-display_width (2.0.0)
     yard (0.9.26)
     zeitwerk (2.4.2)
 
@@ -126,7 +126,7 @@ DEPENDENCIES
   rspec
   rspec_junit_formatter
   rubocop_challenger!
-  simplecov (= 0.17.1)
+  simplecov (= 0.21.2)
 
 BUNDLED WITH
    2.2.3

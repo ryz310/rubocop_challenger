@@ -52,11 +52,15 @@ module RubocopChallenger
       end
 
       def source_file_path
-        instance_methods
-          .map { |m| cop_class.instance_method(m).source_location }
-          .reject(&:nil?)
-          .map(&:first)
-          .first
+        if Object.respond_to?(:const_source_location)
+          Object.const_source_location(cop_class.name).first
+        else
+          instance_methods
+            .map { |m| cop_class.instance_method(m).source_location }
+            .reject(&:nil?)
+            .map(&:first)
+            .first
+        end
       end
     end
   end

@@ -1,5 +1,19 @@
 # Change log
 
+## v2.1.0 (Jan 11, 2021)
+
+### Feature
+
+* [#441](https://github.com/ryz310/rubocop_challenger/pull/441) Improve PR description generation ([@ryz310](https://github.com/ryz310))
+
+### Rubocop Challenge
+
+* [#442](https://github.com/ryz310/rubocop_challenger/pull/442) Re-generate .rubocop_todo.yml with RuboCop v1.8.0 ([@ryz310](https://github.com/ryz310))
+
+### Dependabot
+
+* [#444](https://github.com/ryz310/rubocop_challenger/pull/444) Update simplecov requirement from = 0.17.1 to = 0.21.2 ([@ryz310](https://github.com/ryz310))
+
 ## v2.0.1 (Jan 06, 2021)
 
 ### Bugfix
