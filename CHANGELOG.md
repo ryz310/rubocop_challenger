@@ -3,15 +3,12 @@
 ## v2.2.0 (Jan 11, 2021)
 
 ### Feature
-### Bugfix
-### Security
-### Breaking Change
-### Rubocop Challenge
+
+* [#449](https://github.com/ryz310/rubocop_challenger/pull/449) Add verbose option ([@ryz310](https://github.com/ryz310))
+
 ### Dependabot
-### Misc
 
 * [#447](https://github.com/ryz310/rubocop_challenger/pull/447) ryz310/dependabot/bundler/rubocop-1.8.1 ([@ryz310](https://github.com/ryz310))
-* [#449](https://github.com/ryz310/rubocop_challenger/pull/449) Add verbose option ([@ryz310](https://github.com/ryz310))
 
 ## v2.1.0 (Jan 11, 2021)
 
