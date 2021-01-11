@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 2.5'
 
-  spec.add_runtime_dependency 'pr_comet', '~> 0.4.0'
+  spec.add_runtime_dependency 'pr_comet', '>= 0.4', '< 0.6'
   spec.add_runtime_dependency 'rainbow'
   spec.add_runtime_dependency 'rubocop', '>= 0.87'
   spec.add_runtime_dependency 'rubocop-performance'
