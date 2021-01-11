@@ -66,6 +66,10 @@ module RubocopChallenger
            default: false,
            desc: 'If given `true`, it executes `rubocop --auto-correct`,' \
                  'it means to correct safe cops only.'
+    option :verbose,
+           type: :boolean,
+           default: false,
+           desc: 'Displays executing command.'
     def go
       Go.new(options).exec
     rescue Errors::NoAutoCorrectableRule => e
