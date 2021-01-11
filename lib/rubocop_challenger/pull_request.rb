@@ -21,12 +21,15 @@ module RubocopChallenger
     #   A target project ID. If does not supplied, this method will find a
     #   project which associated the repository. When the repository has
     #   multiple projects, you should supply this.
-    def initialize(user_name:, user_email:, **options)
+    # @option verbose [Boolean]
+    #   Displays executing command.
+    def initialize(user_name:, user_email:, **options) # rubocop:disable Metrics/MethodLength
       @pr_comet = PrComet.new(
         base: options[:base_branch],
         branch: "rubocop-challenge/#{timestamp}",
         user_name: user_name,
-        user_email: user_email
+        user_email: user_email,
+        verbose: options[:verbose]
       )
       @labels = options[:labels]
       @dry_run = options[:dry_run]

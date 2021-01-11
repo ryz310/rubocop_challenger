@@ -26,6 +26,8 @@ module RubocopChallenger
     #   A target project ID. If does not supplied, this method will find a
     #   project which associated the repository. When the repository has
     #   multiple projects, you should supply this.
+    # @option verbose [Boolean]
+    #   Displays executing command.
     def initialize(options)
       @options = options
     end
@@ -53,7 +55,7 @@ module RubocopChallenger
 
     # Executes `$ bundle update` for the rubocop and the associated gems
     def update_rubocop!
-      bundler = Bundler::Command.new
+      bundler = Bundler::Command.new(verbose: options[:verbose])
       pull_request.commit! ':police_car: $ bundle update rubocop' do
         bundler.update(*RSPEC_GEMS)
       end
@@ -173,7 +175,8 @@ module RubocopChallenger
         labels: options[:labels],
         dry_run: options[:'no-create-pr'],
         project_column_name: options[:project_column_name],
-        project_id: options[:project_id]
+        project_id: options[:project_id],
+        verbose: options[:verbose]
       }
     end
 

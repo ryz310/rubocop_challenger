@@ -6,6 +6,10 @@ module RubocopChallenger
     class Command
       include PrComet::CommandLine
 
+      def initialize(verbose: false)
+        @verbose = verbose
+      end
+
       # Executes `$ bundle update` which excludes not installed gems
       #
       # @param gem_names [Array<String>] The target gem names
