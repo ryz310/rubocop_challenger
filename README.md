@@ -56,7 +56,7 @@ version: 2
 jobs:
   rubocop_challenge:
     docker:
-      - image: circleci/ruby:2.6-node-browsers
+      - image: circleci/ruby:3.0
     working_directory: ~/repo
     steps:
       - checkout
@@ -83,20 +83,6 @@ workflows:
       - rubocop_challenge
 ```
 
-If you added `rubocop_challenger` gem in your Gemfile so please modify script of installing and execution as following:
-
-```yml
-steps:
-  - checkout
-  - run:
-      name: Rubocop Challenge
-      command: |
-        bundle install
-        bundle exec rubocop_challenger go \
-          --email=rubocop-challenger@example.com \
-          --name="Rubocop Challenger"
-```
-
 ## CLI command references
 
 ```sh
@@ -117,23 +103,25 @@ Usage:
   rubocop_challenger go --email=EMAIL --name=NAME
 
 Options:
-      --email=EMAIL                                      # The Pull Request committer email
-      --name=NAME                                        # The Pull Request committer name
-  f, [--file-path=FILE_PATH]                             # Set your ".rubocop_todo.yml" path
-                                                         # Default: .rubocop_todo.yml
-  t, [--template=TEMPLATE]                               # A Pull Request template `erb` file path.You can use variable that `title`, `rubydoc_url`, `description` and `examples` into the erb file.
-      [--mode=MODE]                                      # Mode to select deletion target. You can choice "most_occurrence", "least_occurrence", or "random"
-                                                         # Default: most_occurrence
-  b, [--base-branch=BASE_BRANCH]                         # The Branch to merge into
-                                                         # Default: master
-  l, [--labels=one two three]                            # Label to give to Pull Request
-                                                         # Default: ["rubocop challenge"]
-      [--project-column-name=PROJECT_COLUMN_NAME]        # A project column name. You can add the created PR to the GitHub project
-      [--project-id=N]                                   # A target project ID. If does not supplied, this method will find a project which associated the repository. When the repository has multiple projects, you should supply this.
-      [--no-create-pr]                                   # No create a pull request (for testing)
-      [--exclude-limit=N]                                # For how many exclude properties when creating the .rubocop_todo.yml
-      [--auto-gen-timestamp], [--no-auto-gen-timestamp]  # Include the date and time when creating the .rubocop_todo.yml
-                                                         # Default: true
+      --email=EMAIL                                              # The Pull Request committer email
+      --name=NAME                                                # The Pull Request committer name
+  f, [--file-path=FILE_PATH]                                     # Set your ".rubocop_todo.yml" path
+                                                                 # Default: .rubocop_todo.yml
+  t, [--template=TEMPLATE]                                       # A Pull Request template `erb` file path.You can use variable that `title`, `rubydoc_url`, `description` and `examples` into the erb file.
+      [--mode=MODE]                                              # Mode to select deletion target. You can choice "most_occurrence", "least_occurrence", or "random"
+                                                                 # Default: most_occurrence
+  b, [--base-branch=BASE_BRANCH]                                 # The Branch to merge into
+                                                                 # Default: master
+  l, [--labels=one two three]                                    # Label to give to Pull Request
+                                                                 # Default: ["rubocop challenge"]
+      [--project-column-name=PROJECT_COLUMN_NAME]                # A project column name. You can add the created PR to the GitHub project
+      [--project-id=N]                                           # A target project ID. If does not supplied, this method will find a project which associated the repository. When the repository has multiple projects, you should supply this.
+      [--no-create-pr]                                           # No create a pull request (for testing)
+      [--exclude-limit=N]                                        # For how many exclude properties when creating the .rubocop_todo.yml
+      [--auto-gen-timestamp], [--no-auto-gen-timestamp]          # Include the date and time when creating the .rubocop_todo.yml
+                                                                 # Default: true
+      [--only-safe-auto-correct], [--no-only-safe-auto-correct]  # If given `true`, it executes `rubocop --auto-correct`,it means to correct safe cops only.
+      [--verbose], [--no-verbose]                                # Displays executing command.
 
 Run `$ rubocop --auto-correct` and create a PR to GitHub repo
 ```
