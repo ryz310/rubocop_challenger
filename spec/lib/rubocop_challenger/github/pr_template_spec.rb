@@ -19,6 +19,9 @@ RSpec.describe RubocopChallenger::Github::PrTemplate do
 
         [Style/Alias](https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/Alias)
 
+        **Safe autocorrect: true**
+        :white_check_mark: The auto-correct a cop does is safe (equivalent) by design.
+
         ## Description
 
         > ### Overview
@@ -88,7 +91,7 @@ RSpec.describe RubocopChallenger::Github::PrTemplate do
 
         ## Description
 
-        Sorry! Something went wrong! :bow:
+        Failed to create the cop description.
         Please report bugs [here](https://github.com/ryz310/rubocop_challenger/issues/new?assignees=ryz310&labels=bug&template=bug_report.md) with following error information.
 
         ```

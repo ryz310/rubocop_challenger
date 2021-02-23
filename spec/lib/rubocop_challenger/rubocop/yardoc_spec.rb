@@ -3,12 +3,12 @@
 require 'spec_helper'
 
 RSpec.describe RubocopChallenger::Rubocop::Yardoc do
-  let(:yardoc) { described_class.new(title) }
-  let(:title) { 'Style/Alias' }
+  let(:yardoc) { described_class.new(cop) }
+  let(:cop) { 'Style/Alias' }
 
   describe '#initialize' do
     context 'with rubocop gem' do
-      let(:title) { 'Layout/EmptyLineAfterGuardClause' }
+      let(:cop) { 'Layout/EmptyLineAfterGuardClause' }
 
       it 'finds a cop class from rubocop' do
         expect { yardoc }.not_to raise_error
@@ -16,7 +16,7 @@ RSpec.describe RubocopChallenger::Rubocop::Yardoc do
     end
 
     context 'with rubocop-performance gem' do
-      let(:title) { 'Performance/Size' }
+      let(:cop) { 'Performance/Size' }
 
       it 'finds a cop class from rubocop/performance' do
         expect { yardoc }.not_to raise_error
@@ -24,7 +24,7 @@ RSpec.describe RubocopChallenger::Rubocop::Yardoc do
     end
 
     context 'with rubocop-rails gem' do
-      let(:title) { 'Rails/SquishedSQLHeredocs' }
+      let(:cop) { 'Rails/SquishedSQLHeredocs' }
 
       it 'finds a cop class from rubocop/rails' do
         expect { yardoc }.not_to raise_error
@@ -32,7 +32,7 @@ RSpec.describe RubocopChallenger::Rubocop::Yardoc do
     end
 
     context 'with rubocop-rspec gem' do
-      let(:title) { 'Capybara/CurrentPathExpectation' }
+      let(:cop) { 'Capybara/CurrentPathExpectation' }
 
       it 'finds a cop class from rubocop/rspec' do
         expect { yardoc }.not_to raise_error
@@ -76,6 +76,20 @@ RSpec.describe RubocopChallenger::Rubocop::Yardoc do
         ['EnforcedStyle: prefer_alias (default)', example_1],
         ['EnforcedStyle: prefer_alias_method',    example_2]
       ]
+    end
+  end
+
+  describe '#safe_autocorrect?' do
+    subject { yardoc.safe_autocorrect? }
+
+    context 'with a cop who can yield false positives' do
+      let(:cop) { 'Style/FrozenStringLiteralComment' }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context 'with a cop who can not yield false positives' do
+      it { is_expected.to be_truthy }
     end
   end
 end
