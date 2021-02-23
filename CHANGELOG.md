@@ -1,5 +1,21 @@
 # Change log
 
+## v2.3.0 (Feb 23, 2021)
+
+### Feature
+
+* [#465](https://github.com/ryz310/rubocop_challenger/pull/465) Add description whether the challenge is created by safe autocorrect or not ([@ryz310](https://github.com/ryz310))
+
+### Rubocop Challenge
+
+* [#464](https://github.com/ryz310/rubocop_challenger/pull/464) Re-generate .rubocop_todo.yml with RuboCop v1.10.0 ([@ryz310](https://github.com/ryz310))
+
+### Dependabot
+
+* [#453](https://github.com/ryz310/rubocop_challenger/pull/453) ryz310/dependabot/bundler/thor-1.1.0 ([@ryz310](https://github.com/ryz310))
+* [#457](https://github.com/ryz310/rubocop_challenger/pull/457) ryz310/dependabot/bundler/rubocop-1.9.1 ([@ryz310](https://github.com/ryz310))
+* [#461](https://github.com/ryz310/rubocop_challenger/pull/461) Update ruby-orbs orb to v1.6.2 ([@ryz310](https://github.com/ryz310))
+
 ## v2.2.0 (Jan 11, 2021)
 
 ### Feature
