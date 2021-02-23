@@ -4,9 +4,9 @@ module RubocopChallenger
   module Rubocop
     # To read YARD style documentation from rubocop gem source code
     class Yardoc
-      def initialize(title)
+      def initialize(cop)
         load_rspec_gems!
-        @cop_class = find_cop_class(title)
+        @cop_class = find_cop_class(cop)
         load_yardoc!
       end
 
@@ -34,12 +34,12 @@ module RubocopChallenger
       # Find a RuboCop class by cop name. It find from rubocop/rspec if cannot
       # find any class from rubocop gem.
       #
-      # @param cop_name [String] The target cop name
-      # @return [Class] Found RuboCop class
-      def find_cop_class(cop_name)
-        Object.const_get("RuboCop::Cop::#{cop_name.sub('/', '::')}")
+      # @param cop [String] The target cop name (e.g. "Performance/Size")
+      # @return [RuboCop::Cop] Found a RuboCop::Cop class
+      def find_cop_class(cop)
+        Object.const_get("RuboCop::Cop::#{cop.sub('/', '::')}")
       rescue NameError
-        Object.const_get("RuboCop::Cop::RSpec::#{cop_name.sub('/', '::')}")
+        Object.const_get("RuboCop::Cop::RSpec::#{cop.sub('/', '::')}")
       end
 
       # Loads yardoc from the RuboCop::Cop class file
