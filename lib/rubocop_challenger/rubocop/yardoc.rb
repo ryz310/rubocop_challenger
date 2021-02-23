@@ -7,9 +7,7 @@ module RubocopChallenger
       def initialize(title)
         load_rspec_gems!
         @cop_class = find_cop_class(title)
-        YARD.parse(source_file_path)
-        @yardoc = YARD::Registry.all(:class).first
-        YARD::Registry.clear
+        load_yardoc!
       end
 
       def description
@@ -42,6 +40,13 @@ module RubocopChallenger
         Object.const_get("RuboCop::Cop::#{cop_name.sub('/', '::')}")
       rescue NameError
         Object.const_get("RuboCop::Cop::RSpec::#{cop_name.sub('/', '::')}")
+      end
+
+      # Loads yardoc from the RuboCop::Cop class file
+      def load_yardoc!
+        YARD.parse(source_file_path)
+        @yardoc = YARD::Registry.all(:class).first
+        YARD::Registry.clear
       end
 
       def instance_methods
