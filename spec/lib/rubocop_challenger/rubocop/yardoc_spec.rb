@@ -78,4 +78,18 @@ RSpec.describe RubocopChallenger::Rubocop::Yardoc do
       ]
     end
   end
+
+  describe '#safe_autocorrect?' do
+    subject { yardoc.safe_autocorrect? }
+
+    context 'with a cop who can yield false positives' do
+      let(:cop) { 'Style/FrozenStringLiteralComment' }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context 'with a cop who can not yield false positives' do
+      it { is_expected.to be_truthy }
+    end
+  end
 end

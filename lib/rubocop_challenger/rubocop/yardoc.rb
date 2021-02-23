@@ -18,6 +18,15 @@ module RubocopChallenger
         yardoc.tags('example').map { |tag| [tag.name, tag.text] }
       end
 
+      # Indicates whether the auto-correct a cop does is safe (equivalent) by design.
+      # If a cop is unsafe its auto-correct automatically becomes unsafe as well.
+      #
+      # @return [Boolean]
+      def safe_autocorrect?
+        config = RuboCop::ConfigLoader.default_configuration
+        cop_class.new(config).safe_autocorrect?
+      end
+
       private
 
       attr_reader :cop_class, :yardoc
