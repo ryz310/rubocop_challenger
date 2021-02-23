@@ -53,6 +53,10 @@ module RubocopChallenger
         yardoc.examples
       end
 
+      def safe_autocorrect?
+        yardoc.safe_autocorrect?
+      end
+
       def yardoc
         @yardoc ||= Rubocop::Yardoc.new(title)
       end
