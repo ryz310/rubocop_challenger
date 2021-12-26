@@ -14,13 +14,13 @@ module RubocopChallenger
 
       def generate
         <<~TEMPLATE
-          #{ERB.new(template, nil, '-').result(binding)}
+          #{ERB.new(template, trim_mode: '-').result(binding)}
           #{FOOTER_TEXT}
         TEMPLATE
       rescue StandardError => e
         error_template = File.read(error_template_path)
         <<~TEMPLATE
-          #{ERB.new(error_template, nil, '-').result(binding)}
+          #{ERB.new(error_template, trim_mode: '-').result(binding)}
           #{FOOTER_TEXT}
         TEMPLATE
       end
