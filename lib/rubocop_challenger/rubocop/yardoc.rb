@@ -71,7 +71,7 @@ module RubocopChallenger
         else
           instance_methods
             .map { |m| cop_class.instance_method(m).source_location }
-            .reject(&:nil?)
+            .compact
             .map(&:first)
             .first
         end

@@ -25,27 +25,7 @@ be continued to evolve.
 
 ## Usage
 
-### 1. Edit your Gemfile
-
-If you do not specify the version of `rubocop` gem so you do not have to add `rubocop_challenger` gem in your Gemfile (**Recommended**).
-
-If you specify the version so put this line in your Gemfile.
-
-```rb
-gem 'rubocop_challenger', group: :development, require: false
-```
-
-### 2. Setting GitHub personal access token
-
-GitHub personal access token is required for sending pull requests to your repository.
-
-1. Go to [your account's settings page](https://github.com/settings/tokens) and [generate a new token](https://github.com/settings/tokens/new) with "repo" scope
-  ![generate token](images/generate_token.png)
-1. On [CircleCI](https://circleci.com) dashboard, go to your application's "Project Settings" -> "Environment Variables"
-1. Add an environment variable `GITHUB_ACCESS_TOKEN` with your GitHub personal access token
-  ![circleci environment variables](images/circleci_environment_variables.png)
-
-### 3. Configure .circleci/config.yml
+### 1. Configure .circleci/config.yml
 
 Configure your `.circleci/config.yml` to run rubocop_challenger, for example:
 
@@ -82,6 +62,25 @@ workflows:
     jobs:
       - rubocop_challenge
 ```
+
+**Should not append `gem 'rubocop_challenger'` on your Gemfile.**
+I have seen cases where errors occur due to compatibility issues with other gems.
+
+### 2. Setting GitHub personal access token
+
+GitHub personal access token is required for sending pull requests to your repository.
+
+1. Go to [your account's settings page](https://github.com/settings/tokens) and [generate a new token](https://github.com/settings/tokens/new) with "repo" scope
+  ![generate token](images/generate_token.png)
+1. On [CircleCI](https://circleci.com) dashboard, go to your application's "Project Settings" -> "Environment Variables"
+1. Add an environment variable `GITHUB_ACCESS_TOKEN` with your GitHub personal access token
+  ![circleci environment variables](images/circleci_environment_variables.png)
+
+### Want to use on GitHub Actions?
+
+It's introduced in the following blog. Thank you Mr. Takuya Yamaguchi!
+
+See: [RuboCop ChallengerをGitHub Actionsで動かす](https://zenn.dev/yamat47/articles/219e14ebcf31a1d13ff4)
 
 ## CLI command references
 
@@ -128,7 +127,7 @@ Run `$ rubocop --auto-correct` and create a PR to GitHub repo
 
 ## Requirement
 
-* Ruby 2.5 or higher
+* Ruby 2.6 or higher
 
 ## Development
 

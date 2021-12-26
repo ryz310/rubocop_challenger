@@ -1,5 +1,26 @@
 # Change log
 
+## v2.4.0 (Dec 26, 2021)
+
+### Feature
+
+* [#550](https://github.com/ryz310/rubocop_challenger/pull/550) The end of ruby 2.5 support ([@ryz310](https://github.com/ryz310))
+
+### Rubocop Challenge
+
+* [#544](https://github.com/ryz310/rubocop_challenger/pull/544) Gemspec/RequireMFA-20211115233051 ([@ryz310](https://github.com/ryz310))
+
+### Dependabot
+
+* [#479](https://github.com/ryz310/rubocop_challenger/pull/479) ryz310/dependabot/bundler/rubocop-1.13.0 ([@ryz310](https://github.com/ryz310))
+* [#482](https://github.com/ryz310/rubocop_challenger/pull/482) ryz310/dependabot/bundler/rubocop-rspec-2.3.0 ([@ryz310](https://github.com/ryz310))
+* [#483](https://github.com/ryz310/rubocop_challenger/pull/483) ryz310/dependabot/add-v2-config-file ([@ryz310](https://github.com/ryz310))
+* [#518](https://github.com/ryz310/rubocop_challenger/pull/518) Bump rake from 13.0.4 to 13.0.6 ([@ryz310](https://github.com/ryz310))
+* [#537](https://github.com/ryz310/rubocop_challenger/pull/537) ryz310/dependabot/bundler/rubocop-rails-2.12.4 ([@ryz310](https://github.com/ryz310))
+* [#542](https://github.com/ryz310/rubocop_challenger/pull/542) Bump addressable from 2.7.0 to 2.8.0 ([@ryz310](https://github.com/ryz310))
+* [#543](https://github.com/ryz310/rubocop_challenger/pull/543) Bump rubocop-performance from 1.11.5 to 1.12.0 ([@ryz310](https://github.com/ryz310))
+* [#546](https://github.com/ryz310/rubocop_challenger/pull/546) Bump yard from 0.9.26 to 0.9.27 ([@ryz310](https://github.com/ryz310))
+
 ## v2.3.0 (Feb 23, 2021)
 
 ### Feature
