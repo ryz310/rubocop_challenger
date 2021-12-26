@@ -127,7 +127,7 @@ Run `$ rubocop --auto-correct` and create a PR to GitHub repo
 
 ## Requirement
 
-* Ruby 2.5 or higher
+* Ruby 2.6 or higher
 
 ## Development
 
