@@ -1,5 +1,24 @@
 # Change log
 
+## v2.5.0 (Jan 18, 2022)
+
+### Feature
+
+* [#566](https://github.com/ryz310/rubocop_challenger/pull/566) Support rubocop thread safety ([@ryz310](https://github.com/ryz310))
+
+### Rubocop Challenge
+
+* [#554](https://github.com/ryz310/rubocop_challenger/pull/554) ryz310/rubocop-challenge/20211226233047 ([@ryz310](https://github.com/ryz310))
+* [#555](https://github.com/ryz310/rubocop_challenger/pull/555) ryz310/rubocop-challenge/20211231233046 ([@ryz310](https://github.com/ryz310))
+
+### Dependabot
+
+* [#556](https://github.com/ryz310/rubocop_challenger/pull/556) Bump rubocop-performance from 1.13.0 to 1.13.1 ([@ryz310](https://github.com/ryz310))
+* [#561](https://github.com/ryz310/rubocop_challenger/pull/561) Bump rubocop-rails from 2.13.0 to 2.13.1 ([@ryz310](https://github.com/ryz310))
+* [#560](https://github.com/ryz310/rubocop_challenger/pull/560) Bump rspec_junit_formatter from 0.4.1 to 0.5.1 ([@ryz310](https://github.com/ryz310))
+* [#559](https://github.com/ryz310/rubocop_challenger/pull/559) ryz310/dependabot/bundler/thor-1.2.1 ([@ryz310](https://github.com/ryz310))
+* [#562](https://github.com/ryz310/rubocop_challenger/pull/562) Bump rainbow from 3.0.0 to 3.1.1 ([@ryz310](https://github.com/ryz310))
+
 ## v2.4.0 (Dec 26, 2021)
 
 ### Feature
