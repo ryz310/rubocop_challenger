@@ -21,6 +21,7 @@ Add error message and backtrace if you can see.
  - rubocop-performance: [e.g. 1.2.3]
  - rubocop-rails: [e.g. 1.2.3]
  - rubocop-rspec: [e.g. 1.2.3]
+ - rubocop-thread_safety: [e.g. 1.2.3]
 
 **Additional context**
 Add any other context about the problem here.

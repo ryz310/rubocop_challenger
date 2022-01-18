@@ -2,6 +2,7 @@ require:
   - rubocop-performance
   - rubocop-rake
   - rubocop-rspec
+  - rubocop-thread_safety
 
 inherit_from: .rubocop_todo.yml
 
