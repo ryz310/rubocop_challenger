@@ -26,5 +26,6 @@ module RubocopChallenger
     rubocop-rails
     rubocop-rake
     rubocop-rspec
+    rubocop-thread_safety
   ].freeze
 end

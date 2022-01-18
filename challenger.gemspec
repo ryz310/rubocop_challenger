@@ -31,6 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'rubocop-rails'
   spec.add_runtime_dependency 'rubocop-rake'
   spec.add_runtime_dependency 'rubocop-rspec'
+  spec.add_runtime_dependency 'rubocop-thread_safety'
   spec.add_runtime_dependency 'thor'
   spec.add_runtime_dependency 'yard'
 
