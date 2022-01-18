@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rubocop_challenger (2.4.0)
+    rubocop_challenger (2.5.0)
       pr_comet (~> 0.5.1)
       rainbow
       rubocop (>= 0.87)
@@ -85,7 +85,7 @@ GEM
       rspec-mocks (~> 3.10.0)
     rspec-core (3.10.1)
       rspec-support (~> 3.10.0)
-    rspec-expectations (3.10.1)
+    rspec-expectations (3.10.2)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-mocks (3.10.2)
