@@ -19,7 +19,7 @@ RSpec.describe RubocopChallenger::Github::PrTemplate do
 
         [Style/Alias](https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/Alias)
 
-        **Safe autocorrect: true**
+        **Safe autocorrect: Yes**
         :white_check_mark: The auto-correct a cop does is safe (equivalent) by design.
 
         ## Description
