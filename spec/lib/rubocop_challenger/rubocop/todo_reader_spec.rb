@@ -8,7 +8,7 @@ RSpec.describe RubocopChallenger::Rubocop::TodoReader do
   let(:autocorrectable_rule_which_offence_count_is_1) do
     RubocopChallenger::Rubocop::Rule.new(<<~CONTENTS)
       # Offense count: 1
-      # Cop supports --auto-correct.
+      # This cop supports safe auto-correction (--auto-correct).
       # Configuration parameters: EnforcedStyle.
       # SupportedStyles: empty_lines, no_empty_lines
       Layout/EmptyLinesAroundBlockBody:
@@ -20,7 +20,7 @@ RSpec.describe RubocopChallenger::Rubocop::TodoReader do
   let(:autocorrectable_rule_which_offence_count_is_2) do
     RubocopChallenger::Rubocop::Rule.new(<<~CONTENTS)
       # Offense count: 2
-      # Cop supports --auto-correct.
+      # This cop supports safe auto-correction (--auto-correct).
       Style/ExpandPathArguments:
         Exclude:
           - 'rubocop_challenger.gemspec'
@@ -30,7 +30,7 @@ RSpec.describe RubocopChallenger::Rubocop::TodoReader do
   let(:autocorrectable_rule_which_offence_count_is_13) do
     RubocopChallenger::Rubocop::Rule.new(<<~CONTENTS)
       # Offense count: 13
-      # Cop supports --auto-correct.
+      # This cop supports safe auto-correction (--auto-correct).
       # Configuration parameters: EnforcedStyle.
       # SupportedStyles: when_needed, always, never
       Style/FrozenStringLiteralComment:

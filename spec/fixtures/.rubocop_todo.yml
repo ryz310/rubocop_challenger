@@ -7,7 +7,7 @@
 # versions of RuboCop, may require this file to be generated again.
 
 # Offense count: 1
-# Cop supports --auto-correct.
+# This cop supports safe auto-correction (--auto-correct).
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: empty_lines, no_empty_lines
 Layout/EmptyLinesAroundBlockBody:
@@ -25,13 +25,13 @@ Style/Documentation:
     - 'lib/rubocop_challenger/rubocop/todo_reader.rb'
 
 # Offense count: 2
-# Cop supports --auto-correct.
+# This cop supports safe auto-correction (--auto-correct).
 Style/ExpandPathArguments:
   Exclude:
     - 'rubocop_challenger.gemspec'
 
 # Offense count: 13
-# Cop supports --auto-correct.
+# This cop supports safe auto-correction (--auto-correct).
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: when_needed, always, never
 Style/FrozenStringLiteralComment:
