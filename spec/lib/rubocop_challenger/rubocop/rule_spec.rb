@@ -19,7 +19,7 @@ RSpec.describe RubocopChallenger::Rubocop::Rule do
   describe '#offense_count' do
     let(:rule) { described_class.new(<<~CONTENTS) }
       # Offense count: 27
-      # Cop supports --auto-correct.
+      # This cop supports safe auto-correction (--auto-correct).
       # Configuration parameters: EnforcedStyle, ConsistentQuotesInMultiline.
       # SupportedStyles: single_quotes, double_quotes
       Style/StringLiterals:
@@ -59,7 +59,7 @@ RSpec.describe RubocopChallenger::Rubocop::Rule do
 
     let(:rule) { described_class.new(<<~CONTENTS) }
       # Offense count: 2
-      # Cop supports --auto-correct.
+      # This cop supports safe auto-correction (--auto-correct).
       # Configuration parameters: EnforcedStyle, UseHashRocketsWithSymbolValues, PreferHashRocketsForNonAlnumEndingSymbols.
       # SupportedStyles: ruby19, hash_rockets, no_mixed_keys, ruby19_no_mixed_keys
       Style/HashSyntax:
@@ -70,7 +70,7 @@ RSpec.describe RubocopChallenger::Rubocop::Rule do
     context 'when the rule title is same to other one' do
       let(:other) { described_class.new(<<~CONTENTS) }
         # Offense count: 1
-        # Cop supports --auto-correct.
+        # This cop supports safe auto-correction (--auto-correct).
         Style/HashSyntax:
           Exclude:
             - 'rubocop_challenger.gemspec'
@@ -82,7 +82,7 @@ RSpec.describe RubocopChallenger::Rubocop::Rule do
     context 'when the rule title is different to other one' do
       let(:other) { described_class.new(<<~CONTENTS) }
         # Offense count: 1
-        # Cop supports --auto-correct.
+        # This cop supports safe auto-correction (--auto-correct).
         Layout/LeadingBlankLines:
           Exclude:
             - 'rubocop_challenger.gemspec'
@@ -97,7 +97,7 @@ RSpec.describe RubocopChallenger::Rubocop::Rule do
 
     let(:rule) { described_class.new(<<~CONTENTS) }
       # Offense count: 2
-      # Cop supports --auto-correct.
+      # This cop supports safe auto-correction (--auto-correct).
       # Configuration parameters: EnforcedStyle, UseHashRocketsWithSymbolValues, PreferHashRocketsForNonAlnumEndingSymbols.
       # SupportedStyles: ruby19, hash_rockets, no_mixed_keys, ruby19_no_mixed_keys
       Style/HashSyntax:
@@ -108,7 +108,7 @@ RSpec.describe RubocopChallenger::Rubocop::Rule do
     context 'when the rule offense count greater than other one' do
       let(:other) { described_class.new(<<~CONTENTS) }
         # Offense count: 1
-        # Cop supports --auto-correct.
+        # This cop supports safe auto-correction (--auto-correct).
         Layout/LeadingBlankLines:
           Exclude:
             - 'rubocop_challenger.gemspec'
@@ -120,7 +120,7 @@ RSpec.describe RubocopChallenger::Rubocop::Rule do
     context 'when the rule offense count is equal to other one' do
       let(:other) { described_class.new(<<~CONTENTS) }
         # Offense count: 2
-        # Cop supports --auto-correct.
+        # This cop supports safe auto-correction (--auto-correct).
         Style/ExpandPathArguments:
           Exclude:
             - 'rubocop_challenger.gemspec'
@@ -146,7 +146,7 @@ RSpec.describe RubocopChallenger::Rubocop::Rule do
   describe '#auto_correctable?' do
     subject { rule.auto_correctable? }
 
-    context 'when the rule supports auto correct' do
+    context 'with auto-correction comment: Cop supports --auto-correct' do
       let(:rule) { described_class.new(<<~CONTENTS) }
         # Offense count: 1
         # Cop supports --auto-correct.
@@ -158,7 +158,31 @@ RSpec.describe RubocopChallenger::Rubocop::Rule do
       it { is_expected.to be_truthy }
     end
 
-    context 'when the rule does not support auto correct' do
+    context 'with auto-correction comment: This cop supports safe auto-correction' do
+      let(:rule) { described_class.new(<<~CONTENTS) }
+        # Offense count: 1
+        # This cop supports safe auto-correction (--auto-correct).
+        Performance/StringReplacement:
+          Exclude:
+            - 'lib/rubocop_challenger.rb'
+      CONTENTS
+
+      it { is_expected.to be_truthy }
+    end
+
+    context 'with auto-correction comment: This cop supports unsafe auto-correction' do
+      let(:rule) { described_class.new(<<~CONTENTS) }
+        # Offense count: 1
+        # This cop supports unsafe auto-correction (--auto-correct-all).
+        Performance/StringReplacement:
+          Exclude:
+            - 'lib/rubocop_challenger.rb'
+      CONTENTS
+
+      it { is_expected.to be_truthy }
+    end
+
+    context 'without auto-correction comment' do
       let(:rule) { described_class.new(<<~CONTENTS) }
         # Offense count: 1
         Metrics/AbcSize:
@@ -173,7 +197,7 @@ RSpec.describe RubocopChallenger::Rubocop::Rule do
     context 'when the rule is included in the rubocop gem' do
       let(:rule) { described_class.new(<<~CONTENTS) }
         # Offense count: 1
-        # Cop supports --auto-correct.
+        # This cop supports safe auto-correction (--auto-correct).
         Style/RedundantSelf:
           Exclude:
             - 'lib/rubocop_challenger/rubocop/rule.rb'
@@ -188,7 +212,7 @@ RSpec.describe RubocopChallenger::Rubocop::Rule do
     context 'when the rule is included in the rubocop-rspec gem' do
       let(:rule) { described_class.new(<<~CONTENTS) }
         # Offense count: 1
-        # Cop supports --auto-correct.
+        # This cop supports safe auto-correction (--auto-correct).
         # Configuration parameters: CustomTransform, IgnoredWords.
         RSpec/ExampleWording:
           Exclude:
