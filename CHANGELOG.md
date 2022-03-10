@@ -1,5 +1,24 @@
 # Change log
 
+## v2.6.0 (Mar 10, 2022)
+
+### Feature
+### Bugfix
+### Security
+### Breaking Change
+### Rubocop Challenge
+### Dependabot
+### Misc
+
+* [#569](https://github.com/ryz310/rubocop_challenger/pull/569) ryz310/rubocop-challenge/20220118233047 ([@ryz310](https://github.com/ryz310))
+* [#570](https://github.com/ryz310/rubocop_challenger/pull/570) Re-generate .rubocop_todo.yml with RuboCop v1.25.1 ([@ryz310](https://github.com/ryz310))
+* [#571](https://github.com/ryz310/rubocop_challenger/pull/571) Bump rspec from 3.10.0 to 3.11.0 ([@ryz310](https://github.com/ryz310))
+* [#573](https://github.com/ryz310/rubocop_challenger/pull/573) RSpec/BeNil-20220228233046 ([@ryz310](https://github.com/ryz310))
+* [#574](https://github.com/ryz310/rubocop_challenger/pull/574) Bump rubocop-performance from 1.13.2 to 1.13.3 ([@ryz310](https://github.com/ryz310))
+* [#575](https://github.com/ryz310/rubocop_challenger/pull/575) Bump activesupport from 6.1.4.6 to 6.1.4.7 ([@ryz310](https://github.com/ryz310))
+* [#576](https://github.com/ryz310/rubocop_challenger/pull/576) Re-generate .rubocop_todo.yml with RuboCop v1.26.0 ([@ryz310](https://github.com/ryz310))
+* [#577](https://github.com/ryz310/rubocop_challenger/pull/577) Support auto-correction comments at rubocop v1.26.0 ([@ryz310](https://github.com/ryz310))
+
 ## v2.5.0 (Jan 18, 2022)
 
 ### Feature
