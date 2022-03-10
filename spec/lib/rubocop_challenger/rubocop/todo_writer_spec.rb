@@ -11,7 +11,7 @@ RSpec.describe RubocopChallenger::Rubocop::TodoWriter do
     let(:expected) { File.read('spec/fixtures/.expected_rubocop_todo.yml') }
     let(:rule) { RubocopChallenger::Rubocop::Rule.new(<<~CONTENTS) }
       # Offense count: 1
-      # Cop supports --auto-correct.
+      # This cop supports safe auto-correction (--auto-correct).
       # Configuration parameters: EnforcedStyle.
       # SupportedStyles: empty_lines, no_empty_lines
       Layout/EmptyLinesAroundBlockBody:

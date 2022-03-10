@@ -8,7 +8,7 @@ RSpec.describe RubocopChallenger::Github::PrTemplate do
 
     let(:rule) { RubocopChallenger::Rubocop::Rule.new(<<~CONTENTS) }
       # Offense count: 2
-      # Cop supports --auto-correct.
+      # This cop supports safe auto-correction (--auto-correct).
       Style/Alias:
         Enabled: false
     CONTENTS

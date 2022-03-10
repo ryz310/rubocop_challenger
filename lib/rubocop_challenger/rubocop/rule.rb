@@ -27,7 +27,8 @@ module RubocopChallenger
       end
 
       def auto_correctable?
-        contents.include?('# Cop supports --auto-correct')
+        contents.include?('# Cop supports --auto-correct') || # for rubocop < v1.26.0
+          contents.match?(/# This cop supports (un)?safe auto-correction/) # for rubocop >= v1.26.0
       end
 
       def rubydoc_url
