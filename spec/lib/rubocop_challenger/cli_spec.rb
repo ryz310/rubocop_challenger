@@ -50,7 +50,7 @@ RSpec.describe RubocopChallenger::CLI do
       end
 
       it 'outputs a error message and exit process' do
-        expect { go }.to output("\e[31mError message\e[0m\n").to_stdout
+        expect { go }.to output(/Error message/).to_stdout
         expect(cli).to have_received(:exit_process!)
       end
     end
@@ -63,8 +63,7 @@ RSpec.describe RubocopChallenger::CLI do
       end
 
       it 'outputs a description and exit process' do
-        expect { go }
-          .to output("\e[33mThere is no auto-correctable rule\e[0m\n").to_stdout
+        expect { go }.to output(/There is no auto-correctable rule/).to_stdout
       end
 
       it 'does not return exit code 1' do
