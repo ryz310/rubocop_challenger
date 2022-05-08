@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     rubocop_challenger (2.7.0)
-      pr_comet (~> 0.5.1)
+      pr_comet (>= 0.5.1, < 0.7.0)
       rainbow
       rubocop (>= 0.87)
       rubocop-performance
@@ -64,7 +64,7 @@ GEM
     parallel (1.22.1)
     parser (3.1.2.0)
       ast (~> 2.4.1)
-    pr_comet (0.5.1)
+    pr_comet (0.6.0)
       octokit
       rainbow
     pry (0.13.1)
