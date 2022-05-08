@@ -1,5 +1,24 @@
 # Change log
 
+## v2.7.0 (May 08, 2022)
+
+### Feature
+### Bugfix
+### Security
+### Breaking Change
+### Rubocop Challenge
+### Dependabot
+### Misc
+
+* [#580](https://github.com/ryz310/rubocop_challenger/pull/580) Modify the description of whether it is safe auto-correct ([@ryz310](https://github.com/ryz310))
+* [#581](https://github.com/ryz310/rubocop_challenger/pull/581) Bump activesupport from 6.1.4.7 to 6.1.5 ([@ryz310](https://github.com/ryz310))
+* [#582](https://github.com/ryz310/rubocop_challenger/pull/582) Bump rubocop-rails from 2.13.2 to 2.14.0 ([@ryz310](https://github.com/ryz310))
+* [#583](https://github.com/ryz310/rubocop_challenger/pull/583) Bump rubocop-rails from 2.14.0 to 2.14.1 ([@ryz310](https://github.com/ryz310))
+* [#584](https://github.com/ryz310/rubocop_challenger/pull/584) Bump rubocop-rails from 2.14.1 to 2.14.2 ([@ryz310](https://github.com/ryz310))
+* [#585](https://github.com/ryz310/rubocop_challenger/pull/585) Re-generate .rubocop_todo.yml with RuboCop v1.26.1 ([@ryz310](https://github.com/ryz310))
+* [#586](https://github.com/ryz310/rubocop_challenger/pull/586) Re-generate .rubocop_todo.yml with RuboCop v1.27.0 ([@ryz310](https://github.com/ryz310))
+* [#605](https://github.com/ryz310/rubocop_challenger/pull/605) Support ruby 3.1 ([@ryz310](https://github.com/ryz310))
+
 ## v2.6.0 (Mar 10, 2022)
 
 ### Feature
