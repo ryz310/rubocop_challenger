@@ -55,12 +55,11 @@ module RubocopChallenger
            desc: 'No create a pull request (for testing)'
     option :'exclude-limit',
            type: :numeric,
-           desc: 'For how many exclude properties when creating the ' \
-                 '.rubocop_todo.yml'
+           desc: 'For how many exclude properties on create .rubocop_todo.yml'
     option :'auto-gen-timestamp',
            type: :boolean,
            default: true,
-           desc: 'Include the date and time when creating the .rubocop_todo.yml'
+           desc: 'Include the date and time in .rubocop_todo.yml'
     option :offense_counts,
            type: :boolean,
            default: true,

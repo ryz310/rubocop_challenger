@@ -8,17 +8,17 @@ RSpec.describe RubocopChallenger::Go do
       email: 'rubocop-challenger@example.com',
       name: 'Rubocop Challenger',
       file_path: '.rubocop_todo.yml',
+      template: 'template_file_path',
       mode: 'most_occurrence',
       base_branch: 'master',
       labels: ['rubocop challenge'],
-      template: 'template_file_path',
       project_column_name: 'Column 1',
       project_id: 123_456_789,
       'no-create-pr': false,
+      'exclude-limit': 99,
       'auto-gen-timestamp': false,
       offense_counts: false,
       'only-safe-auto-correct': false,
-      'exclude-limit': 99,
       verbose: false
     )
   end

@@ -6,9 +6,9 @@ module RubocopChallenger
     # @param options [Hash]
     #   Options for the rubocop challenge
     # @option exclude-limit [Integer]
-    #   For how many exclude properties when creating the ".rubocop_todo.yml"
+    #   For how many exclude properties on create .rubocop_todo.yml
     # @option auto-gen-timestamp [Boolean]
-    #   Include the date and time when creating the ".rubocop_todo.yml"
+    #   Include the date and time in .rubocop_todo.yml
     # @option offense_counts [Boolean]
     #   Include offense counts in .rubocop_todo.yml'
     # @option only-safe-auto-correct [Boolean]
