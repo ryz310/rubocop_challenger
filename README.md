@@ -54,7 +54,7 @@ workflows:
   nightly:
     triggers:
       - schedule:
-          cron: "30 23 * * 1,2,3" # 8:30am every Tuesday, Wednsday and Thursday (JST)
+          cron: "30 23 * * 1,2,3" # 8:30am every Tuesday, Wednesday and Thursday (JST)
           filters:
             branches:
               only:
