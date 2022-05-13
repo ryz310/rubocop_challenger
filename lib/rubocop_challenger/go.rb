@@ -164,7 +164,7 @@ module RubocopChallenger
     def rubocop_challenge_options
       {
         file_path: options[:file_path],
-        mode: options[:mode],
+        mode: mode,
         only_safe_auto_correct: options[:only_safe_auto_correct]
       }
     end
@@ -188,6 +188,16 @@ module RubocopChallenger
         auto_gen_timestamp: options[:auto_gen_timestamp],
         offense_counts: options[:offense_counts]
       }
+    end
+
+    # Mode to select deletion target.
+    # If you set --no-offense-counts, the mode to be forced to "random".
+    #
+    # @return [String] "most_occurrence", "least_occurrence", or "random"
+    def mode
+      return 'random' unless options[:offense_counts]
+
+      options[:mode]
     end
   end
 end

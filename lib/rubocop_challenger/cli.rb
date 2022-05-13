@@ -29,7 +29,8 @@ module RubocopChallenger
            type: :string,
            default: 'most_occurrence',
            desc: 'Mode to select deletion target. You can choice ' \
-                 '"most_occurrence", "least_occurrence", or "random"'
+                 '"most_occurrence", "least_occurrence", or "random". ' \
+                 'If you set --no-offense-counts, the mode to be forced to "random".'
     option :base_branch,
            type: :string,
            default: 'master',
