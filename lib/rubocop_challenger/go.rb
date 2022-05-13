@@ -165,7 +165,7 @@ module RubocopChallenger
       {
         file_path: options[:file_path],
         mode: options[:mode],
-        only_safe_auto_correct: options[:'only-safe-auto-correct']
+        only_safe_auto_correct: options[:only_safe_auto_correct]
       }
     end
 
@@ -175,7 +175,7 @@ module RubocopChallenger
         user_email: options[:email],
         base_branch: options[:base_branch],
         labels: options[:labels],
-        dry_run: options[:'no-create-pr'],
+        dry_run: !options[:create_pr],
         project_column_name: options[:project_column_name],
         project_id: options[:project_id],
         verbose: options[:verbose]
@@ -184,8 +184,8 @@ module RubocopChallenger
 
     def auto_gen_config_options
       {
-        exclude_limit: options[:'exclude-limit'],
-        auto_gen_timestamp: options[:'auto-gen-timestamp'],
+        exclude_limit: options[:exclude_limit],
+        auto_gen_timestamp: options[:auto_gen_timestamp],
         offense_counts: options[:offense_counts]
       }
     end

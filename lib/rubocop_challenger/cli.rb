@@ -49,14 +49,14 @@ module RubocopChallenger
            desc: 'A target project ID. If does not supplied, this method ' \
                  'will find a project which associated the repository. When ' \
                  'the repository has multiple projects, you should supply this.'
-    option :'no-create-pr',
+    option :create_pr,
            type: :boolean,
-           default: false,
-           desc: 'No create a pull request (for testing)'
-    option :'exclude-limit',
+           default: true,
+           desc: 'If you set --no-create-pr, no create a pull request (for testing)'
+    option :exclude_limit,
            type: :numeric,
            desc: 'For how many exclude properties on create .rubocop_todo.yml'
-    option :'auto-gen-timestamp',
+    option :auto_gen_timestamp,
            type: :boolean,
            default: true,
            desc: 'Include the date and time in .rubocop_todo.yml'
@@ -64,7 +64,7 @@ module RubocopChallenger
            type: :boolean,
            default: true,
            desc: 'Include offense counts in .rubocop_todo.yml'
-    option :'only-safe-auto-correct',
+    option :only_safe_auto_correct,
            type: :boolean,
            default: false,
            desc: 'If given `true`, it executes `rubocop --auto-correct`,' \

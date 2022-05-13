@@ -14,11 +14,11 @@ RSpec.describe RubocopChallenger::Go do
       labels: ['rubocop challenge'],
       project_column_name: 'Column 1',
       project_id: 123_456_789,
-      'no-create-pr': false,
-      'exclude-limit': 99,
-      'auto-gen-timestamp': false,
+      create_pr: true,
+      exclude_limit: 99,
+      auto_gen_timestamp: false,
       offense_counts: false,
-      'only-safe-auto-correct': false,
+      only_safe_auto_correct: false,
       verbose: false
     )
   end

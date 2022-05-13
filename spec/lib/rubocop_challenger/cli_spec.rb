@@ -15,10 +15,10 @@ RSpec.describe RubocopChallenger::CLI do
       labels: ['rubocop challenge'],
       project_column_name: 'Column 1',
       project_id: 123_456_789,
-      'no-create-pr': false,
-      'exclude-limit': 99,
-      'no-auto-gen-timestamp': true,
-      'no-offense-counts': true,
+      create_pr: true,
+      exclude_limit: 99,
+      auto_gen_timestamp: true,
+      offense_counts: true,
       verbose: false
     }
   end
