@@ -5,7 +5,7 @@
 If you introduce [`rubocop`](https://github.com/rubocop-hq/rubocop) to an existing Rails project later, you will use [`$ rubocop --auto-gen-config`](https://github.com/rubocop-hq/rubocop/blob/master/manual/configuration.md#automatically-generated-configuration). But it will make a huge `.rubocop_todo.yml` and make you despair.
 On the other hand, `rubocop` has [`--auto-correct`](https://github.com/rubocop-hq/rubocop/blob/master/manual/basic_usage.md#other-useful-command-line-flags) option, it is possible to automatically repair the writing which does not conform to the rule. But since it occasionally destroys your code, it is quite dangerous to apply all at once.
 It is ideal that to remove a disabled rule from `.rubocop_todo.yml` every day, to check whether it passes test, and can be obtained consent from the team. But it requires strong persistence and time.
-I call such work *Rubocop Challenge*. And the *RubocopChallenger* is a gem to support this challenge!
+I call such work _Rubocop Challenge_. And the _RubocopChallenger_ is a gem to support this challenge!
 
 ## The history of RubocopChallenger with decrease of offense codes
 
@@ -17,8 +17,8 @@ be continued to evolve.
 
 ## Rubocop Challenge Flow
 
-1. Run *RubocopChallenger* periodically from CI tool etc.
-1. When *RubocopChallenger* starts, delete a disabled rule from `.rubocop_todo.yml` existing in your project, execute `$ rubocop --auto-correct` and create a PR which include modified results
+1. Run _RubocopChallenger_ periodically from CI tool etc.
+1. When _RubocopChallenger_ starts, delete a disabled rule from `.rubocop_todo.yml` existing in your project, execute `$ rubocop --auto-correct` and create a PR which include modified results
 1. You confirm the PR passes testing and then merge it if there is no problem
 
 [![Rubocop Challenge](images/rubocop_challenge.png)](https://github.com/ryz310/rubocop_challenger/pull/97)
@@ -71,16 +71,16 @@ I have seen cases where errors occur due to compatibility issues with other gems
 GitHub personal access token is required for sending pull requests to your repository.
 
 1. Go to [your account's settings page](https://github.com/settings/tokens) and [generate a new token](https://github.com/settings/tokens/new) with "repo" scope
-  ![generate token](images/generate_token.png)
+   ![generate token](images/generate_token.png)
 1. On [CircleCI](https://circleci.com) dashboard, go to your application's "Project Settings" -> "Environment Variables"
 1. Add an environment variable `GITHUB_ACCESS_TOKEN` with your GitHub personal access token
-  ![circleci environment variables](images/circleci_environment_variables.png)
+   ![circleci environment variables](images/circleci_environment_variables.png)
 
 ### Want to use on GitHub Actions?
 
 It's introduced in the following blog. Thank you Mr. Takuya Yamaguchi!
 
-See: [RuboCop ChallengerをGitHub Actionsで動かす](https://zenn.dev/yamat47/articles/219e14ebcf31a1d13ff4)
+See: [RuboCop Challenger を GitHub Actions で動かす](https://zenn.dev/yamat47/articles/219e14ebcf31a1d13ff4)
 
 ## CLI command references
 
@@ -127,7 +127,7 @@ Run `$ rubocop --auto-correct` and create a PR to GitHub repo
 
 ## Requirement
 
-* Ruby 2.6 or higher
+- Ruby 2.7 or higher
 
 ## Development
 

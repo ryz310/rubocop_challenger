@@ -66,15 +66,7 @@ module RubocopChallenger
       end
 
       def source_file_path
-        if Object.respond_to?(:const_source_location)
-          Object.const_source_location(cop_class.name).first
-        else
-          instance_methods
-            .map { |m| cop_class.instance_method(m).source_location }
-            .compact
-            .map(&:first)
-            .first
-        end
+        Object.const_source_location(cop_class.name).first
       end
     end
   end
