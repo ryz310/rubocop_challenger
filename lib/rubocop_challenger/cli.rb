@@ -61,6 +61,10 @@ module RubocopChallenger
            type: :boolean,
            default: true,
            desc: 'Include the date and time when creating the .rubocop_todo.yml'
+    option :offense_counts,
+           type: :boolean,
+           default: true,
+           desc: 'Include offense counts in .rubocop_todo.yml'
     option :'only-safe-auto-correct',
            type: :boolean,
            default: false,

@@ -9,6 +9,8 @@ module RubocopChallenger
     #   For how many exclude properties when creating the ".rubocop_todo.yml"
     # @option auto-gen-timestamp [Boolean]
     #   Include the date and time when creating the ".rubocop_todo.yml"
+    # @option offense_counts [Boolean]
+    #   Include offense counts in .rubocop_todo.yml'
     # @option only-safe-auto-correct [Boolean]
     #   If given `true`, it executes `rubocop --auto-correct`,
     #   it means to correct safe cops only.
@@ -183,7 +185,8 @@ module RubocopChallenger
     def auto_gen_config_options
       {
         exclude_limit: options[:'exclude-limit'],
-        auto_gen_timestamp: options[:'auto-gen-timestamp']
+        auto_gen_timestamp: options[:'auto-gen-timestamp'],
+        offense_counts: options[:offense_counts]
       }
     end
   end
