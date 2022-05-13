@@ -23,7 +23,7 @@ module RubocopChallenger
           file_contents
           .split(/\n{2,}/)
           .map! { |content| Rule.new(content) }
-          .reject! { |rule| invalid?(rule) }
+          .reject { |rule| invalid?(rule) }
           .sort!
       end
 
