@@ -107,7 +107,7 @@ Options:
   f, [--file-path=FILE_PATH]                                     # Set your ".rubocop_todo.yml" path
                                                                  # Default: .rubocop_todo.yml
   t, [--template=TEMPLATE]                                       # A Pull Request template `erb` file path.You can use variable that `title`, `rubydoc_url`, `description` and `examples` into the erb file.
-      [--mode=MODE]                                              # Mode to select deletion target. You can choice "most_occurrence", "least_occurrence", or "random"
+      [--mode=MODE]                                              # Mode to select deletion target. You can choice "most_occurrence", "least_occurrence", or "random". If you set --no-offense-counts, the mode to be forced to "random".
                                                                  # Default: most_occurrence
   b, [--base-branch=BASE_BRANCH]                                 # The Branch to merge into
                                                                  # Default: master
@@ -115,9 +115,12 @@ Options:
                                                                  # Default: ["rubocop challenge"]
       [--project-column-name=PROJECT_COLUMN_NAME]                # A project column name. You can add the created PR to the GitHub project
       [--project-id=N]                                           # A target project ID. If does not supplied, this method will find a project which associated the repository. When the repository has multiple projects, you should supply this.
-      [--no-create-pr]                                           # No create a pull request (for testing)
-      [--exclude-limit=N]                                        # For how many exclude properties when creating the .rubocop_todo.yml
-      [--auto-gen-timestamp], [--no-auto-gen-timestamp]          # Include the date and time when creating the .rubocop_todo.yml
+      [--create-pr], [--no-create-pr]                            # If you set --no-create-pr, no create a pull request (for testing)
+                                                                 # Default: true
+      [--exclude-limit=N]                                        # For how many exclude properties on create .rubocop_todo.yml
+      [--auto-gen-timestamp], [--no-auto-gen-timestamp]          # Include the date and time in .rubocop_todo.yml
+                                                                 # Default: true
+      [--offense-counts], [--no-offense-counts]                  # Include offense counts in .rubocop_todo.yml
                                                                  # Default: true
       [--only-safe-auto-correct], [--no-only-safe-auto-correct]  # If given `true`, it executes `rubocop --auto-correct`,it means to correct safe cops only.
       [--verbose], [--no-verbose]                                # Displays executing command.

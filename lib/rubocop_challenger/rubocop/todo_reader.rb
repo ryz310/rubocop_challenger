@@ -22,9 +22,10 @@ module RubocopChallenger
         @all_rules ||=
           file_contents
           .split(/\n{2,}/)
-          .map! { |content| Rule.new(content) }
-          .reject { |rule| invalid?(rule) }
-          .sort!
+          .drop(1) # remove header contents
+          .map { |content| Rule.new(content) }
+          .reject { |rule| ignored?(rule) }
+          .sort
       end
 
       # @return [Array<Rule>]
@@ -58,8 +59,8 @@ module RubocopChallenger
 
       # @param rule [Rule] the target rule
       # @return [Boolean]
-      def invalid?(rule)
-        rule.offense_count.zero? || ignored_rules.include?(rule.title)
+      def ignored?(rule)
+        ignored_rules.include?(rule.title)
       end
 
       # @return [Array<String>] Ignored rule titles

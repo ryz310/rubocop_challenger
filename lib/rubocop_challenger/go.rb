@@ -6,9 +6,11 @@ module RubocopChallenger
     # @param options [Hash]
     #   Options for the rubocop challenge
     # @option exclude-limit [Integer]
-    #   For how many exclude properties when creating the ".rubocop_todo.yml"
+    #   For how many exclude properties on create .rubocop_todo.yml
     # @option auto-gen-timestamp [Boolean]
-    #   Include the date and time when creating the ".rubocop_todo.yml"
+    #   Include the date and time in .rubocop_todo.yml
+    # @option offense_counts [Boolean]
+    #   Include offense counts in .rubocop_todo.yml'
     # @option only-safe-auto-correct [Boolean]
     #   If given `true`, it executes `rubocop --auto-correct`,
     #   it means to correct safe cops only.
@@ -162,8 +164,8 @@ module RubocopChallenger
     def rubocop_challenge_options
       {
         file_path: options[:file_path],
-        mode: options[:mode],
-        only_safe_auto_correct: options[:'only-safe-auto-correct']
+        mode: mode,
+        only_safe_auto_correct: options[:only_safe_auto_correct]
       }
     end
 
@@ -173,7 +175,7 @@ module RubocopChallenger
         user_email: options[:email],
         base_branch: options[:base_branch],
         labels: options[:labels],
-        dry_run: options[:'no-create-pr'],
+        dry_run: !options[:create_pr],
         project_column_name: options[:project_column_name],
         project_id: options[:project_id],
         verbose: options[:verbose]
@@ -182,9 +184,20 @@ module RubocopChallenger
 
     def auto_gen_config_options
       {
-        exclude_limit: options[:'exclude-limit'],
-        auto_gen_timestamp: options[:'auto-gen-timestamp']
+        exclude_limit: options[:exclude_limit],
+        auto_gen_timestamp: options[:auto_gen_timestamp],
+        offense_counts: options[:offense_counts]
       }
+    end
+
+    # Mode to select deletion target.
+    # If you set --no-offense-counts, the mode to be forced to "random".
+    #
+    # @return [String] "most_occurrence", "least_occurrence", or "random"
+    def mode
+      return 'random' unless options[:offense_counts]
+
+      options[:mode]
     end
   end
 end

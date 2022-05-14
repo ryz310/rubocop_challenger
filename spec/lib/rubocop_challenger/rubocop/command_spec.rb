@@ -60,5 +60,16 @@ RSpec.describe RubocopChallenger::Rubocop::Command do
         expect(command).to have_received(:execute).with(expected)
       end
     end
+
+    context 'with offense_counts option' do
+      let(:expected) do
+        'bundle exec rubocop --auto-gen-config --no-offense-counts || true'
+      end
+
+      it do
+        command.auto_gen_config(offense_counts: false)
+        expect(command).to have_received(:execute).with(expected)
+      end
+    end
   end
 end

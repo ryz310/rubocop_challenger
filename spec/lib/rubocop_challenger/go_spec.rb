@@ -8,19 +8,22 @@ RSpec.describe RubocopChallenger::Go do
       email: 'rubocop-challenger@example.com',
       name: 'Rubocop Challenger',
       file_path: '.rubocop_todo.yml',
+      template: 'template_file_path',
       mode: 'most_occurrence',
       base_branch: 'master',
       labels: ['rubocop challenge'],
-      template: 'template_file_path',
       project_column_name: 'Column 1',
       project_id: 123_456_789,
-      'no-create-pr': false,
-      'auto-gen-timestamp': false,
-      'only-safe-auto-correct': false,
-      'exclude-limit': 99,
+      create_pr: true,
+      exclude_limit: 99,
+      auto_gen_timestamp: false,
+      offense_counts: offense_counts,
+      only_safe_auto_correct: false,
       verbose: false
     )
   end
+
+  let(:offense_counts) { true }
 
   let(:pull_request) do
     instance_double(
@@ -104,14 +107,6 @@ RSpec.describe RubocopChallenger::Go do
     end
 
     shared_examples 'execute Rubocop Challenge flow' do
-      let(:expected_options) do
-        {
-          file_path: '.rubocop_todo.yml',
-          mode: 'most_occurrence',
-          only_safe_auto_correct: false
-        }
-      end
-
       it do
         exec
         expect(RubocopChallenger::Bundler::Command)
@@ -129,14 +124,7 @@ RSpec.describe RubocopChallenger::Go do
         exec
         expect(rubocop_command)
           .to have_received(:auto_gen_config)
-          .with(exclude_limit: 99, auto_gen_timestamp: false).twice
-      end
-
-      it do
-        exec
-        expect(RubocopChallenger::Rubocop::Challenge)
-          .to have_received(:exec)
-          .with(expected_options)
+          .with(exclude_limit: 99, auto_gen_timestamp: false, offense_counts: true).twice
       end
 
       it do
@@ -144,6 +132,42 @@ RSpec.describe RubocopChallenger::Go do
         expect(pull_request)
           .to have_received(:create_rubocop_challenge_pr!)
           .with(corrected_rule, 'template_file_path')
+      end
+
+      context 'without `--no-offence-counts` option' do
+        let(:offense_counts) { true }
+
+        let(:expected_options) do
+          {
+            file_path: '.rubocop_todo.yml',
+            mode: 'most_occurrence',
+            only_safe_auto_correct: false
+          }
+        end
+
+        it 'executes rubocop challenge with specified options' do
+          exec
+          expect(RubocopChallenger::Rubocop::Challenge)
+            .to have_received(:exec).with(expected_options)
+        end
+      end
+
+      context 'with `--no-offence-counts` option' do
+        let(:offense_counts) { false }
+
+        let(:expected_options) do
+          {
+            file_path: '.rubocop_todo.yml',
+            mode: 'random',
+            only_safe_auto_correct: false
+          }
+        end
+
+        it 'forces rubocop challenge in "random" mode' do
+          exec
+          expect(RubocopChallenger::Rubocop::Challenge)
+            .to have_received(:exec).with(expected_options)
+        end
       end
     end
 
@@ -198,7 +222,7 @@ RSpec.describe RubocopChallenger::Go do
           safe_exec.call
           expect(rubocop_command)
             .to have_received(:auto_gen_config)
-            .with(exclude_limit: 99, auto_gen_timestamp: false).once
+            .with(exclude_limit: 99, auto_gen_timestamp: false, offense_counts: true).once
         end
 
         it do

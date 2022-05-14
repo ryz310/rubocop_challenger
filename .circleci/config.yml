@@ -77,7 +77,7 @@ commands:
             bundle exec exe/rubocop_challenger go \
               --email=ryz310@gmail.com \
               --name=ryz310 \
-              --mode=random \
+              --no-offense-counts \
               --no-create-pr
   integration_testing:
     description: Integration testing for RuboCop Challenge

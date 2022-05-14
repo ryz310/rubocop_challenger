@@ -105,7 +105,7 @@ RSpec.describe RubocopChallenger::Rubocop::TodoReader do
         ]
       end
 
-      it 'rejects to be ignored rules' do
+      it 'rejects the ignored rules' do
         expect(todo_reader.all_rules).to eq [
           autocorrectable_rule_which_offense_count_is_2,
           unautocorrectable_rule_which_offense_count_is_4
