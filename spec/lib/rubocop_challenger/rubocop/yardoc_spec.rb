@@ -42,7 +42,7 @@ RSpec.describe RubocopChallenger::Rubocop::Yardoc do
 
   describe '#description' do
     let(:docstring) { <<~DOCSTRING.chomp }
-      This cop enforces the use of either `#alias` or `#alias_method`
+      Enforces the use of either `#alias` or `#alias_method`
       depending on configuration.
       It also flags uses of `alias :symbol` rather than `alias bareword`.
     DOCSTRING
