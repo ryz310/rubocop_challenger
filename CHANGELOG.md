@@ -5,11 +5,11 @@
 ### Feature
 
 - [#616](https://github.com/ryz310/rubocop_challenger/pull/616) Support `--no-offense-counts` option ([@ryz310](https://github.com/ryz310))
+- [#625](https://github.com/ryz310/rubocop_challenger/pull/625) Use `--conservative` option on `bundle update` ([@ryz310](https://github.com/ryz310))
 
 ### Bugfix
 
 - [#612](https://github.com/ryz310/rubocop_challenger/pull/612) Fix wrong usage of `Array#reject!`: this might return nil ([@r7kamura](https://github.com/r7kamura))
-- [#625](https://github.com/ryz310/rubocop_challenger/pull/625) Use `--conservative` option on `bundle update` ([@ryz310](https://github.com/ryz310))
 
 ### Breaking Change
 
