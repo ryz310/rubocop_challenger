@@ -17,14 +17,14 @@ RSpec.describe RubocopChallenger::Bundler::Command do
     context 'when no argument is given' do
       it do
         command.update
-        expect(command).to have_received(:execute).with('bundle update')
+        expect(command).to have_received(:execute).with('bundle update --conservative')
       end
     end
 
     context 'when only one gem name is given' do
       it do
         command.update('rubocop')
-        expect(command).to have_received(:execute).with('bundle update rubocop')
+        expect(command).to have_received(:execute).with('bundle update rubocop --conservative')
       end
     end
 
@@ -33,7 +33,7 @@ RSpec.describe RubocopChallenger::Bundler::Command do
         command.update('rubocop', 'rubocop-rspec', 'not-installed-gem')
         expect(command)
           .to have_received(:execute)
-          .with('bundle update rubocop rubocop-rspec')
+          .with('bundle update rubocop rubocop-rspec --conservative')
       end
     end
   end
