@@ -5,20 +5,20 @@
 If you introduce [`rubocop`](https://github.com/rubocop-hq/rubocop) to an existing Rails project later, you will use [`$ rubocop --auto-gen-config`](https://github.com/rubocop-hq/rubocop/blob/master/manual/configuration.md#automatically-generated-configuration). But it will make a huge `.rubocop_todo.yml` and make you despair.
 On the other hand, `rubocop` has [`--auto-correct`](https://github.com/rubocop-hq/rubocop/blob/master/manual/basic_usage.md#other-useful-command-line-flags) option, it is possible to automatically repair the writing which does not conform to the rule. But since it occasionally destroys your code, it is quite dangerous to apply all at once.
 It is ideal that to remove a disabled rule from `.rubocop_todo.yml` every day, to check whether it passes test, and can be obtained consent from the team. But it requires strong persistence and time.
-I call such work *Rubocop Challenge*. And the *RubocopChallenger* is a gem to support this challenge!
+I call such work _Rubocop Challenge_. And the _RubocopChallenger_ is a gem to support this challenge!
 
-## The history of RubocopChallenger with decrease of offence codes
+## The history of RubocopChallenger with decrease of offense codes
 
-The following chart shows the history of RubocopChallenger and decrease of offence codes at a `.rubocop_todo.yml`. The project was released at 5 years ago, and then it was introduced the RuboCop gem for huge source code including a lots of offence codes. Before using the RubocopChallenger, it was not maintain to reduce offence codes. One day, I felt a crisis and started maintain with manual. I made a lots of Pull Requests to reduce them but it's a load for me and reviewers. So I created a script for automation the flow, which is the predecessor of Rubocop Challenger gem. It brought reducing the offence codes continuously. After 8 months, finally it has done. There is no auto-correctable offence codes.
-But there are many offences which is un-auto-correctable yet. I will try to reduce it with the RubocopChallenger. The RubocopChallenger will
+The following chart shows the history of RubocopChallenger and decrease of offense codes at a `.rubocop_todo.yml`. The project was released at 5 years ago, and then it was introduced the RuboCop gem for huge source code including a lots of offense codes. Before using the RubocopChallenger, it was not maintain to reduce offense codes. One day, I felt a crisis and started maintain with manual. I made a lots of Pull Requests to reduce them but it's a load for me and reviewers. So I created a script for automation the flow, which is the predecessor of Rubocop Challenger gem. It brought reducing the offense codes continuously. After 8 months, finally it has done. There is no auto-correctable offense codes.
+But there are many offenses which is un-auto-correctable yet. I will try to reduce it with the RubocopChallenger. The RubocopChallenger will
 be continued to evolve.
 
-![Decrease of offence codes](images/decrease_of_offence_codes.png)
+![Decrease of offense codes](images/decrease_of_offense_codes.png)
 
 ## Rubocop Challenge Flow
 
-1. Run *RubocopChallenger* periodically from CI tool etc.
-1. When *RubocopChallenger* starts, delete a disabled rule from `.rubocop_todo.yml` existing in your project, execute `$ rubocop --auto-correct` and create a PR which include modified results
+1. Run _RubocopChallenger_ periodically from CI tool etc.
+1. When _RubocopChallenger_ starts, delete a disabled rule from `.rubocop_todo.yml` existing in your project, execute `$ rubocop --auto-correct` and create a PR which include modified results
 1. You confirm the PR passes testing and then merge it if there is no problem
 
 [![Rubocop Challenge](images/rubocop_challenge.png)](https://github.com/ryz310/rubocop_challenger/pull/97)
@@ -54,7 +54,7 @@ workflows:
   nightly:
     triggers:
       - schedule:
-          cron: "30 23 * * 1,2,3" # 8:30am every Tuesday, Wednsday and Thursday (JST)
+          cron: "30 23 * * 1,2,3" # 8:30am every Tuesday, Wednesday and Thursday (JST)
           filters:
             branches:
               only:
@@ -71,16 +71,16 @@ I have seen cases where errors occur due to compatibility issues with other gems
 GitHub personal access token is required for sending pull requests to your repository.
 
 1. Go to [your account's settings page](https://github.com/settings/tokens) and [generate a new token](https://github.com/settings/tokens/new) with "repo" scope
-  ![generate token](images/generate_token.png)
+   ![generate token](images/generate_token.png)
 1. On [CircleCI](https://circleci.com) dashboard, go to your application's "Project Settings" -> "Environment Variables"
 1. Add an environment variable `GITHUB_ACCESS_TOKEN` with your GitHub personal access token
-  ![circleci environment variables](images/circleci_environment_variables.png)
+   ![circleci environment variables](images/circleci_environment_variables.png)
 
 ### Want to use on GitHub Actions?
 
 It's introduced in the following blog. Thank you Mr. Takuya Yamaguchi!
 
-See: [RuboCop ChallengerをGitHub Actionsで動かす](https://zenn.dev/yamat47/articles/219e14ebcf31a1d13ff4)
+See: [RuboCop Challenger を GitHub Actions で動かす](https://zenn.dev/yamat47/articles/219e14ebcf31a1d13ff4)
 
 ## CLI command references
 
@@ -107,7 +107,7 @@ Options:
   f, [--file-path=FILE_PATH]                                     # Set your ".rubocop_todo.yml" path
                                                                  # Default: .rubocop_todo.yml
   t, [--template=TEMPLATE]                                       # A Pull Request template `erb` file path.You can use variable that `title`, `rubydoc_url`, `description` and `examples` into the erb file.
-      [--mode=MODE]                                              # Mode to select deletion target. You can choice "most_occurrence", "least_occurrence", or "random"
+      [--mode=MODE]                                              # Mode to select deletion target. You can choice "most_occurrence", "least_occurrence", or "random". If you set --no-offense-counts, the mode to be forced to "random".
                                                                  # Default: most_occurrence
   b, [--base-branch=BASE_BRANCH]                                 # The Branch to merge into
                                                                  # Default: master
@@ -115,9 +115,12 @@ Options:
                                                                  # Default: ["rubocop challenge"]
       [--project-column-name=PROJECT_COLUMN_NAME]                # A project column name. You can add the created PR to the GitHub project
       [--project-id=N]                                           # A target project ID. If does not supplied, this method will find a project which associated the repository. When the repository has multiple projects, you should supply this.
-      [--no-create-pr]                                           # No create a pull request (for testing)
-      [--exclude-limit=N]                                        # For how many exclude properties when creating the .rubocop_todo.yml
-      [--auto-gen-timestamp], [--no-auto-gen-timestamp]          # Include the date and time when creating the .rubocop_todo.yml
+      [--create-pr], [--no-create-pr]                            # If you set --no-create-pr, no create a pull request (for testing)
+                                                                 # Default: true
+      [--exclude-limit=N]                                        # For how many exclude properties on create .rubocop_todo.yml
+      [--auto-gen-timestamp], [--no-auto-gen-timestamp]          # Include the date and time in .rubocop_todo.yml
+                                                                 # Default: true
+      [--offense-counts], [--no-offense-counts]                  # Include offense counts in .rubocop_todo.yml
                                                                  # Default: true
       [--only-safe-auto-correct], [--no-only-safe-auto-correct]  # If given `true`, it executes `rubocop --auto-correct`,it means to correct safe cops only.
       [--verbose], [--no-verbose]                                # Displays executing command.
@@ -127,7 +130,7 @@ Run `$ rubocop --auto-correct` and create a PR to GitHub repo
 
 ## Requirement
 
-* Ruby 2.6 or higher
+- Ruby 2.7 or higher
 
 ## Development
 

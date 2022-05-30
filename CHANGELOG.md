@@ -1,5 +1,34 @@
 # Change log
 
+## v2.8.0 (May 30, 2022)
+
+### Feature
+
+- [#616](https://github.com/ryz310/rubocop_challenger/pull/616) Support `--no-offense-counts` option ([@ryz310](https://github.com/ryz310))
+
+### Bugfix
+
+- [#612](https://github.com/ryz310/rubocop_challenger/pull/612) Fix wrong usage of `Array#reject!`: this might return nil ([@r7kamura](https://github.com/r7kamura))
+- [#625](https://github.com/ryz310/rubocop_challenger/pull/625) Use `--conservative` option on `bundle update` ([@ryz310](https://github.com/ryz310))
+
+### Breaking Change
+
+- [#615](https://github.com/ryz310/rubocop_challenger/pull/615) The end of ruby 2.6 support ([@ryz310](https://github.com/ryz310))
+
+### Rubocop Challenge
+
+- [#624](https://github.com/ryz310/rubocop_challenger/pull/624) Re-generate .rubocop_todo.yml with RuboCop v1.30.0 ([@ryz310](https://github.com/ryz310))
+
+### Dependabot
+
+- [#608](https://github.com/ryz310/rubocop_challenger/pull/608) Update pr_comet requirement from ~> 0.5.1 to >= 0.5.1, < 0.7.0 ([@ryz310](https://github.com/ryz310))
+- [#610](https://github.com/ryz310/rubocop_challenger/pull/610) Bump activesupport from 6.1.5.1 to 6.1.6 ([@ryz310](https://github.com/ryz310))
+
+### Misc
+
+- [#614](https://github.com/ryz310/rubocop_challenger/pull/614) Tweak some words improved representation ([@ydah](https://github.com/ydah))
+- [#619](https://github.com/ryz310/rubocop_challenger/pull/619) git mv ./images/decrease_of_offen{c,s}e_codes.png ([@r7kamura](https://github.com/r7kamura))
+
 ## v2.7.0 (May 08, 2022)
 
 ### Feature

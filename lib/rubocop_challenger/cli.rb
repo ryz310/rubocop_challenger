@@ -29,7 +29,8 @@ module RubocopChallenger
            type: :string,
            default: 'most_occurrence',
            desc: 'Mode to select deletion target. You can choice ' \
-                 '"most_occurrence", "least_occurrence", or "random"'
+                 '"most_occurrence", "least_occurrence", or "random". ' \
+                 'If you set --no-offense-counts, the mode to be forced to "random".'
     option :base_branch,
            type: :string,
            default: 'master',
@@ -49,19 +50,22 @@ module RubocopChallenger
            desc: 'A target project ID. If does not supplied, this method ' \
                  'will find a project which associated the repository. When ' \
                  'the repository has multiple projects, you should supply this.'
-    option :'no-create-pr',
-           type: :boolean,
-           default: false,
-           desc: 'No create a pull request (for testing)'
-    option :'exclude-limit',
-           type: :numeric,
-           desc: 'For how many exclude properties when creating the ' \
-                 '.rubocop_todo.yml'
-    option :'auto-gen-timestamp',
+    option :create_pr,
            type: :boolean,
            default: true,
-           desc: 'Include the date and time when creating the .rubocop_todo.yml'
-    option :'only-safe-auto-correct',
+           desc: 'If you set --no-create-pr, no create a pull request (for testing)'
+    option :exclude_limit,
+           type: :numeric,
+           desc: 'For how many exclude properties on create .rubocop_todo.yml'
+    option :auto_gen_timestamp,
+           type: :boolean,
+           default: true,
+           desc: 'Include the date and time in .rubocop_todo.yml'
+    option :offense_counts,
+           type: :boolean,
+           default: true,
+           desc: 'Include offense counts in .rubocop_todo.yml'
+    option :only_safe_auto_correct,
            type: :boolean,
            default: false,
            desc: 'If given `true`, it executes `rubocop --auto-correct`,' \
