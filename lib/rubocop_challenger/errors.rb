@@ -2,10 +2,10 @@
 
 module RubocopChallenger
   module Errors
-    # Raise if no auto-correctable rule in the `.rubocop_todo.yml`.
+    # Raise if no autocorrectable rule in the `.rubocop_todo.yml`.
     class NoAutoCorrectableRule < StandardError
       def initialize
-        super 'There is no auto-correctable rule'
+        super 'There is no autocorrectable rule'
       end
     end
   end

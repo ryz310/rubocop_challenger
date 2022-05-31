@@ -7,11 +7,11 @@ module RubocopChallenger
       include PrComet::CommandLine
 
       # Executes auto correction
-      def auto_correct(only_safe_auto_correct:)
-        if only_safe_auto_correct
-          run('--auto-correct')
+      def autocorrect(only_safe_autocorrect:)
+        if only_safe_autocorrect
+          run('-a') # --autocorrect     Autocorrect offenses (only when it's safe).
         else
-          run('--auto-correct-all')
+          run('-A') # --autocorrect-all Autocorrect offenses (safe and unsafe).
         end
       end
 

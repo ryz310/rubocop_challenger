@@ -18,7 +18,7 @@ RSpec.describe RubocopChallenger::Go do
       exclude_limit: 99,
       auto_gen_timestamp: false,
       offense_counts: offense_counts,
-      only_safe_auto_correct: false,
+      only_safe_autocorrect: false,
       verbose: false
     )
   end
@@ -141,7 +141,7 @@ RSpec.describe RubocopChallenger::Go do
           {
             file_path: '.rubocop_todo.yml',
             mode: 'most_occurrence',
-            only_safe_auto_correct: false
+            only_safe_autocorrect: false
           }
         end
 
@@ -159,7 +159,7 @@ RSpec.describe RubocopChallenger::Go do
           {
             file_path: '.rubocop_todo.yml',
             mode: 'random',
-            only_safe_auto_correct: false
+            only_safe_autocorrect: false
           }
         end
 
@@ -181,7 +181,7 @@ RSpec.describe RubocopChallenger::Go do
       end
     end
 
-    context 'when auto-correcting is incomplete' do
+    context 'when autocorrecting is incomplete' do
       before do
         allow(todo_reader).to receive(:all_rules).and_return([corrected_rule])
       end
@@ -207,7 +207,7 @@ RSpec.describe RubocopChallenger::Go do
           {
             file_path: '.rubocop_todo.yml',
             mode: 'most_occurrence',
-            only_safe_auto_correct: false
+            only_safe_autocorrect: false
           }
         end
 
