@@ -8,7 +8,7 @@ RSpec.describe RubocopChallenger::Rubocop::TodoReader do
   let(:autocorrectable_rule_which_offense_count_is_1) do
     RubocopChallenger::Rubocop::Rule.new(<<~CONTENTS)
       # Offense count: 1
-      # This cop supports safe auto-correction (--auto-correct).
+      # This cop supports safe autocorrection (--autocorrect).
       # Configuration parameters: EnforcedStyle.
       # SupportedStyles: empty_lines, no_empty_lines
       Layout/EmptyLinesAroundBlockBody:
@@ -20,7 +20,7 @@ RSpec.describe RubocopChallenger::Rubocop::TodoReader do
   let(:autocorrectable_rule_which_offense_count_is_2) do
     RubocopChallenger::Rubocop::Rule.new(<<~CONTENTS)
       # Offense count: 2
-      # This cop supports safe auto-correction (--auto-correct).
+      # This cop supports safe autocorrection (--autocorrect).
       Style/ExpandPathArguments:
         Exclude:
           - 'rubocop_challenger.gemspec'
@@ -30,7 +30,7 @@ RSpec.describe RubocopChallenger::Rubocop::TodoReader do
   let(:autocorrectable_rule_which_offense_count_is_13) do
     RubocopChallenger::Rubocop::Rule.new(<<~CONTENTS)
       # Offense count: 13
-      # This cop supports safe auto-correction (--auto-correct).
+      # This cop supports safe autocorrection (--autocorrect).
       # Configuration parameters: EnforcedStyle.
       # SupportedStyles: when_needed, always, never
       Style/FrozenStringLiteralComment:
@@ -114,7 +114,7 @@ RSpec.describe RubocopChallenger::Rubocop::TodoReader do
     end
   end
 
-  describe '#auto_correctable_rules' do
+  describe '#autocorrectable_rules' do
     let(:rules_which_are_ordered_by_offense_count) do
       [
         autocorrectable_rule_which_offense_count_is_1,
@@ -123,14 +123,14 @@ RSpec.describe RubocopChallenger::Rubocop::TodoReader do
       ]
     end
 
-    it 'returns just auto correctable rules which ordered by offense count' do
-      expect(todo_reader.auto_correctable_rules)
+    it 'returns just autocorrectable rules which ordered by offense count' do
+      expect(todo_reader.autocorrectable_rules)
         .to eq rules_which_are_ordered_by_offense_count
     end
   end
 
   describe '#least_occurrence_rule' do
-    it 'returns a auto correctable rule with the least count of occurrences' do
+    it 'returns a autocorrectable rule with the least count of occurrences' do
       expect(todo_reader.least_occurrence_rule).to eq(
         autocorrectable_rule_which_offense_count_is_1
       )
@@ -138,7 +138,7 @@ RSpec.describe RubocopChallenger::Rubocop::TodoReader do
   end
 
   describe '#most_occurrence_rule' do
-    it 'returns a auto correctable rule with the most count of occurrences' do
+    it 'returns a autocorrectable rule with the most count of occurrences' do
       expect(todo_reader.most_occurrence_rule).to eq(
         autocorrectable_rule_which_offense_count_is_13
       )
@@ -146,7 +146,7 @@ RSpec.describe RubocopChallenger::Rubocop::TodoReader do
   end
 
   describe '#any_rule' do
-    it 'returns a auto correctable rule at random' do
+    it 'returns a autocorrectable rule at random' do
       expect(todo_reader.any_rule)
         .to eq(autocorrectable_rule_which_offense_count_is_1)
         .or eq(autocorrectable_rule_which_offense_count_is_2)

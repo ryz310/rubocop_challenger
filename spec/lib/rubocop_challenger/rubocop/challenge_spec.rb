@@ -8,13 +8,13 @@ RSpec.describe RubocopChallenger::Rubocop::Challenge do
       described_class.exec(
         file_path: file_path,
         mode: mode,
-        only_safe_auto_correct: only_safe_auto_correct
+        only_safe_autocorrect: only_safe_autocorrect
       )
     end
 
     let(:file_path) { './spec/fixtures/.rubocop_todo.yml' }
     let(:mode) { 'least_occurrence' }
-    let(:only_safe_auto_correct) { false }
+    let(:only_safe_autocorrect) { false }
 
     let(:rule_instance) do
       instance_double(RubocopChallenger::Rubocop::Rule)
@@ -23,7 +23,7 @@ RSpec.describe RubocopChallenger::Rubocop::Challenge do
     let(:command_instance) do
       instance_double(
         RubocopChallenger::Rubocop::Command,
-        auto_correct: nil
+        autocorrect: nil
       )
     end
 
@@ -103,25 +103,25 @@ RSpec.describe RubocopChallenger::Rubocop::Challenge do
       end
     end
 
-    context 'with only_safe_auto_correct: true' do
-      let(:only_safe_auto_correct) { true }
+    context 'with only_safe_autocorrect: true' do
+      let(:only_safe_autocorrect) { true }
 
       it do
         rubocop_challenge_execute
         expect(command_instance)
-          .to have_received(:auto_correct)
-          .with(only_safe_auto_correct: true)
+          .to have_received(:autocorrect)
+          .with(only_safe_autocorrect: true)
       end
     end
 
-    context 'with only_safe_auto_correct: false' do
-      let(:only_safe_auto_correct) { false }
+    context 'with only_safe_autocorrect: false' do
+      let(:only_safe_autocorrect) { false }
 
       it do
         rubocop_challenge_execute
         expect(command_instance)
-          .to have_received(:auto_correct)
-          .with(only_safe_auto_correct: false)
+          .to have_received(:autocorrect)
+          .with(only_safe_autocorrect: false)
       end
     end
   end
