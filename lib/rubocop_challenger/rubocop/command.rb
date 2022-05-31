@@ -9,9 +9,9 @@ module RubocopChallenger
       # Executes auto correction
       def autocorrect(only_safe_autocorrect:)
         if only_safe_autocorrect
-          run('--autocorrect')
+          run('-a') # --autocorrect     Autocorrect offenses (only when it's safe).
         else
-          run('--autocorrect-all')
+          run('-A') # --autocorrect-all Autocorrect offenses (safe and unsafe).
         end
       end
 

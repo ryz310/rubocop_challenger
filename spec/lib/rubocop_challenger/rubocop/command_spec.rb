@@ -13,7 +13,7 @@ RSpec.describe RubocopChallenger::Rubocop::Command do
         command.autocorrect(only_safe_autocorrect: true)
         expect(command)
           .to have_received(:execute)
-          .with('bundle exec rubocop --autocorrect || true')
+          .with('bundle exec rubocop -a || true')
       end
     end
 
@@ -22,7 +22,7 @@ RSpec.describe RubocopChallenger::Rubocop::Command do
         command.autocorrect(only_safe_autocorrect: false)
         expect(command)
           .to have_received(:execute)
-          .with('bundle exec rubocop --autocorrect-all || true')
+          .with('bundle exec rubocop -A || true')
       end
     end
   end
