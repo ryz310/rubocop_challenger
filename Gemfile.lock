@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rubocop_challenger (2.8.0)
+    rubocop_challenger (2.9.0)
       pr_comet (>= 0.5.1, < 0.7.0)
       rainbow
       rubocop (>= 0.87)
