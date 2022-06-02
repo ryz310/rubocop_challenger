@@ -1,5 +1,15 @@
 # Change log
 
+## v2.9.0 (Jun 02, 2022)
+
+### Feature
+
+- [#628](https://github.com/ryz310/rubocop_challenger/pull/628) Change `auto-correct` to `autocorrect` ([@ryz310](https://github.com/ryz310))
+
+### Dependabot
+
+- [#629](https://github.com/ryz310/rubocop_challenger/pull/629) Bump yard from 0.9.27 to 0.9.28 ([@ryz310](https://github.com/ryz310))
+
 ## v2.8.0 (May 30, 2022)
 
 ### Feature
