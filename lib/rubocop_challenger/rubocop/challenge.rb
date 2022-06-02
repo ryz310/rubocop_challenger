@@ -4,17 +4,17 @@ module RubocopChallenger
   module Rubocop
     # To execute Rubocop Challenge flow
     class Challenge
-      def self.exec(file_path:, mode:, only_safe_auto_correct:)
-        new(file_path, mode, only_safe_auto_correct).send(:exec)
+      def self.exec(file_path:, mode:, only_safe_autocorrect:)
+        new(file_path, mode, only_safe_autocorrect).send(:exec)
       end
 
       private
 
-      attr_reader :mode, :only_safe_auto_correct, :command, :todo_reader, :todo_writer
+      attr_reader :mode, :only_safe_autocorrect, :command, :todo_reader, :todo_writer
 
-      def initialize(file_path, mode, only_safe_auto_correct)
+      def initialize(file_path, mode, only_safe_autocorrect)
         @mode = mode
-        @only_safe_auto_correct = only_safe_auto_correct
+        @only_safe_autocorrect = only_safe_autocorrect
         @command = Rubocop::Command.new
         @todo_reader = Rubocop::TodoReader.new(file_path)
         @todo_writer = Rubocop::TodoWriter.new(file_path)
@@ -24,7 +24,7 @@ module RubocopChallenger
       def exec
         verify_target_rule
         todo_writer.delete_rule(target_rule)
-        command.auto_correct(only_safe_auto_correct: only_safe_auto_correct)
+        command.autocorrect(only_safe_autocorrect: only_safe_autocorrect)
         target_rule
       end
 

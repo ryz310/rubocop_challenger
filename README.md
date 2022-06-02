@@ -3,14 +3,14 @@
 [![CircleCI](https://circleci.com/gh/ryz310/rubocop_challenger/tree/master.svg?style=svg&circle-token=cdf0ffce5b4c0c7804b50dde00ca5ef09cbadb67)](https://circleci.com/gh/ryz310/rubocop_challenger/tree/master) [![Gem Version](https://badge.fury.io/rb/rubocop_challenger.svg)](https://badge.fury.io/rb/rubocop_challenger) [![Maintainability](https://api.codeclimate.com/v1/badges/a18c1c17fc534bb32473/maintainability)](https://codeclimate.com/github/ryz310/rubocop_challenger/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/a18c1c17fc534bb32473/test_coverage)](https://codeclimate.com/github/ryz310/rubocop_challenger/test_coverage)
 
 If you introduce [`rubocop`](https://github.com/rubocop-hq/rubocop) to an existing Rails project later, you will use [`$ rubocop --auto-gen-config`](https://github.com/rubocop-hq/rubocop/blob/master/manual/configuration.md#automatically-generated-configuration). But it will make a huge `.rubocop_todo.yml` and make you despair.
-On the other hand, `rubocop` has [`--auto-correct`](https://github.com/rubocop-hq/rubocop/blob/master/manual/basic_usage.md#other-useful-command-line-flags) option, it is possible to automatically repair the writing which does not conform to the rule. But since it occasionally destroys your code, it is quite dangerous to apply all at once.
+On the other hand, `rubocop` has [`--autocorrect`](https://github.com/rubocop-hq/rubocop/blob/master/manual/basic_usage.md#other-useful-command-line-flags) option, it is possible to automatically repair the writing which does not conform to the rule. But since it occasionally destroys your code, it is quite dangerous to apply all at once.
 It is ideal that to remove a disabled rule from `.rubocop_todo.yml` every day, to check whether it passes test, and can be obtained consent from the team. But it requires strong persistence and time.
 I call such work _Rubocop Challenge_. And the _RubocopChallenger_ is a gem to support this challenge!
 
 ## The history of RubocopChallenger with decrease of offense codes
 
-The following chart shows the history of RubocopChallenger and decrease of offense codes at a `.rubocop_todo.yml`. The project was released at 5 years ago, and then it was introduced the RuboCop gem for huge source code including a lots of offense codes. Before using the RubocopChallenger, it was not maintain to reduce offense codes. One day, I felt a crisis and started maintain with manual. I made a lots of Pull Requests to reduce them but it's a load for me and reviewers. So I created a script for automation the flow, which is the predecessor of Rubocop Challenger gem. It brought reducing the offense codes continuously. After 8 months, finally it has done. There is no auto-correctable offense codes.
-But there are many offenses which is un-auto-correctable yet. I will try to reduce it with the RubocopChallenger. The RubocopChallenger will
+The following chart shows the history of RubocopChallenger and decrease of offense codes at a `.rubocop_todo.yml`. The project was released at 5 years ago, and then it was introduced the RuboCop gem for huge source code including a lots of offense codes. Before using the RubocopChallenger, it was not maintain to reduce offense codes. One day, I felt a crisis and started maintain with manual. I made a lots of Pull Requests to reduce them but it's a load for me and reviewers. So I created a script for automation the flow, which is the predecessor of Rubocop Challenger gem. It brought reducing the offense codes continuously. After 8 months, finally it has done. There is no autocorrectable offense codes.
+But there are many offenses which is un-autocorrectable yet. I will try to reduce it with the RubocopChallenger. The RubocopChallenger will
 be continued to evolve.
 
 ![Decrease of offense codes](images/decrease_of_offense_codes.png)
@@ -18,7 +18,7 @@ be continued to evolve.
 ## Rubocop Challenge Flow
 
 1. Run _RubocopChallenger_ periodically from CI tool etc.
-1. When _RubocopChallenger_ starts, delete a disabled rule from `.rubocop_todo.yml` existing in your project, execute `$ rubocop --auto-correct` and create a PR which include modified results
+1. When _RubocopChallenger_ starts, delete a disabled rule from `.rubocop_todo.yml` existing in your project, execute `$ rubocop --autocorrect` and create a PR which include modified results
 1. You confirm the PR passes testing and then merge it if there is no problem
 
 [![Rubocop Challenge](images/rubocop_challenge.png)](https://github.com/ryz310/rubocop_challenger/pull/97)
@@ -88,7 +88,7 @@ See: [RuboCop Challenger を GitHub Actions で動かす](https://zenn.dev/yamat
 $ rubocop_challenger help
 
 Commands:
-  rubocop_challenger go --email=EMAIL --name=NAME  # Run `$ rubocop --auto-correct` and create a PR to GitHub repo
+  rubocop_challenger go --email=EMAIL --name=NAME  # Run `$ rubocop --autocorrect` and create a PR to GitHub repo
   rubocop_challenger help [COMMAND]                # Describe available commands or one specific command
   rubocop_challenger version                       # Show current version
 ```
@@ -122,10 +122,10 @@ Options:
                                                                  # Default: true
       [--offense-counts], [--no-offense-counts]                  # Include offense counts in .rubocop_todo.yml
                                                                  # Default: true
-      [--only-safe-auto-correct], [--no-only-safe-auto-correct]  # If given `true`, it executes `rubocop --auto-correct`,it means to correct safe cops only.
+      [--only-safe-autocorrect], [--no-only-safe-autocorrect]  # If given `true`, it executes `rubocop --autocorrect`,it means to correct safe cops only.
       [--verbose], [--no-verbose]                                # Displays executing command.
 
-Run `$ rubocop --auto-correct` and create a PR to GitHub repo
+Run `$ rubocop --autocorrect` and create a PR to GitHub repo
 ```
 
 ## Requirement

@@ -11,12 +11,12 @@ RSpec.describe RubocopChallenger::Rubocop::TodoWriter do
     let(:expected) { File.read('spec/fixtures/.expected_rubocop_todo.yml') }
     let(:rule) { RubocopChallenger::Rubocop::Rule.new(<<~CONTENTS) }
       # Offense count: 1
-      # This cop supports safe auto-correction (--auto-correct).
+      # This cop supports safe autocorrection (--autocorrect).
       # Configuration parameters: EnforcedStyle.
       # SupportedStyles: empty_lines, no_empty_lines
       Layout/EmptyLinesAroundBlockBody:
         Exclude:
-          - 'spec/lib/rubocop_challenger/rubocop/todo_reader_spec.rb'
+          - "spec/lib/rubocop_challenger/rubocop/todo_reader_spec.rb"
     CONTENTS
 
     after do

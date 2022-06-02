@@ -96,6 +96,7 @@ commands:
       - verify_rubocop_challenge
       - verify_rubocop_challenge
       - verify_rubocop_challenge
+      - rubocop
   rubocop_challenge:
     steps:
       - run:

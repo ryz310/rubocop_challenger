@@ -11,8 +11,8 @@ module RubocopChallenger
     #   Include the date and time in .rubocop_todo.yml
     # @option offense_counts [Boolean]
     #   Include offense counts in .rubocop_todo.yml'
-    # @option only-safe-auto-correct [Boolean]
-    #   If given `true`, it executes `rubocop --auto-correct`,
+    # @option only-safe-autocorrect [Boolean]
+    #   If given `true`, it executes `rubocop --autocorrect`,
     #   it means to correct safe cops only.
     # @option name [String]
     #   The author name which use at the git commit
@@ -131,7 +131,7 @@ module RubocopChallenger
     end
 
     DESCRIPTION_THAT_CHALLENGE_IS_INCOMPLETE = <<~MSG
-      Rubocop Challenger has executed auto-correcting but it is incomplete.
+      Rubocop Challenger has executed autocorrecting but it is incomplete.
       Therefore the rule add to ignore list.
     MSG
 
@@ -141,7 +141,7 @@ module RubocopChallenger
     #
     # @param rule [Rubocop::Rule] The corrected rule
     def add_to_ignore_list_if_challenge_is_incomplete(rule)
-      return unless auto_correct_incomplete?(rule)
+      return unless autocorrect_incomplete?(rule)
 
       pull_request.commit! ':police_car: add the rule to the ignore list' do
         config_editor = Rubocop::ConfigEditor.new
@@ -156,7 +156,7 @@ module RubocopChallenger
     #
     # @param rule [Rubocop::Rule] The corrected rule
     # @return [Boolean] Return true if the challenge successed
-    def auto_correct_incomplete?(rule)
+    def autocorrect_incomplete?(rule)
       todo_reader = Rubocop::TodoReader.new(options[:file_path])
       todo_reader.all_rules.include?(rule)
     end
@@ -165,7 +165,7 @@ module RubocopChallenger
       {
         file_path: options[:file_path],
         mode: mode,
-        only_safe_auto_correct: options[:only_safe_auto_correct]
+        only_safe_autocorrect: options[:only_safe_autocorrect]
       }
     end
 

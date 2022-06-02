@@ -64,7 +64,7 @@ RSpec.describe RubocopChallenger::CLI do
       end
 
       it 'outputs a description and exit process' do
-        expect { go }.to output(/There is no auto-correctable rule/).to_stdout
+        expect { go }.to output(/There is no autocorrectable rule/).to_stdout
       end
 
       it 'does not return exit code 1' do

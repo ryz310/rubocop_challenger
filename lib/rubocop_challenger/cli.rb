@@ -5,7 +5,7 @@ require 'thor'
 module RubocopChallenger
   # To define CLI commands
   class CLI < Thor
-    desc 'go', 'Run `$ rubocop --auto-correct` and create a PR to GitHub repo'
+    desc 'go', 'Run `$ rubocop --autocorrect` and create a PR to GitHub repo'
     option :email,
            required: true,
            type: :string,
@@ -65,10 +65,10 @@ module RubocopChallenger
            type: :boolean,
            default: true,
            desc: 'Include offense counts in .rubocop_todo.yml'
-    option :only_safe_auto_correct,
+    option :only_safe_autocorrect,
            type: :boolean,
            default: false,
-           desc: 'If given `true`, it executes `rubocop --auto-correct`,' \
+           desc: 'If given `true`, it executes `rubocop --autocorrect`,' \
                  'it means to correct safe cops only.'
     option :verbose,
            type: :boolean,

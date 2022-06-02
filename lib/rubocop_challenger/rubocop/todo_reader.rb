@@ -29,23 +29,23 @@ module RubocopChallenger
       end
 
       # @return [Array<Rule>]
-      def auto_correctable_rules
-        all_rules.select(&:auto_correctable?)
+      def autocorrectable_rules
+        all_rules.select(&:autocorrectable?)
       end
 
       # @return [Rule]
       def least_occurrence_rule
-        auto_correctable_rules.first
+        autocorrectable_rules.first
       end
 
       # @return [Rule]
       def most_occurrence_rule
-        auto_correctable_rules.last
+        autocorrectable_rules.last
       end
 
       # @return [Rule]
       def any_rule
-        auto_correctable_rules.sample
+        autocorrectable_rules.sample
       end
 
       private
