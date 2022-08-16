@@ -47,12 +47,12 @@ GEM
     pr_comet (0.7.0)
       octokit
       rainbow
-    pry (0.13.1)
+    pry (0.14.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    pry-byebug (3.9.0)
+    pry-byebug (3.10.0)
       byebug (~> 11.0)
-      pry (~> 0.13.0)
+      pry (>= 0.13, < 0.15)
     public_suffix (4.0.7)
     rack (2.2.3.1)
     rainbow (3.1.1)
