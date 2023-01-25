@@ -186,7 +186,8 @@ module RubocopChallenger
       {
         exclude_limit: options[:exclude_limit],
         auto_gen_timestamp: options[:auto_gen_timestamp],
-        offense_counts: options[:offense_counts]
+        offense_counts: options[:offense_counts],
+        only_exclude: options[:only_exclude]
       }
     end
 
