@@ -14,22 +14,22 @@ RSpec.describe RubocopChallenger::Bundler::Command do
       end
     end
 
-    context 'when no argument is given' do
+    context 'with no arguments' do
       it do
         command.update
-        expect(command).to have_received(:execute).with('bundle update --conservative')
+        expect(command).not_to have_received(:execute)
       end
     end
 
-    context 'when only one gem name is given' do
+    context 'with a single gem name' do
       it do
         command.update('rubocop')
         expect(command).to have_received(:execute).with('bundle update rubocop --conservative')
       end
     end
 
-    context 'when multiple gem names are given' do
-      it 'updates multiple gems which excludes not installed' do
+    context 'with multiple gem names' do
+      it 'updates the gems only installed' do
         command.update('rubocop', 'rubocop-rspec', 'not-installed-gem')
         expect(command)
           .to have_received(:execute)
