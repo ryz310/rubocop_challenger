@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.name          = 'rubocop_challenger'
   spec.version       = RubocopChallenger::VERSION
   spec.authors       = ['ryosuke_sato']
-  spec.email         = ['r-sato@feedforce.jp']
+  spec.email         = ['ryz310@gmail.com']
 
   spec.summary       = 'Make a clean your rubocop_todo.yml with CI'
   spec.description   = spec.summary
