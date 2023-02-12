@@ -1,5 +1,48 @@
 # Change log
 
+## v2.10.0 (Feb 12, 2023)
+
+### Feature
+### Bugfix
+### Security
+### Breaking Change
+### Rubocop Challenge
+### Dependabot
+### Misc
+
+* [#632](https://github.com/ryz310/rubocop_challenger/pull/632) Bump rubocop-performance from 1.14.0 to 1.14.1 ([@ryz310](https://github.com/ryz310))
+* [#633](https://github.com/ryz310/rubocop_challenger/pull/633) ryz310/rubocop-challenge/20220606233049 ([@ryz310](https://github.com/ryz310))
+* [#634](https://github.com/ryz310/rubocop_challenger/pull/634) Bump rubocop-performance from 1.14.1 to 1.14.2 ([@ryz310](https://github.com/ryz310))
+* [#637](https://github.com/ryz310/rubocop_challenger/pull/637) Bump rubocop-rails from 2.14.2 to 2.15.1 ([@ryz310](https://github.com/ryz310))
+* [#638](https://github.com/ryz310/rubocop_challenger/pull/638) ryz310/rubocop-challenge/20220627233051 ([@ryz310](https://github.com/ryz310))
+* [#639](https://github.com/ryz310/rubocop_challenger/pull/639) Re-generate .rubocop_todo.yml with RuboCop v1.31.1 ([@ryz310](https://github.com/ryz310))
+* [#643](https://github.com/ryz310/rubocop_challenger/pull/643) ryz310/rubocop-challenge/20220709233051 ([@ryz310](https://github.com/ryz310))
+* [#644](https://github.com/ryz310/rubocop_challenger/pull/644) Update pr_comet requirement from >= 0.5.1, < 0.7.0 to >= 0.5.1, < 0.8.0 ([@ryz310](https://github.com/ryz310))
+* [#645](https://github.com/ryz310/rubocop_challenger/pull/645) ryz310/dependabot/bundler/rubocop-performance-1.14.3 ([@ryz310](https://github.com/ryz310))
+* [#646](https://github.com/ryz310/rubocop_challenger/pull/646) Re-generate .rubocop_todo.yml with RuboCop v1.32.0 ([@ryz310](https://github.com/ryz310))
+* [#647](https://github.com/ryz310/rubocop_challenger/pull/647) Re-generate .rubocop_todo.yml with RuboCop v1.33.0 ([@ryz310](https://github.com/ryz310))
+* [#648](https://github.com/ryz310/rubocop_challenger/pull/648) ryz310/dependabot/bundler/pry-byebug-3.10.0 ([@ryz310](https://github.com/ryz310))
+* [#649](https://github.com/ryz310/rubocop_challenger/pull/649) Bump pry-byebug from 3.10.0 to 3.10.1 ([@ryz310](https://github.com/ryz310))
+* [#650](https://github.com/ryz310/rubocop_challenger/pull/650) Bump rubocop-performance from 1.14.3 to 1.15.0 ([@ryz310](https://github.com/ryz310))
+* [#651](https://github.com/ryz310/rubocop_challenger/pull/651) Bump rubocop-rails from 2.15.2 to 2.16.0 ([@ryz310](https://github.com/ryz310))
+* [#656](https://github.com/ryz310/rubocop_challenger/pull/656) ryz310/rubocop-challenge/20220918233049 ([@ryz310](https://github.com/ryz310))
+* [#657](https://github.com/ryz310/rubocop_challenger/pull/657) Bump rspec_junit_formatter from 0.5.1 to 0.6.0 ([@ryz310](https://github.com/ryz310))
+* [#659](https://github.com/ryz310/rubocop_challenger/pull/659) Bump rubocop-rails from 2.16.1 to 2.17.1 ([@ryz310](https://github.com/ryz310))
+* [#661](https://github.com/ryz310/rubocop_challenger/pull/661) Re-generate .rubocop_todo.yml with RuboCop v1.37.1 ([@ryz310](https://github.com/ryz310))
+* [#660](https://github.com/ryz310/rubocop_challenger/pull/660) Bump rspec from 3.11.0 to 3.12.0 ([@ryz310](https://github.com/ryz310))
+* [#662](https://github.com/ryz310/rubocop_challenger/pull/662) Bump rubocop-rails from 2.17.1 to 2.17.2 ([@ryz310](https://github.com/ryz310))
+* [#663](https://github.com/ryz310/rubocop_challenger/pull/663) Re-generate .rubocop_todo.yml with RuboCop v1.38.0 ([@ryz310](https://github.com/ryz310))
+* [#664](https://github.com/ryz310/rubocop_challenger/pull/664) ryz310/rubocop-challenge/20221114233050 ([@ryz310](https://github.com/ryz310))
+* [#665](https://github.com/ryz310/rubocop_challenger/pull/665) Bump rubocop-performance from 1.15.0 to 1.15.1 ([@ryz310](https://github.com/ryz310))
+* [#666](https://github.com/ryz310/rubocop_challenger/pull/666) ryz310/dependabot/bundler/rubocop-rails-2.17.3 ([@ryz310](https://github.com/ryz310))
+* [#667](https://github.com/ryz310/rubocop_challenger/pull/667) Re-generate .rubocop_todo.yml with RuboCop v1.40.0 ([@ryz310](https://github.com/ryz310))
+* [#668](https://github.com/ryz310/rubocop_challenger/pull/668) Re-generate .rubocop_todo.yml with RuboCop v1.41.0 ([@ryz310](https://github.com/ryz310))
+* [#683](https://github.com/ryz310/rubocop_challenger/pull/683) Re-generate .rubocop_todo.yml with RuboCop v1.41.1 ([@ryz310](https://github.com/ryz310))
+* [#674](https://github.com/ryz310/rubocop_challenger/pull/674) Update simplecov requirement from = 0.21.2 to = 0.22.0 ([@ryz310](https://github.com/ryz310))
+* [#686](https://github.com/ryz310/rubocop_challenger/pull/686) Skip bundle update if gems not related to rubocop ([@ryz310](https://github.com/ryz310))
+* [#687](https://github.com/ryz310/rubocop_challenger/pull/687) Fix the cop class loader ([@ryz310](https://github.com/ryz310))
+* [#688](https://github.com/ryz310/rubocop_challenger/pull/688) Support ruby 3.2 ([@ryz310](https://github.com/ryz310))
+
 ## v2.9.0 (Jun 02, 2022)
 
 ### Feature
