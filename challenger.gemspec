@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.name          = 'rubocop_challenger'
   spec.version       = RubocopChallenger::VERSION
   spec.authors       = ['ryosuke_sato']
-  spec.email         = ['r-sato@feedforce.jp']
+  spec.email         = ['ryz310@gmail.com']
 
   spec.summary       = 'Make a clean your rubocop_todo.yml with CI'
   spec.description   = spec.summary
@@ -26,20 +26,11 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'pr_comet', '>= 0.5.1', '< 0.8.0'
   spec.add_runtime_dependency 'rainbow'
-  spec.add_runtime_dependency 'rubocop', '>= 0.87'
-  spec.add_runtime_dependency 'rubocop-performance'
-  spec.add_runtime_dependency 'rubocop-rails'
-  spec.add_runtime_dependency 'rubocop-rake'
-  spec.add_runtime_dependency 'rubocop-rspec'
-  spec.add_runtime_dependency 'rubocop-thread_safety'
   spec.add_runtime_dependency 'thor'
   spec.add_runtime_dependency 'yard'
 
   spec.add_development_dependency 'bundler', '>= 2.0'
-  spec.add_development_dependency 'pry-byebug'
   spec.add_development_dependency 'rake', '~> 13.0'
-  spec.add_development_dependency 'rspec'
-  spec.add_development_dependency 'rspec_junit_formatter'
   spec.add_development_dependency 'simplecov', '0.22.0'
   spec.metadata = {
     'rubygems_mfa_required' => 'true'

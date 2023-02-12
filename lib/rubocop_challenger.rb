@@ -20,7 +20,7 @@ require 'rubocop_challenger/bundler/command'
 require 'rubocop_challenger/github/pr_template'
 
 module RubocopChallenger
-  RSPEC_GEMS = %w[
+  RUBOCOP_GEMS = %w[
     rubocop
     rubocop-performance
     rubocop-rails
