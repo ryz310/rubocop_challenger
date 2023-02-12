@@ -36,10 +36,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'yard'
 
   spec.add_development_dependency 'bundler', '>= 2.0'
-  spec.add_development_dependency 'pry-byebug'
   spec.add_development_dependency 'rake', '~> 13.0'
-  spec.add_development_dependency 'rspec'
-  spec.add_development_dependency 'rspec_junit_formatter'
   spec.add_development_dependency 'simplecov', '0.22.0'
   spec.metadata = {
     'rubygems_mfa_required' => 'true'
