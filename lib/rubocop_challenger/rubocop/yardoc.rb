@@ -46,9 +46,9 @@ module RubocopChallenger
       # @param cop [String] The target cop name (e.g. "Performance/Size")
       # @return [RuboCop::Cop] Found a RuboCop::Cop class
       def find_cop_class(cop)
-        Object.const_get("RuboCop::Cop::#{cop.sub('/', '::')}")
+        Object.const_get("RuboCop::Cop::#{cop.gsub('/', '::')}")
       rescue NameError
-        Object.const_get("RuboCop::Cop::RSpec::#{cop.sub('/', '::')}")
+        Object.const_get("RuboCop::Cop::RSpec::#{cop.gsub('/', '::')}")
       end
 
       # Loads yardoc from the RuboCop::Cop class file
