@@ -4,12 +4,6 @@ PATH
     rubocop_challenger (2.9.0)
       pr_comet (>= 0.5.1, < 0.8.0)
       rainbow
-      rubocop (>= 0.87)
-      rubocop-performance
-      rubocop-rails
-      rubocop-rake
-      rubocop-rspec
-      rubocop-thread_safety
       thor
       yard
 
@@ -130,6 +124,12 @@ DEPENDENCIES
   rake (~> 13.0)
   rspec
   rspec_junit_formatter
+  rubocop (>= 0.87)
+  rubocop-performance
+  rubocop-rails
+  rubocop-rake
+  rubocop-rspec
+  rubocop-thread_safety
   rubocop_challenger!
   simplecov (= 0.22.0)
 
