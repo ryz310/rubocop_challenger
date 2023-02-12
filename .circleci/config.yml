@@ -12,8 +12,8 @@ references:
   - &ruby_version
     ruby_version:
       type: enum
-      enum: ["2.7", "3.0", "3.1"]
-      default: "3.1"
+      enum: ["2.7", "3.0", "3.1", "3.2"]
+      default: "3.2"
 
 executors:
   default:
@@ -160,7 +160,7 @@ jobs:
       - code-climate/install
       - code-climate/sum-coverage:
           input: codeclimate.*.json
-          parts: 3
+          parts: 4
       - code-climate/upload-coverage
   rubocop:
     executor: default
@@ -202,6 +202,9 @@ workflows:
       - build:
           name: build_on_ruby_3.1
           ruby_version: "3.1"
+      - build:
+          name: build_on_ruby_3.2
+          ruby_version: "3.2"
       - rubocop
       - yardoc
       - integration_testing
@@ -210,12 +213,14 @@ workflows:
             - build_on_ruby_2.7
             - build_on_ruby_3.0
             - build_on_ruby_3.1
+            - build_on_ruby_3.2
       - release:
           context: RubyGems API Key
           requires:
             - build_on_ruby_2.7
             - build_on_ruby_3.0
             - build_on_ruby_3.1
+            - build_on_ruby_3.2
             - rubocop
           filters:
             branches:
