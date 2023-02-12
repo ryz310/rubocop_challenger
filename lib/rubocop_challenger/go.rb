@@ -59,7 +59,7 @@ module RubocopChallenger
     def update_rubocop!
       bundler = Bundler::Command.new(verbose: options[:verbose])
       pull_request.commit! ':police_car: $ bundle update rubocop' do
-        bundler.update(*RSPEC_GEMS)
+        bundler.update(*RUBOCOP_GEMS)
       end
     end
 
