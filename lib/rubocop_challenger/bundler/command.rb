@@ -14,7 +14,10 @@ module RubocopChallenger
       #
       # @param gem_names [Array<String>] The target gem names
       def update(*gem_names)
-        run('update', *gem_names.select { |gem_name| installed?(gem_name) }, '--conservative')
+        target_gems = gem_names.select { |gem_name| installed?(gem_name) }
+        return if target_gems.empty?
+
+        run('update', *target_gems, '--conservative')
       end
 
       # Checks the gem is installed

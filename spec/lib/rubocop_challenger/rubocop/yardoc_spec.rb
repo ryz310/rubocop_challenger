@@ -32,7 +32,7 @@ RSpec.describe RubocopChallenger::Rubocop::Yardoc do
     end
 
     context 'with rubocop-rspec gem' do
-      let(:cop) { 'Capybara/CurrentPathExpectation' }
+      let(:cop) { 'RSpec/Rails/HttpStatus' }
 
       it 'finds a cop class from rubocop/rspec' do
         expect { yardoc }.not_to raise_error

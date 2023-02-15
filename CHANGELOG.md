@@ -1,5 +1,30 @@
 # Change log
 
+## v2.10.0 (Feb 12, 2023)
+
+### Feature
+
+- [#688](https://github.com/ryz310/rubocop_challenger/pull/688) Support ruby 3.2 ([@ryz310](https://github.com/ryz310))
+
+### Bugfix
+
+- [#686](https://github.com/ryz310/rubocop_challenger/pull/686) Skip bundle update if gems not related to rubocop ([@ryz310](https://github.com/ryz310))
+- [#687](https://github.com/ryz310/rubocop_challenger/pull/687) Fix the cop class loader ([@ryz310](https://github.com/ryz310))
+
+### Rubocop Challenge
+
+- [#683](https://github.com/ryz310/rubocop_challenger/pull/683) Re-generate .rubocop_todo.yml with RuboCop v1.41.1 ([@ryz310](https://github.com/ryz310))
+
+### Dependabot
+
+- [#644](https://github.com/ryz310/rubocop_challenger/pull/644) Update pr_comet requirement from >= 0.5.1, < 0.7.0 to >= 0.5.1, < 0.8.0 ([@ryz310](https://github.com/ryz310))
+- [#649](https://github.com/ryz310/rubocop_challenger/pull/649) Bump pry-byebug from 3.10.0 to 3.10.1 ([@ryz310](https://github.com/ryz310))
+- [#657](https://github.com/ryz310/rubocop_challenger/pull/657) Bump rspec_junit_formatter from 0.5.1 to 0.6.0 ([@ryz310](https://github.com/ryz310))
+- [#660](https://github.com/ryz310/rubocop_challenger/pull/660) Bump rspec from 3.11.0 to 3.12.0 ([@ryz310](https://github.com/ryz310))
+- [#665](https://github.com/ryz310/rubocop_challenger/pull/665) Bump rubocop-performance from 1.15.0 to 1.15.1 ([@ryz310](https://github.com/ryz310))
+- [#666](https://github.com/ryz310/rubocop_challenger/pull/666) ryz310/dependabot/bundler/rubocop-rails-2.17.3 ([@ryz310](https://github.com/ryz310))
+- [#674](https://github.com/ryz310/rubocop_challenger/pull/674) Update simplecov requirement from = 0.21.2 to = 0.22.0 ([@ryz310](https://github.com/ryz310))
+
 ## v2.9.0 (Jun 02, 2022)
 
 ### Feature
