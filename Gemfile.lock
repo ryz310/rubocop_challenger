@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rubocop_challenger (2.10.0)
+    rubocop_challenger (2.11.0)
       pr_comet (>= 0.5.1, < 0.8.0)
       rainbow
       thor

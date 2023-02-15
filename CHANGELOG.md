@@ -1,5 +1,15 @@
 # Change log
 
+## v2.11.0 (Feb 15, 2023)
+
+### Feature
+
+- [#694](https://github.com/ryz310/rubocop_challenger/pull/694) Support `--only-exclude` option ([@shima-zu](https://github.com/shima-zu))
+
+### Rubocop Challenge
+
+- [#692](https://github.com/ryz310/rubocop_challenger/pull/692) Re-generate .rubocop_todo.yml with RuboCop v1.45.1 ([@ryz310](https://github.com/ryz310))
+
 ## v2.10.0 (Feb 12, 2023)
 
 ### Feature
