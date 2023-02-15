@@ -70,6 +70,11 @@ module RubocopChallenger
            default: false,
            desc: 'If given `true`, it executes `rubocop --autocorrect`,' \
                  'it means to correct safe cops only.'
+    option :only_exclude,
+           type: :boolean,
+           default: false,
+           desc: 'If you set --only-exclude, exclude files instead of generating Max parameters ' \
+                 'in Metrics cops when creating .rubocop_todo.yml automatically.'
     option :verbose,
            type: :boolean,
            default: false,

@@ -19,6 +19,7 @@ RSpec.describe RubocopChallenger::Go do
       auto_gen_timestamp: false,
       offense_counts: offense_counts,
       only_safe_autocorrect: false,
+      only_exclude: false,
       verbose: false
     )
   end
@@ -124,7 +125,7 @@ RSpec.describe RubocopChallenger::Go do
         exec
         expect(rubocop_command)
           .to have_received(:auto_gen_config)
-          .with(exclude_limit: 99, auto_gen_timestamp: false, offense_counts: true).twice
+          .with(exclude_limit: 99, auto_gen_timestamp: false, offense_counts: true, only_exclude: false).twice
       end
 
       it do
@@ -222,7 +223,7 @@ RSpec.describe RubocopChallenger::Go do
           safe_exec.call
           expect(rubocop_command)
             .to have_received(:auto_gen_config)
-            .with(exclude_limit: 99, auto_gen_timestamp: false, offense_counts: true).once
+            .with(exclude_limit: 99, auto_gen_timestamp: false, offense_counts: true, only_exclude: false).once
         end
 
         it do

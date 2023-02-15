@@ -71,5 +71,16 @@ RSpec.describe RubocopChallenger::Rubocop::Command do
         expect(command).to have_received(:execute).with(expected)
       end
     end
+
+    context 'with only_exclude option' do
+      let(:expected) do
+        'bundle exec rubocop --auto-gen-config --auto-gen-only-exclude || true'
+      end
+
+      it do
+        command.auto_gen_config(only_exclude: true)
+        expect(command).to have_received(:execute).with(expected)
+      end
+    end
   end
 end
