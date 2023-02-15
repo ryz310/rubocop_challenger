@@ -19,6 +19,7 @@ RSpec.describe RubocopChallenger::CLI do
       exclude_limit: 99,
       auto_gen_timestamp: true,
       offense_counts: true,
+      only_exclude: false,
       verbose: false
     }
   end
