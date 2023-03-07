@@ -2,18 +2,13 @@
 
 ## v2.11.1 (Mar 07, 2023)
 
-### Feature
 ### Bugfix
-### Security
-### Breaking Change
-### Rubocop Challenge
-### Dependabot
-### Misc
 
-* [#698](https://github.com/ryz310/rubocop_challenger/pull/698) Re-generate .rubocop_todo.yml with RuboCop v1.46.0 ([@ryz310](https://github.com/ryz310))
-* [#700](https://github.com/ryz310/rubocop_challenger/pull/700) ryz310/rubocop-challenge/20230301233048 ([@ryz310](https://github.com/ryz310))
-* [#701](https://github.com/ryz310/rubocop_challenger/pull/701) ryz310/rubocop-challenge/20230306233050 ([@ryz310](https://github.com/ryz310))
-* [#702](https://github.com/ryz310/rubocop_challenger/pull/702) Fix the runtime dependency ([@ryz310](https://github.com/ryz310))
+- [#702](https://github.com/ryz310/rubocop_challenger/pull/702) Fix the runtime dependency ([@ryz310](https://github.com/ryz310))
+
+### Rubocop Challenge
+
+- [#701](https://github.com/ryz310/rubocop_challenger/pull/701) Re-generate .rubocop_todo.yml with RuboCop v1.47.0 ([@ryz310](https://github.com/ryz310))
 
 ## v2.11.0 (Feb 15, 2023)
 
