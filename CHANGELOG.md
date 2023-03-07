@@ -1,5 +1,15 @@
 # Change log
 
+## v2.11.1 (Mar 07, 2023)
+
+### Bugfix
+
+- [#702](https://github.com/ryz310/rubocop_challenger/pull/702) Fix the runtime dependency ([@ryz310](https://github.com/ryz310))
+
+### Rubocop Challenge
+
+- [#701](https://github.com/ryz310/rubocop_challenger/pull/701) Re-generate .rubocop_todo.yml with RuboCop v1.47.0 ([@ryz310](https://github.com/ryz310))
+
 ## v2.11.0 (Feb 15, 2023)
 
 ### Feature
