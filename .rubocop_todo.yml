@@ -20,9 +20,3 @@ RSpec/IndexedLet:
   Exclude:
     - 'spec/lib/rubocop_challenger/rubocop/todo_reader_spec.rb'
     - 'spec/lib/rubocop_challenger/rubocop/yardoc_spec.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/SuperWithArgsParentheses:
-  Exclude:
-    - 'lib/rubocop_challenger/errors.rb'
