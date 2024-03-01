@@ -14,7 +14,6 @@ Gemspec/DevelopmentDependencies:
   Exclude:
     - 'challenger.gemspec'
 
-
 # Offense count: 5
 # Configuration parameters: Max, AllowedIdentifiers, AllowedPatterns.
 RSpec/IndexedLet:
