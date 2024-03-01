@@ -14,13 +14,6 @@ Gemspec/DevelopmentDependencies:
   Exclude:
     - 'challenger.gemspec'
 
-# Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: SkipBlocks, EnforcedStyle.
-# SupportedStyles: described_class, explicit
-RSpec/DescribedClass:
-  Exclude:
-    - 'spec/lib/rubocop_challenger_spec.rb'
 
 # Offense count: 5
 # Configuration parameters: Max, AllowedIdentifiers, AllowedPatterns.
