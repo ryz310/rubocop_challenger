@@ -78,9 +78,39 @@ GitHub personal access token is required for sending pull requests to your repos
 
 ### Want to use on GitHub Actions?
 
-It's introduced in the following blog. Thank you Mr. Takuya Yamaguchi!
+Here is a sample workflow:
 
-See: [RuboCop Challenger を GitHub Actions で動かす](https://zenn.dev/yamat47/articles/219e14ebcf31a1d13ff4)
+```yml
+name: "RuboCop Challenge"
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 10am PST Tuesdays and Thursdays
+    - cron: 0 17 * * 2,4
+
+jobs:
+  create-rubocop-challenger-pr:
+    name: Create Rubocop Challenger Pull Request
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Set git configuration
+        run: git config remote.origin.url "git@github.com:your_org/your_repo.git" 
+      - name: Create RuboCop challenge pull request
+        env:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gem install rubocop_challenger
+          rubocop_challenger go --email="rubocop-challenger@example.com" --name="Rubocop Challenger" --mode=random --only-exclude
+```
+
+You will need to make sure the following setting is enabled by going to Settings -> Actions -> General and checking `Allow GitHub Actions to create and approve pull requests`
+<img width="828" alt="image" src="https://github.com/ryz310/rubocop_challenger/assets/2318938/f1dbe28d-d644-4dda-8ff3-938a5a3d1ae9">
+
 
 ## CLI command references
 
