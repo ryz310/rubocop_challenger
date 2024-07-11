@@ -22,10 +22,14 @@ require 'rubocop_challenger/github/pr_template'
 module RubocopChallenger
   RUBOCOP_GEMS = %w[
     rubocop
+    rubocop-capybara
+    rubocop-factory_bot
+    rubocop-minitest
     rubocop-performance
     rubocop-rails
     rubocop-rake
     rubocop-rspec
+    rubocop-rspec_rails
     rubocop-thread_safety
   ].freeze
 end
