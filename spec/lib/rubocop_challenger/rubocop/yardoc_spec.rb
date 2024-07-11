@@ -32,9 +32,17 @@ RSpec.describe RubocopChallenger::Rubocop::Yardoc do
     end
 
     context 'with rubocop-rspec gem' do
-      let(:cop) { 'RSpec/Rails/HttpStatus' }
+      let(:cop) { 'RSpec/BeEmpty' }
 
       it 'finds a cop class from rubocop/rspec' do
+        expect { yardoc }.not_to raise_error
+      end
+    end
+
+    context 'with rubocop-rspec_rails gem' do
+      let(:cop) { 'RSpec/Rails/HttpStatus' }
+
+      it 'finds a cop class from rubocop/rspec_rails' do
         expect { yardoc }.not_to raise_error
       end
     end
