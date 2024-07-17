@@ -99,7 +99,7 @@ jobs:
         with:
           bundler-cache: true
       - name: Set git configuration
-        run: git config remote.origin.url "git@github.com:your_org/your_repo.git" 
+        run: git config remote.origin.url "git@github.com:your_org/your_repo.git"
       - name: Create RuboCop challenge pull request
         env:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -161,7 +161,7 @@ Run `$ rubocop --autocorrect` and create a PR to GitHub repo
 
 ## Requirement
 
-- Ruby 2.7 or higher
+- Ruby 3.0 or higher
 
 ## Development
 

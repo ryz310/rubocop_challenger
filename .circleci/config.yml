@@ -12,8 +12,8 @@ references:
   - &ruby_version
     ruby_version:
       type: enum
-      enum: ["2.7", "3.0", "3.1", "3.2"]
-      default: "3.2"
+      enum: ["3.0", "3.1", "3.2", "3.3"]
+      default: "3.3"
 
 executors:
   default:
@@ -194,9 +194,6 @@ workflows:
   commit:
     jobs:
       - build:
-          name: build_on_ruby_2.7
-          ruby_version: "2.7"
-      - build:
           name: build_on_ruby_3.0
           ruby_version: "3.0"
       - build:
@@ -205,22 +202,25 @@ workflows:
       - build:
           name: build_on_ruby_3.2
           ruby_version: "3.2"
+      - build:
+          name: build_on_ruby_3.3
+          ruby_version: "3.3"
       - rubocop
       - yardoc
       - integration_testing
       - upload-coverage:
           requires:
-            - build_on_ruby_2.7
             - build_on_ruby_3.0
             - build_on_ruby_3.1
             - build_on_ruby_3.2
+            - build_on_ruby_3.3
       - release:
           context: RubyGems API Key
           requires:
-            - build_on_ruby_2.7
             - build_on_ruby_3.0
             - build_on_ruby_3.1
             - build_on_ruby_3.2
+            - build_on_ruby_3.3
             - rubocop
           filters:
             branches:
