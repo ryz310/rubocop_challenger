@@ -117,7 +117,8 @@ RSpec.describe RubocopChallenger::Go do
       it do
         exec
         expect(bundler_command).to have_received(:update).with(
-          'rubocop', 'rubocop-performance', 'rubocop-rails', 'rubocop-rake', 'rubocop-rspec', 'rubocop-thread_safety'
+          'rubocop', 'rubocop-capybara', 'rubocop-factory_bot', 'rubocop-minitest', 'rubocop-performance',
+          'rubocop-rails', 'rubocop-rake', 'rubocop-rspec', 'rubocop-rspec_rails', 'rubocop-thread_safety'
         )
       end
 
@@ -215,7 +216,8 @@ RSpec.describe RubocopChallenger::Go do
         it do
           safe_exec.call
           expect(bundler_command).to have_received(:update).with(
-            'rubocop', 'rubocop-performance', 'rubocop-rails', 'rubocop-rake', 'rubocop-rspec', 'rubocop-thread_safety'
+            'rubocop', 'rubocop-capybara', 'rubocop-factory_bot', 'rubocop-minitest', 'rubocop-performance',
+            'rubocop-rails', 'rubocop-rake', 'rubocop-rspec', 'rubocop-rspec_rails', 'rubocop-thread_safety'
           )
         end
 
